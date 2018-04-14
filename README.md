@@ -1,2 +1,2 @@
 # Capstone-Project
-Capstone Project for Nanodegree. Based off JonsApp.
+Capstone Project for Nanodegree. Simple messaging app using Firebase, with SMS fallback option.
