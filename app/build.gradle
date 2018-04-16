@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.jraw.android.capstoneproject"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -16,13 +16,59 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "debug"
+
+    // If you need to add more flavors, consider using flavor dimensions.
+    productFlavors {
+        mock {
+            dimension "debug"
+            applicationIdSuffix = ".mock"
+        }
+        prod {
+            dimension "debug"
+            applicationId = "com.jraw.android.capstoneproject"
+        }
+    }
+    // Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')
+                && variant.getFlavors().get(0).name.equals('mock')) {
+            variant.setIgnore(true);
+        }
+    }
+    // Always show the result of every unit test, even if it passes.
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
+        }
+    }
+    sourceSets {
+        main { java.srcDirs = ['src/main/java', 'src/main/java/mock'] }
+        mock { java.srcDirs = ['src/mock/java', 'src/mock/java/'] }
+        prod { java.srcDirs = ['src/prod/java', 'src/prod/java/'] }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:preference-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.google.firebase:firebase-messaging:15.0.0"
+    compile "com.android.support.constraint:constraint-layout:1.1.0"
+    testCompile "junit:junit:4.12"
+    testCompile 'org.json:json:20140107'
+    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
+    testCompile "org.powermock:powermock-module-junit4:$rootProject.ext.powerMockito"
+    testCompile "org.powermock:powermock-api-mockito:$rootProject.ext.powerMockito"
 }
