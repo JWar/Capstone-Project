@@ -7,10 +7,10 @@ import android.support.v4.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
-import com.jraw.android.jonsapp.R;
-import com.jraw.android.jonsapp.data.model.Msg;
-import com.jraw.android.jonsapp.data.repositories.MsgRepository;
-import com.jraw.android.jonsapp.utils.Utils;
+import com.jraw.android.capstoneproject.R;
+import com.jraw.android.capstoneproject.data.model.Msg;
+import com.jraw.android.capstoneproject.data.repository.MsgRepository;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 /**
  * Created by JonGaming on 27/06/2017.
@@ -37,19 +37,19 @@ public class FirebaseMsgService extends FirebaseMessagingService {
             Utils.logDebug("Message data payload: " + remoteMessage.getData());
             //Cant remember what the format of the Firebase msg is... but it will get the string in json format and msgify it.
             try {
-                Gson gson = new Gson();
-                Msg msg = gson.fromJson(remoteMessage.getData().get("msg"), Msg.class);
-                if (MsgRepository.get(this).saveMsg(msg)==0) {
-                    throw new Exception("Problem saving Msg");
-                }
+//                Gson gson = new Gson();
+//                Msg msg = gson.fromJson(remoteMessage.getData().get("msg"), Msg.class);
+//                if (MsgRepository.get(this).saveMsg(msg)==0) {
+//                    throw new Exception("Problem saving Msg");
+//                }
 
-                Notification notification = new NotificationCompat.Builder(this,Utils.CHANNEL_ID)
-                        .setContentTitle(getString(R.string.notification_new_msg_received))
-                        .setContentText(msg.getMSBody())
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .build();
-                NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
-                manager.notify(123, notification);
+//                Notification notification = new NotificationCompat.Builder(this,Utils.CHANNEL_ID)
+//                        .setContentTitle(getString(R.string.notification_new_msg_received))
+//                        .setContentText(msg.getMSBody())
+//                        .setSmallIcon(R.mipmap.ic_launcher)
+//                        .build();
+//                NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
+//                manager.notify(123, notification);
             } catch (Exception e) {
                 Utils.logDebug("Error in FirebaseMsgService.onMessageReceived: "+e.getLocalizedMessage());
             }

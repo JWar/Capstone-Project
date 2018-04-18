@@ -44,6 +44,9 @@ public class Msg extends entity {
     //Read,sent,delivered etc...
     @SerializedName("result")
     private int MSResult;
+    //Holds title of conversation. This is not needed in the database as it can be used to create a new conversation
+    @SerializedName("title")
+    private String MSCOTitle;
 
     public Msg() {}
 
@@ -69,6 +72,9 @@ public class Msg extends entity {
     public void setMSResult(int aInt) {
         MSResult = aInt;
     }
+
+    public void setMSCOTitle(String aMSCOTitle) {MSCOTitle = aMSCOTitle;}
+    public String getMSCOTitle() {return MSCOTitle;}
 
     public int getMSCOPublicId() {
         return MSCOPublicId;

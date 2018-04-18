@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Capstone-Project.iml" filepath="$PROJECT_DIR$/.idea/Capstone-Project.iml" />
-      <module fileurl="file://C:\Portfolio\UdacityNanodegree\Capstone\Capstone-Project\CapstoneProject.iml" filepath="C:\Portfolio\UdacityNanodegree\Capstone\Capstone-Project\CapstoneProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CapstoneProject.iml" filepath="$PROJECT_DIR$/CapstoneProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Portfolio\UdacityNanodegree\Capstone\Capstone-Project\app\app.iml" filepath="C:\Portfolio\UdacityNanodegree\Capstone\Capstone-Project\app\app.iml" />
     </modules>
   </component>
 </project>
