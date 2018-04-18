@@ -16,8 +16,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final int VERSION = 1;
     public static final String DATABASE_NAME = "CapstoneProjectData";
 
-    public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DbHelper(Context context) {
+        super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override

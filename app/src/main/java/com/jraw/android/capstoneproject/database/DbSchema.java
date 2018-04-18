@@ -1,18 +1,27 @@
 package com.jraw.android.capstoneproject.database;
 
+import android.net.Uri;
+
 /**
  * Created by JonGaming on 29/06/2017.
  *
  */
 
 public class DbSchema {
-    /**
-     * Created by JonGaming on 25/11/2016.
-     * Defines/handles database
-     */
+
+    public static final String CONTENT_AUTHORITY = "com.jraw.android.capstoneproject";
+    public static final Uri BASE_CONTENT_URI = Uri.parse("content://"+ CONTENT_AUTHORITY);
+
+    public static final String PATH_PERSON = "person";
+    public static final String PATH_CONVERSATION = "conversation";
+    public static final String PATH_MSG = "msg";
+    public static final String PATH_PECO = "peco";
 
     public static final class PersonTable {
         public static final String NAME = "person";
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_PERSON)
+                .build();
 
         public static final class Cols {
             public static final String ID = "ID";
@@ -23,6 +32,10 @@ public class DbSchema {
 
     public static final class MsgTable {
         public static final String NAME = "msg";
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_MSG)
+                .build();
 
         public static final class Cols {
             public static final String ID = "ID";
@@ -39,7 +52,9 @@ public class DbSchema {
 
     public static final class ConversationTable {
         public static final String NAME = "conversation";
-
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_CONVERSATION)
+                .build();
         public static final class Cols {
             public static final String ID = "ID";
             public static final String TITLE = "COTitle";
@@ -54,7 +69,9 @@ public class DbSchema {
     //This is needed to link Persons with Conversation. Basically all people in the conversation!
     public static final class PeCoTable {
         public static final String NAME = "peco";
-
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_PECO)
+                .build();
         public static final class Cols {
             public static final String ID = "ID";
             public static final String PEID = "PCPEId";
