@@ -34,13 +34,14 @@ public class DbHelper extends SQLiteOpenHelper {
         if (oldVersion != newVersion) {
             // Simplest implementation is to drop all old tables and recreate them
             //toExec needed because of lint error with string concatenation
-            String toExec = "DROP TABLE IF EXISTS " + DATABASE_CREATE_PERSON;
+            String dropTable = "DROP TABLE IF EXISTS ";
+            String toExec =  dropTable + DATABASE_CREATE_PERSON;
             db.execSQL(toExec);
-            toExec = "DROP TABLE IF EXISTS " + DATABASE_CREATE_MSG;
+            toExec = dropTable + DATABASE_CREATE_MSG;
             db.execSQL(toExec);
-            toExec = "DROP TABLE IF EXISTS " + DATABASE_CREATE_CONVERSATION;
+            toExec = dropTable + DATABASE_CREATE_CONVERSATION;
             db.execSQL(toExec);
-            toExec = "DROP TABLE IF EXISTS " + DATABASE_CREATE_PECO;
+            toExec = dropTable + DATABASE_CREATE_PECO;
             db.execSQL(toExec);
             onCreate(db);
         }

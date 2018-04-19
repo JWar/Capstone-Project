@@ -1,9 +1,7 @@
-package com.jraw.android.capstoneproject.ui;
+package com.jraw.android.capstoneproject.ui.conversation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.jraw.android.capstoneproject.R;
 
 public class ConversationActivity extends AppCompatActivity {
 
@@ -11,5 +9,6 @@ public class ConversationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
+
     }
 }
