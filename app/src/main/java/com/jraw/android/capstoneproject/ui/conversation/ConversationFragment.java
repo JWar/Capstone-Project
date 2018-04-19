@@ -7,16 +7,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
-import com.jraw.android.capstoneproject.mock.R;
+import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
+import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 
 import java.util.List;
 
@@ -66,7 +71,7 @@ public class ConversationFragment extends Fragment implements ConversationContra
 
     @Override
     public void setConversations(List<Conversation> aList) {
-        mListHandler.swapData(null,null,aList,null);
+//        mListHandler.swapData(null,null,aList,null);
     }
 
     @Override
@@ -79,13 +84,6 @@ public class ConversationFragment extends Fragment implements ConversationContra
         super.onResume();
         //Get data
         mPresenter.getConversations();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Ensures the observables arent subscribed when the screen isnt showing.
-        mPresenter.onUnsubscribe();
     }
 
     @Override

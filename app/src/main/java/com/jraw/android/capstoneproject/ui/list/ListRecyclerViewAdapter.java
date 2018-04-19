@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.ui.list.holders.AbstractHolder;

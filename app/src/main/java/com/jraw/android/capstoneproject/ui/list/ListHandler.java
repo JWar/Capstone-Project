@@ -96,10 +96,10 @@ public class ListHandler {
     }
 //
     public void swapConversations(List<Conversation> aList) {
-        mListRecyclerAdapter.swapConversations(aList);
+//        mListRecyclerAdapter.swapConversations(aList);
     }
     public void swapMsgs(List<Msg> aList) {
-        mListRecyclerAdapter.swapMsgs(aList);
+//        mListRecyclerAdapter.swapMsgs(aList);
     }
 
 

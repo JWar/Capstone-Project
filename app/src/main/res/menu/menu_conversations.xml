@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.jraw.android.jonsapp.MainActivity">
+    <item
+        android:id="@+id/conversations_search_item"
+        android:title="@string/conversations_search_item_title"
+        app:actionLayout="@layout/conversations_search_bar"
+        app:showAsAction="always"/>
+</menu>

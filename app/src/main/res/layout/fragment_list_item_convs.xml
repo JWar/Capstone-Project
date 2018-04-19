@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:background="@drawable/list_item_touch_selector"
+              android:minHeight="?android:attr/listPreferredItemHeight">
+
+
+        <TextView
+            android:id="@+id/list_item_convs_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_toStartOf="@+id/list_item_convs_unread_count"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            tools:text="Title"/>
+
+        <TextView
+            android:id="@+id/list_item_convs_unread_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
+            android:text="@string/conversations_default_unread_count"/>
+
+</RelativeLayout>

@@ -3,6 +3,8 @@ package com.jraw.android.capstoneproject.ui.conversation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.jraw.android.capstoneproject.R;
+
 public class ConversationActivity extends AppCompatActivity {
 
     @Override

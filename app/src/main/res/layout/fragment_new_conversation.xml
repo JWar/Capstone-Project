@@ -1,0 +1,56 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.jraw.android.jonsapp.ui.newconversation.NewConversationFragment">
+
+    <TextView
+        android:id="@+id/new_conversation_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_conversation_title"/>
+
+    <EditText
+        android:id="@+id/new_conversation_title_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_conversation_title"
+        android:inputType="textCapSentences"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/new_conversation_button_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_conversation_title_et"
+        android:layout_toLeftOf="@+id/new_conversation_add_person_button"
+        android:layout_toStartOf="@+id/new_conversation_add_person_button"
+        android:text="@string/new_conversation_button_title"/>
+
+    <ImageButton
+        android:id="@+id/new_conversation_add_person_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/new_conversation_title_et"
+        android:contentDescription="@string/new_conversation_button_cd"
+        android:src="@android:drawable/ic_input_add"/>
+
+    <TextView
+        android:id="@+id/new_conversation_contacts_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_conversation_add_person_button"
+        android:text="@string/new_conversation_contacts_title"/>
+
+    <LinearLayout
+        android:id="@+id/new_conversation_contacts_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/new_conversation_contacts_title"
+        android:orientation="vertical">
+    </LinearLayout>
+
+</RelativeLayout>

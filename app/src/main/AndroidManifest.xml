@@ -16,7 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".ui.msgs.MsgsActivity"
+            android:label="@string/title_activity_msgs"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.conversation.ConversationActivity">
+        </activity>
+        <activity android:name=".ui.newconversation.NewConversationActivity">
+        </activity>
         <service
             android:name=".firebase.InstanceIdService">
             <intent-filter>
