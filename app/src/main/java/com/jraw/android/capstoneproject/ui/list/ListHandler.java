@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.ui.list;
 
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,13 @@ public class ListHandler {
         } catch (Exception e) {
             Utils.logDebug("Error in ListHandler(constructor): " + e.getLocalizedMessage());
         }
+    }
+    //Handles restoring/saving list state.
+    public void setState(Parcelable aState) {
+        mRecyclerView.getLayoutManager().onRestoreInstanceState(aState);
+    }
+    public Parcelable getState() {
+        return mRecyclerView.getLayoutManager().onSaveInstanceState();
     }
     //Not used. Used for handling changes to ui based upon a scroll.
     public void addOnScrollListener(RecyclerView.OnScrollListener aOnScrollListener) {

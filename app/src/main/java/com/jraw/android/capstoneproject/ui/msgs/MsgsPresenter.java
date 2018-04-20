@@ -2,7 +2,10 @@ package com.jraw.android.capstoneproject.ui.msgs;
 
 import android.support.annotation.NonNull;
 
+import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
+
+import java.util.List;
 
 /**
  * Created by JonGaming on 17/07/2017.
@@ -12,7 +15,6 @@ import com.jraw.android.capstoneproject.data.repository.MsgRepository;
 public class MsgsPresenter implements MsgsContract.PresenterMsgs {
 
     private final MsgRepository mMsgRepository;
-
 
     private MsgsContract.ViewMsgs mViewMsgs;
 
@@ -24,13 +26,15 @@ public class MsgsPresenter implements MsgsContract.PresenterMsgs {
     }
 
     @Override
-    public void getMsgs(int aCOId) {
-
+    public List<Msg> getMsgs(int aCOId) {
+        return mMsgRepository.getMsgs(aCOId);
     }
 
+    //Not implemented yet
     @Override
-    public void getMsgsViaBody(int aCOId,
+    public List<Msg> getMsgsViaBody(int aCOId,
                                String aText) {
-
+//        return mMsgRepository.getMsgs()
+        return null;
     }
 }

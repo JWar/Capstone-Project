@@ -17,9 +17,9 @@ public interface MsgsContract {
     }
     interface PresenterMsgs {
         //I hope this is fairly self explanatory. Called by View.
-        void getMsgs(int aCOId);
+        List<Msg> getMsgs(int aCOId);
         //Used in Search Query to filter Msgs by their content
-        void getMsgsViaBody(int aCOId, String aText);
+        List<Msg> getMsgsViaBody(int aCOId, String aText);
 
     }
 }

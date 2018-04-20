@@ -12,8 +12,8 @@ public interface ConversationContract {
     }
     interface PresenterConversations {
         //I hope this is fairly self explanatory. Call by View.
-        void getConversations();
+        List<Conversation> getConversations();
         //Used in Search Query to filter Conversations with a particular title.
-        void getConversationsViaTitle(String aTitle);
+        List<Conversation> getConversationsViaTitle(String aTitle);
     }
 }
