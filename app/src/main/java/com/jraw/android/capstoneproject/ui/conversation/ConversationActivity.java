@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.jraw.android.capstoneproject.R;
+import com.jraw.android.capstoneproject.ui.install.InstallFragment;
+import com.jraw.android.capstoneproject.ui.install.InstallPresenter;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 

@@ -12,4 +12,13 @@ public class NewConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_conversation);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount()<2){
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
