@@ -1,6 +1,8 @@
 package com.jraw.android.capstoneproject.data.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.source.local.ConversationLocalDataSource;
@@ -24,10 +26,10 @@ public class ConversationRepository {
         sInstance=null;
     }
 
-    public List<Conversation> getConversations() {
-        return mConversationLocalDataSource.getConversations();
+    public CursorLoader getConversations(Context aContext) {
+        return mConversationLocalDataSource.getConversations(aContext);
     }
-    public List<Conversation> getConversationsViaTitle(String aTitle) {
-        return mConversationLocalDataSource.getConversationsViaTitle(aTitle);
+    public CursorLoader getConversationsViaTitle(Context aContext, String aTitle) {
+        return mConversationLocalDataSource.getConversationsViaTitle(aContext, aTitle);
     }
 }

@@ -2,11 +2,9 @@ package com.jwar.android.capstoneproject.data.source.local;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
-import com.jraw.android.capstoneproject.data.model.Conversation;
+import android.support.v4.content.CursorLoader;
 import com.jraw.android.capstoneproject.data.source.local.ConversationLocalDataSource;
-
-import java.util.List;
+import com.jraw.android.capstoneproject.database.DbSchema;
 
 /**
  * Created by JonGaming on 16/04/2018.
@@ -14,9 +12,10 @@ import java.util.List;
 
 public class MockConversationLocalDataSource  implements ConversationLocalDataSource {
     private static MockConversationLocalDataSource sInstance=null;
+    //Param redundant??
     public static synchronized MockConversationLocalDataSource getInstance(@NonNull Context aContext) {
         if (sInstance==null) {
-            sInstance = new MockConversationLocalDataSource(aContext);
+            sInstance = new MockConversationLocalDataSource(aContext.getApplicationContext());
         }
         return sInstance;
     }
@@ -25,12 +24,20 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
     }
 
     @Override
-    public List<Conversation> getConversations() {
-        return null;
+    public CursorLoader getConversations(Context aContext) {
+        CursorLoader cursorLoader = new CursorLoader(
+                aContext,
+                DbSchema.ConversationTable.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
+        return cursorLoader;
     }
 
     @Override
-    public List<Conversation> getConversationsViaTitle(String aTitle) {
+    public CursorLoader getConversationsViaTitle(Context aContext, String aTitle) {
         return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.ui.msgs;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +36,7 @@ import java.util.List;
  */
 public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
         ListHandler.ListHandlerContract,
-        LoaderManager.LoaderCallbacks<List<Msg>> {
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String TAG = "msgsFragTag";
     private static final String CO_PUBLIC_ID = "coPubId";
@@ -101,23 +103,17 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
 
     @NonNull
     @Override
-    public Loader<List<Msg>> onCreateLoader(int id, @Nullable final Bundle args) {
-        return new AsyncTaskLoader<List<Msg>>(getContext()) {
-            @Nullable
-            @Override
-            public List<Msg> loadInBackground() {
-                return mPresenterMsgs.getMsgs(args.getInt(CO_PUBLIC_ID));
-            }
-        };
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        return null;
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<List<Msg>> loader, List<Msg> data) {
-        setMsgs(data);
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+//        setMsgs(data);
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<List<Msg>> loader) {}
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {}
 
     @Override
     public void setMsgs(List<Msg> aList) {

@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.ui.list;
 
+import android.database.Cursor;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -103,11 +104,11 @@ public class ListHandler {
 //        mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 //
-    public void swapConversations(List<Conversation> aList) {
-//        mListRecyclerAdapter.swapConversations(aList);
+    public void swapConversations(Cursor aCursor) {
+        mListRecyclerAdapter.setConversationCursorWrapper(aCursor);
     }
-    public void swapMsgs(List<Msg> aList) {
-//        mListRecyclerAdapter.swapMsgs(aList);
+    public void swapMsgs(Cursor aCursor) {
+        mListRecyclerAdapter.setMsgCursorWrapper(aCursor);
     }
 
 

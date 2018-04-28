@@ -14,6 +14,15 @@ import android.util.Log;
 public class Utils {
     private static final String LOG_TAG = "CapstoneProject";
     private static boolean LOG_DEBUG = true;
+
+    //This is for dummy data...
+    public static final int USER_A=1;
+    public static final int USER_B=2;
+    public static final int USER_C=3;
+    public static final int USER_D=4;
+    public static final int USER_E=5;
+    public static final int USER_F=6;
+
     //Dummy value for user id. Usually acquired from srver and stored in sharPref
     public static final int THIS_USER_ID=1;
     public static void logDebug(String aLog) {if (LOG_DEBUG) {

@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.ui.list;
 
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
+import com.jraw.android.capstoneproject.data.model.cursorwrappers.ConversationCursorWrapper;
+import com.jraw.android.capstoneproject.data.model.cursorwrappers.MsgCursorWrapper;
 import com.jraw.android.capstoneproject.ui.list.holders.AbstractHolder;
 import com.jraw.android.capstoneproject.ui.list.holders.ConvHolder;
 import com.jraw.android.capstoneproject.ui.list.holders.MsgHolder;
@@ -20,9 +23,11 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
     private final ListHandlerCallback mListener;
     //Specifies what sort of list wanted (client, user, activity etc...). Will use R.layout.fragment_list_item_...
     private int listItemType;
-
-    private List<Conversation> mConversations;
-    private List<Msg> mMsgs;
+    //Switched to using Cursor...
+    private ConversationCursorWrapper mConversationCursorWrapper;
+    private MsgCursorWrapper mMsgCursorWrapper;
+//    private List<Conversation> mConversations;
+//    private List<Msg> mMsgs;
 
 
     public ListRecyclerViewAdapter(ListHandlerCallback listener, int type) {
@@ -55,10 +60,12 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
             String dId=null;
             if (holder instanceof MsgHolder) {
                 MsgHolder msgHolder = (MsgHolder) holder;
-                dId = msgHolder.bindData(mMsgs.get(position),position);
+                mMsgCursorWrapper.moveToPosition(position);
+                dId = msgHolder.bindData(mMsgCursorWrapper.getMsg(),position);
             } else if (holder instanceof ConvHolder) {
                 ConvHolder convsHolder = (ConvHolder) holder;
-                dId = convsHolder.bindData(mConversations.get(position),position);
+                mConversationCursorWrapper.moveToPosition(position);
+                dId = convsHolder.bindData(mConversationCursorWrapper.getConversation(),position);
             }
             final String dataId = dId;
             holder.setListener(new View.OnClickListener() {
@@ -82,10 +89,12 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
     @Override
     public long getItemId(int aPos) {
         try {
-            if (mConversations!=null) {
-                return mConversations.get(aPos).getId();
-            } else if (mMsgs!=null) {
-                return mMsgs.get(aPos).getId();
+            if (mConversationCursorWrapper!=null) {
+                mConversationCursorWrapper.moveToPosition(aPos);
+                return mConversationCursorWrapper.getConversation().getId();
+            } else if (mMsgCursorWrapper!=null) {
+                mMsgCursorWrapper.moveToPosition(aPos);
+                return mMsgCursorWrapper.getMsg().getId();
             } else {
                 return -1;
             }
@@ -94,10 +103,10 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
     @Override
     public int getItemCount() {
         try {
-            if (mConversations!=null) {
-                return mConversations.size();
-            } else if (mMsgs!=null) {
-                return mMsgs.size();
+            if (mConversationCursorWrapper!=null) {
+                return mConversationCursorWrapper.getCount();
+            } else if (mMsgCursorWrapper!=null) {
+                return mMsgCursorWrapper.getCount();
             } else {
                 return -1;
             }
@@ -105,5 +114,22 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
             Utils.logDebug("Error in ListRecyclerAdapter.getItemCount: " + e.getMessage());
             return -1;
         }
+    }
+
+    public void setConversationCursorWrapper(Cursor aCursor) {
+        if (mConversationCursorWrapper!=null) {
+            mConversationCursorWrapper.close();
+            mConversationCursorWrapper=null;
+        }
+        mConversationCursorWrapper = new ConversationCursorWrapper(aCursor);
+        notifyDataSetChanged();
+    }
+    public void setMsgCursorWrapper(Cursor aCursor) {
+        if (mMsgCursorWrapper!=null) {
+            mMsgCursorWrapper.close();
+            mMsgCursorWrapper=null;
+        }
+        mMsgCursorWrapper = new MsgCursorWrapper(aCursor);
+        notifyDataSetChanged();
     }
 }

@@ -1,10 +1,9 @@
 package com.jraw.android.capstoneproject.data.source.local;
 
-import com.jraw.android.capstoneproject.data.model.Conversation;
-
-import java.util.List;
+import android.content.Context;
+import android.support.v4.content.CursorLoader;
 
 public interface ConversationLocalDataSource {
-    List<Conversation> getConversations();
-    List<Conversation> getConversationsViaTitle(String aTitle);
+    CursorLoader getConversations(Context aContext);
+    CursorLoader getConversationsViaTitle(Context aContext, String aTitle);
 }

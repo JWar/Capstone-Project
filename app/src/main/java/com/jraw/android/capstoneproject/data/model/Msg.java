@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import com.google.gson.annotations.SerializedName;
 import com.jraw.android.capstoneproject.database.DbSchema.MsgTable;
 
+import java.util.Arrays;
+
 /**
  * Created by JonGaming on 16/04/2018.
  *
@@ -130,5 +132,20 @@ public class Msg extends entity {
             cV.put(MsgTable.Cols.RESULT,MSResult);
         }
         return cV;
+    }
+
+    @Override
+    public String toString() {
+        return "Msg{" +
+                "MSCOPublicId=" + MSCOPublicId +
+                ", MSToId=" + MSToId +
+                ", MSFromId=" + MSFromId +
+                ", MSBody='" + MSBody + '\'' +
+                ", MSEventDate='" + MSEventDate + '\'' +
+                ", MSType=" + MSType +
+                ", MSData=" + Arrays.toString(MSData) +
+                ", MSResult=" + MSResult +
+                ", MSCOTitle='" + MSCOTitle + '\'' +
+                '}';
     }
 }

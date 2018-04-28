@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.data.source.local;
 
+import android.database.Cursor;
 import com.jraw.android.capstoneproject.data.model.Person;
 
 import java.util.List;

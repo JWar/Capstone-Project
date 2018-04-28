@@ -50,7 +50,8 @@ public class DbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + PersonTable.NAME + " (" +
                     PersonTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     PersonTable.Cols.FIRSTNAME + " VARCHAR(45) DEFAULT NULL, " +
-                    PersonTable.Cols.SURNAME + " VARCHAR(45) DEFAULT NULL);";
+                    PersonTable.Cols.SURNAME + " VARCHAR(45) DEFAULT NULL, " +
+                    PersonTable.Cols.TELNUM + " VARCHAR DEFAULT NULL);";
     private static final String DATABASE_CREATE_MSG =
             "CREATE TABLE " + MsgTable.NAME + " (" +
                     MsgTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
@@ -71,7 +72,10 @@ public class DbHelper extends SQLiteOpenHelper {
                     ConversationTable.Cols.TITLE + " VARCHAR DEFAULT NULL, " +
                     ConversationTable.Cols.PUBLICID + " INTEGER DEFAULT 0, " +
                     ConversationTable.Cols.CREATEDBY + " VARCHAR, " +
-                    ConversationTable.Cols.DATECREATED + " VARCHAR DEFAULT NULL);";
+                    ConversationTable.Cols.DATECREATED + " VARCHAR DEFAULT NULL, " +
+                    ConversationTable.Cols.DATELASTMSG + " VARCHAR DEFAULT NULL," +
+                    ConversationTable.Cols.SNIPPET + " VARCHAR DEFAULT NULL," +
+                    ConversationTable.Cols.UNREAD + " INTEGER(1) DEFAULT 0);";
     private static final String DATABASE_CREATE_PECO =
             "CREATE TABLE " + PeCoTable.NAME + " (" +
                     PeCoTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +

@@ -1,19 +1,19 @@
 package com.jraw.android.capstoneproject.ui.conversation;
 
-import com.jraw.android.capstoneproject.data.model.Conversation;
-
-import java.util.List;
+import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.content.CursorLoader;
 
 public interface ConversationContract {
     interface ViewConversations {
         //Sets ListHandler to use this list.
-        void setConversations(List<Conversation> aList);
+        void setConversations(Cursor aList);
         void setPresenter(PresenterConversations aPresenter);
     }
     interface PresenterConversations {
         //I hope this is fairly self explanatory. Call by View.
-        List<Conversation> getConversations();
+        CursorLoader getConversations(Context aContext);
         //Used in Search Query to filter Conversations with a particular title.
-        List<Conversation> getConversationsViaTitle(String aTitle);
+        CursorLoader getConversationsViaTitle(Context aContext, String aTitle);
     }
 }

@@ -27,6 +27,7 @@ public class DbSchema {
             public static final String ID = "ID";
             public static final String FIRSTNAME = "PEFirstname";
             public static final String SURNAME = "PESurname";
+            public static final String TELNUM = "PETelNum";
         }
     }
 
@@ -64,6 +65,12 @@ public class DbSchema {
             //This holds the tel number of the person who created the conversation? Or the id? Or the name?
             public static final String CREATEDBY = "COCreatedBy";
             public static final String DATECREATED = "CODateCreated";
+            //Uses date of newest msg.
+            public static final String DATELASTMSG = "CODateLastMsg";
+            //Displays bit of the latest msg.
+            public static final String SNIPPET = "COSnippet";
+            //If there are unread msgs then unread is true.
+            public static final String UNREAD = "COUnread";
         }
     }
     //This is needed to link Persons with Conversation. Basically all people in the conversation!

@@ -1,6 +1,8 @@
 package com.jraw.android.capstoneproject.ui.conversation;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
@@ -22,12 +24,12 @@ public class ConversationPresenter implements ConversationContract.PresenterConv
     }
 
     @Override
-    public List<Conversation> getConversations() {
-        return mConversationRepository.getConversations();
+    public CursorLoader getConversations(Context aContext) {
+        return mConversationRepository.getConversations(aContext);
     }
 
     @Override
-    public List<Conversation> getConversationsViaTitle(String aTitle) {
-        return mConversationRepository.getConversationsViaTitle(aTitle);
+    public CursorLoader getConversationsViaTitle(Context aContext, String aTitle) {
+        return mConversationRepository.getConversationsViaTitle(aContext, aTitle);
     }
 }

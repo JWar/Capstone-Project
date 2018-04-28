@@ -1,13 +1,13 @@
 package com.jraw.android.capstoneproject.ui.conversation;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +20,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
@@ -34,7 +33,7 @@ import java.util.List;
  */
 public class ConversationFragment extends Fragment implements ConversationContract.ViewConversations,
         ListHandler.ListHandlerContract,
-        LoaderManager.LoaderCallbacks<List<Conversation>> {
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final String TAG = "conversationFragTag";
     private static final String TITLE_QUERY = "titleQuery";
@@ -82,8 +81,8 @@ public class ConversationFragment extends Fragment implements ConversationContra
     }
 
     @Override
-    public void setConversations(List<Conversation> aList) {
-        mListHandler.swapConversations(aList);
+    public void setConversations(Cursor aCursor) {
+        mListHandler.swapConversations(aCursor);
         if (mListState!=null) {
             mListHandler.setState(mListState);
         }
@@ -93,30 +92,29 @@ public class ConversationFragment extends Fragment implements ConversationContra
     public void setPresenter(ConversationContract.PresenterConversations aPresenter) {
         mPresenter = aPresenter;
     }
-
+    //Sigh anon loader...
     @NonNull
     @Override
-    public Loader<List<Conversation>> onCreateLoader(int id, @Nullable final Bundle args) {
-        return new AsyncTaskLoader<List<Conversation>>(getContext()) {
-            @Nullable
-            @Override
-            public List<Conversation> loadInBackground() {
-                if (args!=null) {
-                    return mPresenter.getConversationsViaTitle(args.getString(TITLE_QUERY));
-                } else {
-                    return mPresenter.getConversations();
-                }
+    public Loader<Cursor> onCreateLoader(int id, @Nullable final Bundle args) {
+        if (mPresenter!=null) {
+            if (args != null) {
+                return mPresenter.getConversationsViaTitle(getActivity(), args.getString(TITLE_QUERY));
+            } else {
+                return mPresenter.getConversations(getActivity());
             }
-        };
+        }
+        return null;
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<List<Conversation>> loader, List<Conversation> data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         setConversations(data);
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<List<Conversation>> loader) {}
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        setConversations(null);
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
