@@ -117,7 +117,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
 
     @Override
     public void setMsgs(List<Msg> aList) {
-        mListHandler.swapMsgs(aList);
+//        mListHandler.swapMsgs(aList);
         if (mListState!=null) {
             mListHandler.setState(mListState);
         }

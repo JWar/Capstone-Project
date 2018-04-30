@@ -31,6 +31,7 @@
     <string name="notification_new_msg_received">New Message!</string>
 
     <string name="send_msg">Send</string>
+    <string name="enter_message_hint">Enter message&#8230;</string>
     <string name="save">Save</string>
 
     <string name="first_name">First name</string>

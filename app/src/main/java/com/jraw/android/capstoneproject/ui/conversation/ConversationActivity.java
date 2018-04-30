@@ -21,16 +21,16 @@ public class ConversationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
-        Toolbar toolbar = findViewById(R.id.conversations_toolbar);
+        Toolbar toolbar = findViewById(R.id.conversation_toolbar);
         setSupportActionBar(toolbar);
         try {
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.conversations_fragment_container);
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.conversation_fragment_container);
             if (fragment == null) {//Assuming if null then its a Conversation.
                 ConversationFragment conversationFragment = new ConversationFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack(ConversationFragment.TAG)
-                        .add(R.id.conversations_fragment_container, conversationFragment, ConversationFragment.TAG)
+                        .add(R.id.conversation_fragment_container, conversationFragment, ConversationFragment.TAG)
                         .commit();
                 //Hmm this is where the database gets init... the Presenter inits the Repo inits LocalDataSource which inits DB.
                 mConversationPresenter = new ConversationPresenter(Injection.provideConversationRepository(this),

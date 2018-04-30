@@ -1,33 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.jraw.android.jonsapp.ui.msgs.MsgsFragment">
-
-    <include
-        android:id="@+id/search_bar"
-        layout="@layout/search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.jraw.android.capstoneproject.ui.msgs.MsgsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_msgs_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/fragment_msgs_new_msg_separator"
-        android:layout_below="@+id/search_bar" />
+        android:layout_above="@+id/fragment_msgs_new_msg_separator"/>
 
     <TextView
         android:id="@+id/fragment_msgs_new_msg_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="4dp"
         android:layout_above="@+id/fragment_msgs_new_msg_rl"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
         android:background="@android:color/black"/>
 
     <RelativeLayout
@@ -40,23 +32,20 @@
             android:id="@+id/fragment_msgs_new_msg_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/fragment_msgs_new_msg_send_button"
             android:layout_toStartOf="@+id/fragment_msgs_new_msg_send_button"
-            android:inputType="textAutoComplete" />
+            android:hint="@string/enter_message_hint"
+            android:inputType="textAutoComplete"/>
 
         <ImageButton
             android:id="@+id/fragment_msgs_new_msg_send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_marginEnd="8dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="4dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/send_msg"
-            android:src="@android:drawable/ic_menu_save" />
+            android:src="@drawable/ic_send_black_48px"/>
     </RelativeLayout>
 
 </RelativeLayout>

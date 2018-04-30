@@ -41,4 +41,17 @@ public class Utils {
         float fpixels = metrics.density * aDp;
         return(int) (fpixels + 0.5f);
     }
+    //Prints all columns and values in a cursor.
+    public static void dumpContent(Cursor aCur) {
+        if (aCur != null) {
+            Utils.logDebug("Size: " + aCur.getCount());
+            while (aCur.moveToNext()) {
+                String msgInfo = "";
+                for (int i = 0; i < aCur.getColumnCount(); i++) {
+                    msgInfo += " " + aCur.getColumnName(i) + ":" + aCur.getString(i);
+                }
+                Utils.logDebug(msgInfo);//
+            }
+        }
+    }
 }

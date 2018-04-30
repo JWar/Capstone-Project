@@ -117,18 +117,20 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
     }
 
     public void setConversationCursorWrapper(Cursor aCursor) {
-        if (mConversationCursorWrapper!=null) {
-            mConversationCursorWrapper.close();
-            mConversationCursorWrapper=null;
-        }
+        //Think CursorLoader handles closing...
+//        if (mConversationCursorWrapper!=null) {
+//            mConversationCursorWrapper.close();
+//            mConversationCursorWrapper=null;
+//        }
         mConversationCursorWrapper = new ConversationCursorWrapper(aCursor);
         notifyDataSetChanged();
     }
     public void setMsgCursorWrapper(Cursor aCursor) {
-        if (mMsgCursorWrapper!=null) {
-            mMsgCursorWrapper.close();
-            mMsgCursorWrapper=null;
-        }
+        //Think CursorLoader handles closing...
+//        if (mMsgCursorWrapper!=null) {
+//            mMsgCursorWrapper.close();
+//            mMsgCursorWrapper=null;
+//        }
         mMsgCursorWrapper = new MsgCursorWrapper(aCursor);
         notifyDataSetChanged();
     }

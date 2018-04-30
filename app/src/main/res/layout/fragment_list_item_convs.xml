@@ -3,10 +3,8 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical"
               android:background="@drawable/list_item_touch_selector"
-              android:minHeight="?android:attr/listPreferredItemHeight">
-
+              android:minHeight="88dp">
 
         <TextView
             android:id="@+id/list_item_convs_title"

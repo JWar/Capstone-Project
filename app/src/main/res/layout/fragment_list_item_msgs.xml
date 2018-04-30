@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:minHeight="?android:attr/listPreferredItemHeight">
+    android:minHeight="40dp">
 
     <TextView
         android:id="@+id/list_item_msgs_time"

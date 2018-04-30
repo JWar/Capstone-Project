@@ -25,6 +25,7 @@ import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 import java.util.List;
 
@@ -54,14 +55,14 @@ public class ConversationFragment extends Fragment implements ConversationContra
         if (savedInstanceState!=null) {
             mListState=savedInstanceState.getParcelable(LIST_STATE);
         }
-        return inflater.inflate(R.layout.fragment_conversations, container, false);
+        return inflater.inflate(R.layout.fragment_conversation, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //Set ListHandler here
-        RecyclerView recyclerView = view.findViewById(R.id.fragment_conversations_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.fragment_conversation_recycler_view);
         mListHandler = new ListHandler(this,
                 recyclerView,
                 new ListRecyclerViewAdapter(new ListHandlerCallback() {
@@ -108,6 +109,7 @@ public class ConversationFragment extends Fragment implements ConversationContra
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        Utils.dumpContent(data);
         setConversations(data);
     }
 
