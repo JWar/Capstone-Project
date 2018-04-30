@@ -15,6 +15,8 @@ public class Utils {
     private static final String LOG_TAG = "CapstoneProject";
     private static boolean LOG_DEBUG = true;
 
+    public static final String SHAR_PREFS = "capstonePrefs";
+
     //This is for dummy data...
     public static final int USER_A=1;
     public static final int USER_B=2;

@@ -3,6 +3,8 @@ package com.jwar.android.capstoneproject;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
+import com.jraw.android.capstoneproject.data.model.PeCo;
+import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.utils.Utils;
 
 import java.util.ArrayList;
@@ -167,6 +169,36 @@ public class DummyData {
         conv.setCOCreatedBy("USER A");
         conv.setCODateCreated("2018/01/11 16:23:30");
         toReturn.add(conv);
+        return toReturn;
+    }
+    public static List<Person> getPersons() {
+        List<Person> toReturn = new ArrayList<>();
+        Person person = new Person();
+        person.setId(1);
+        person.setPEFname("First");
+        person.setPESname("Person");
+        person.setPETelNum("01234567890");
+        toReturn.add(person);
+        person = new Person();
+        person.setId(2);
+        person.setPEFname("Second");
+        person.setPESname("Person");
+        person.setPETelNum("09876543210");
+        toReturn.add(person);
+        return toReturn;
+    }
+    public static List<PeCo> getPeCos() {
+        List<PeCo> toReturn = new ArrayList<>();
+        PeCo peCo = new PeCo();
+        peCo.setId(1);
+        peCo.setPCCOPublicId(1);
+        peCo.setPCPEId(1);
+        toReturn.add(peCo);
+        peCo = new PeCo();
+        peCo.setId(2);
+        peCo.setPCCOPublicId(2);
+        peCo.setPCPEId(2);
+        toReturn.add(peCo);
         return toReturn;
     }
 }
