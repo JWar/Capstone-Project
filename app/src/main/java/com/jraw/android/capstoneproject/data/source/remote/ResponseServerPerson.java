@@ -1,10 +1,7 @@
 package com.jraw.android.capstoneproject.data.source.remote;
 
-public class ResponseServerPerson {
-    public String action;
+public class ResponseServerPerson extends ResponseServer {
     //Returns result of save
     public String res;
-    public String error1;
-    public String error2;
     public ResponseServerPerson(){}
 }

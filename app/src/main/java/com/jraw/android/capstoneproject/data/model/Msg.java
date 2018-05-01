@@ -1,6 +1,8 @@
 package com.jraw.android.capstoneproject.data.model;
 
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.jraw.android.capstoneproject.database.DbSchema.MsgTable;
@@ -9,10 +11,10 @@ import java.util.Arrays;
 
 /**
  * Created by JonGaming on 16/04/2018.
- *
+ * Parcelabled, as will be sent via Intent Service...
  */
 
-public class Msg extends entity {
+public class Msg extends entity implements Parcelable {
 
     public enum MSG_TYPES {
         TEXT, IMAGE, VIDEO
@@ -51,6 +53,42 @@ public class Msg extends entity {
     private String MSCOTitle;
 
     public Msg() {}
+
+    public Msg(Parcel pc) {
+        MSCOPublicId = pc.readInt();
+        MSToId = pc.readInt();
+        MSFromId = pc.readInt();
+        MSBody = pc.readString();
+        MSEventDate = pc.readString();
+        MSType = pc.readInt();
+        pc.readByteArray(MSData);
+        MSResult = pc.readInt();
+    }
+    @Override
+    public void writeToParcel(Parcel pc, int flags) {
+        pc.writeInt(MSCOPublicId);
+        pc.writeInt(MSToId);
+        pc.writeInt(MSFromId);
+        pc.writeString(MSBody);
+        pc.writeString(MSEventDate);
+        pc.writeInt(MSType);
+        pc.writeByteArray(MSData);
+        pc.writeInt(MSResult);
+    }
+
+    public static final Parcelable.Creator<Msg> CREATOR = new Parcelable.Creator<Msg>() {
+        public Msg createFromParcel(Parcel pc) {
+            return new Msg(pc);
+        }
+        public Msg[] newArray(int size) {
+            return new Msg[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     public void setMSCOPublicId(int aInt) {
         MSCOPublicId = aInt;

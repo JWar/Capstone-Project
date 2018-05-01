@@ -1,6 +1,7 @@
 package com.jwar.android.capstoneproject.data.source.local;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -106,5 +107,14 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
                 new String[] {"%"+aTitle+"%"},
                 DbSchema.ConversationTable.Cols.DATELASTMSG + " DESC"
         );
+    }
+    //This will need to return id which is then used to get the conversations publicid
+    //Though I suppose its generated in Conversation creation so maybe can just get publicid that way...
+    @Override
+    public long saveConversation(Context aContext, Conversation aConversation) {
+        return ContentUris.parseId(aContext.getContentResolver().insert(
+                DbSchema.ConversationTable.CONTENT_URI,
+                aConversation.toCV()
+        ));
     }
 }

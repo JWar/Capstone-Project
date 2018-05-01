@@ -8,8 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,14 +15,20 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.EditText;
+import android.widget.ImageButton;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
+import com.jraw.android.capstoneproject.utils.Utils;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Handles View part of Msgs functionality.
@@ -41,8 +45,12 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     public static final String TAG = "msgsFragTag";
     private static final String CO_PUBLIC_ID = "coPubId";
     private int mCOPubId;
+    private static final String CO_TITLE = "coTitle";
+    private String mCOTitle;
 
     private MsgsContract.PresenterMsgs mPresenterMsgs;
+
+    private EditText mMsgET;
 
     private ListHandler mListHandler;
     private static final String LIST_STATE = "listState";
@@ -50,10 +58,11 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
 
     public MsgsFragment() {}
 
-    public static MsgsFragment getInstance(int aCOPublicID) {
+    public static MsgsFragment getInstance(int aCOPublicID, String aCOTitle) {
         MsgsFragment fragment = new MsgsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(CO_PUBLIC_ID,aCOPublicID);
+        bundle.putString(CO_TITLE,aCOTitle);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -63,9 +72,11 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
         super.onCreate(savedInstanceState);
         if (savedInstanceState!=null) {
             mCOPubId = savedInstanceState.getInt(CO_PUBLIC_ID);
+            mCOTitle = savedInstanceState.getString(CO_TITLE);
             mListState = savedInstanceState.getParcelable(LIST_STATE);
         } else if (getArguments()!=null) {
             mCOPubId = getArguments().getInt(CO_PUBLIC_ID);
+            mCOTitle = getArguments().getString(CO_TITLE);
         }
     }
 
@@ -79,6 +90,16 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mMsgET = view.findViewById(R.id.fragment_msgs_new_msg_edit_text);
+        ImageButton mSendIB = view.findViewById(R.id.fragment_msgs_new_msg_send_button);
+        mSendIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View aView) {
+                sendNewMsg();
+            }
+        });
+
         //Set ListHandler here
         RecyclerView recyclerView = view.findViewById(R.id.fragment_msgs_recycler_view);
         mListHandler = new ListHandler(this,
@@ -104,23 +125,31 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        return null;
+        return mPresenterMsgs.getMsgs(getActivity(),args.getInt(CO_PUBLIC_ID));
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-//        setMsgs(data);
+        setMsgs(data);
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) {}
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        setMsgs(null);
+    }
 
     @Override
-    public void setMsgs(List<Msg> aList) {
-//        mListHandler.swapMsgs(aList);
+    public void setMsgs(Cursor aList) {
+        mListHandler.swapMsgs(aList);
         if (mListState!=null) {
             mListHandler.setState(mListState);
         }
+    }
+
+    @Override
+    public void sendNewMsg() {
+        String body = mMsgET.getText().toString();
+        mPresenterMsgs.sendNewMsg(getActivity(), mCOPubId,mCOTitle,body);
     }
 
     @Override
@@ -132,6 +161,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(CO_PUBLIC_ID,mCOPubId);
+        outState.putString(CO_TITLE,mCOTitle);
         outState.putParcelable(LIST_STATE,mListHandler.getState());
     }
 

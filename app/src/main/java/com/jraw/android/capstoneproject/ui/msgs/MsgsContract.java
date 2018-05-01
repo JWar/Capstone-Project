@@ -1,8 +1,10 @@
 package com.jraw.android.capstoneproject.ui.msgs;
 
-import com.jraw.android.capstoneproject.data.model.Msg;
+import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.content.CursorLoader;
 
-import java.util.List;
+import com.jraw.android.capstoneproject.data.model.Msg;
 
 /**
  * Created by JonGaming on 05/01/2018.
@@ -12,14 +14,15 @@ import java.util.List;
 public interface MsgsContract {
     interface ViewMsgs {
         //Sets ListHandler to use this list.
-        void setMsgs(List<Msg> aList);
+        void setMsgs(Cursor aList);
+        void sendNewMsg();
         void setPresenter(PresenterMsgs aPresenter);
     }
     interface PresenterMsgs {
         //I hope this is fairly self explanatory. Called by View.
-        List<Msg> getMsgs(int aCOId);
+        CursorLoader getMsgs(Context aContext, int aCOId);
         //Used in Search Query to filter Msgs by their content
-        List<Msg> getMsgsViaBody(int aCOId, String aText);
-
+        CursorLoader getMsgsViaBody(Context aContext, int aCOId, String aText);
+        void sendNewMsg(Context aContext, int aCOPublicId, String aCOTitle, String aBody);
     }
 }

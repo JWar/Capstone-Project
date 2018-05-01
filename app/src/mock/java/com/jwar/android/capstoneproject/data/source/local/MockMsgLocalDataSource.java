@@ -1,15 +1,12 @@
 package com.jwar.android.capstoneproject.data.source.local;
 
-import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
-
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
-
-import java.util.List;
+import com.jraw.android.capstoneproject.database.DbSchema.MsgTable;
 
 /**
  * Created by JonGaming on 16/04/2018.
@@ -17,7 +14,7 @@ import java.util.List;
 
 public class MockMsgLocalDataSource implements MsgLocalDataSource {
     private static MockMsgLocalDataSource sInstance=null;
-    private ContentResolver mContentResolver;
+    //Param redundant?
     public static synchronized MockMsgLocalDataSource getInstance(@NonNull Context aContext) {
         if (sInstance==null) {
             sInstance = new MockMsgLocalDataSource(aContext.getApplicationContext());
@@ -25,17 +22,23 @@ public class MockMsgLocalDataSource implements MsgLocalDataSource {
         return sInstance;
     }
     private MockMsgLocalDataSource(@NonNull Context aContext) {
-        mContentResolver=aContext.getContentResolver();
     }
 
     @Override
-    public List<Msg> getMsgs(long aConversationPublicId) {
-
-        return null;
+    public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {
+        return new CursorLoader(aContext,
+                MsgTable.CONTENT_URI,
+                null,
+                MsgTable.Cols.COPUBLICID + "=?",
+                new String[] {aConversationPublicId+""},
+                MsgTable.Cols.EVENTDATE + " DESC");
     }
 
     @Override
-    public long saveMsg(Msg aMsg) {
-        return 0;
+    public long saveMsg(Context aContext, Msg aMsg) {
+        return ContentUris.parseId(aContext.getContentResolver().insert(
+                MsgTable.CONTENT_URI,
+                aMsg.toCV()
+        ));
     }
 }

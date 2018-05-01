@@ -2,19 +2,16 @@ package com.jraw.android.capstoneproject.data.repository;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
+import android.support.v4.content.CursorLoader;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
-import com.jraw.android.capstoneproject.utils.Utils;
-import com.jwar.android.capstoneproject.Injection;
-
-import java.util.List;
+import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
 
 /**
  * Created by JonGaming on 16/04/2018.
+ * TODO: how to handle init in Firebase/Intent service?
  */
-
 public class MsgRepository {
 
     private static MsgRepository sInstance=null;
@@ -36,10 +33,21 @@ public class MsgRepository {
     public void destroyInstance() {
         sInstance=null;
     }
-    public long saveMsg(Msg aMsg) {
-        return mMsgLocalDataSource.saveMsg(aMsg);
+
+    public long saveMsg(Context aContext, Msg aMsg) {
+        ResponseServerMsgSave responseServerMsgSave = mMsgRemoteDataSource.saveMsg(aContext, aMsg);
+        if (responseServerMsgSave.action.equals("COMPLETE")) {
+            //Gets res of save and assigns result in msg.
+            aMsg.setMSResult(Msg.RESULTS.valueOf(responseServerMsgSave.res).ordinal());
+            return mMsgLocalDataSource.saveMsg(aContext, aMsg);
+        } else {
+            //TODO: think of how to sort out resending when failed
+            aMsg.setMSResult(Msg.RESULTS.FAILED.ordinal());
+            return mMsgLocalDataSource.saveMsg(aContext, aMsg);
+        }
     }
-    public List<Msg> getMsgs(long aConversationPublicId) {
-        return mMsgLocalDataSource.getMsgs(aConversationPublicId);
+
+    public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {
+        return mMsgLocalDataSource.getMsgs(aContext, aConversationPublicId);
     }
 }
