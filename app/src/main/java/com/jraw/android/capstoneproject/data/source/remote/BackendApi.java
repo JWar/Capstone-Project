@@ -1,5 +1,7 @@
 package com.jraw.android.capstoneproject.data.source.remote;
 
+import com.jraw.android.capstoneproject.data.model.Msg;
+
 import org.json.JSONObject;
 
 import retrofit2.http.Body;
@@ -23,6 +25,6 @@ public interface BackendApi {
                                   @Query("userid") String aUserId);
 
         @POST
-        JSONObject sendMsg(@Url String aUrl,
-                            @Body String aMsg);
+        ResponseServerMsgSave sendMsg(@Url String aUrl,
+                            @Body Msg aMsg);
 }

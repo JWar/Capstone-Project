@@ -1,15 +1,8 @@
-package com.jraw.android.capstoneproject.firebase;
-
-import android.app.Notification;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+package com.jraw.android.capstoneproject.service.firebase;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
 import com.jraw.android.capstoneproject.R;
-import com.jraw.android.capstoneproject.data.model.Msg;
-import com.jraw.android.capstoneproject.data.repository.MsgRepository;
 import com.jraw.android.capstoneproject.utils.Utils;
 
 /**

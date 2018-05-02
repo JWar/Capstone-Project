@@ -10,7 +10,6 @@ import com.jraw.android.capstoneproject.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -33,12 +32,12 @@ public class MsgsPresenter implements MsgsContract.PresenterMsgs {
 
     @Override
     public CursorLoader getMsgs(Context aContext, int aCOId) {
-        return null;
+        return mMsgRepository.getMsgs(aContext,aCOId);
     }
 
     @Override
     public CursorLoader getMsgsViaBody(Context aContext, int aCOId, String aText) {
-        return null;
+        return mMsgRepository.getMsgsViaBody(aContext,aCOId,aText);
     }
 
     @Override
@@ -46,11 +45,12 @@ public class MsgsPresenter implements MsgsContract.PresenterMsgs {
         Msg newMsg = new Msg();
         newMsg.setMSBody(aBody);
         newMsg.setMSCOPublicId(aCOPublicId);
+        newMsg.setMSCOTitle(aCOTitle);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss", Locale.ENGLISH);
         newMsg.setMSEventDate(sdf.format(Calendar.getInstance().getTime()));
-        newMsg.setMSCOTitle(aCOTitle);
         newMsg.setMSFromId(Utils.THIS_USER_ID);
         newMsg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());//Assuming all are text messages for now.
-
+        //What to do now? Intent Service call? Do it in Repository as Repository is an app wide object whereas Presenter isnt.
+        mMsgRepository.saveMsg(aContext,newMsg);
     }
 }

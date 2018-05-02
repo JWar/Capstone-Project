@@ -1,10 +1,12 @@
 package com.jwar.android.capstoneproject.data.source.remote;
 
 import android.support.annotation.NonNull;
-
+import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.remote.BackendApi;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
+import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
+import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.DummyData;
 
 /**
@@ -13,7 +15,7 @@ import com.jwar.android.capstoneproject.DummyData;
 
 public class MockMsgRemoteDataSource implements MsgRemoteDataSource {
     private static MockMsgRemoteDataSource sInstance=null;
-    private BackendApi mBackendApi;
+    private BackendApi mBackendApi;//Redundant in mock?
     public static synchronized MockMsgRemoteDataSource getInstance(@NonNull BackendApi aBackendApi) {
         if (sInstance==null) {
             sInstance = new MockMsgRemoteDataSource(aBackendApi);
@@ -30,5 +32,12 @@ public class MockMsgRemoteDataSource implements MsgRemoteDataSource {
         responseServerMsg.action="COMPLETE";
         responseServerMsg.rows= DummyData.getRemoteMsgs();
         return null;
+    }
+    //Returns mock response
+    @Override
+    public ResponseServerMsgSave saveMsg(Msg aMsg) {
+        ResponseServerMsgSave responseServerMsgSave = new ResponseServerMsgSave();
+        responseServerMsgSave.action="COMPLETE";
+        return responseServerMsgSave;
     }
 }

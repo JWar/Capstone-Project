@@ -1,4 +1,4 @@
-package com.jraw.android.capstoneproject.firebase;
+package com.jraw.android.capstoneproject.service.firebase;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;

@@ -3,10 +3,15 @@ package com.jraw.android.capstoneproject.data.repository;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
+
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
+import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
+import com.jraw.android.capstoneproject.utils.Utils;
+
+import java.util.List;
 
 /**
  * Created by JonGaming on 16/04/2018.
@@ -14,28 +19,32 @@ import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave
  */
 public class MsgRepository {
 
-    private static MsgRepository sInstance=null;
+    private static MsgRepository sInstance = null;
     private MsgLocalDataSource mMsgLocalDataSource;
     private MsgRemoteDataSource mMsgRemoteDataSource;
 
     public static synchronized MsgRepository getInstance(@NonNull MsgLocalDataSource aMsgLocalDataSource,
                                                          @NonNull MsgRemoteDataSource aMsgRemoteDataSource) {
-        if (sInstance==null) {
+        if (sInstance == null) {
             sInstance = new MsgRepository(aMsgLocalDataSource, aMsgRemoteDataSource);
         }
         return sInstance;
     }
+
     private MsgRepository(@NonNull MsgLocalDataSource aMsgLocalDataSource,
                           @NonNull MsgRemoteDataSource aMsgRemoteDataSource) {
         mMsgLocalDataSource = aMsgLocalDataSource;
         mMsgRemoteDataSource = aMsgRemoteDataSource;
     }
+
     public void destroyInstance() {
-        sInstance=null;
+        sInstance = null;
     }
 
+    //Returns long rather than ResponseServer as the user only cares if the msg isnt saved to local properly.
+    //All other results should be reflected in the UI (i.e. if Msg Failed result appears).
     public long saveMsg(Context aContext, Msg aMsg) {
-        ResponseServerMsgSave responseServerMsgSave = mMsgRemoteDataSource.saveMsg(aContext, aMsg);
+        ResponseServerMsgSave responseServerMsgSave = mMsgRemoteDataSource.saveMsg(aMsg);
         if (responseServerMsgSave.action.equals("COMPLETE")) {
             //Gets res of save and assigns result in msg.
             aMsg.setMSResult(Msg.RESULTS.valueOf(responseServerMsgSave.res).ordinal());
@@ -47,7 +56,26 @@ public class MsgRepository {
         }
     }
 
+    //Just returns number of new msgs or -1 if error. Should never be 0...
+    public int getNewMsgs(Context aContext) throws Exception {
+        int numNewMsgs = -1;
+        ResponseServerMsg responseServerMsg = mMsgRemoteDataSource.getMsgsFromServer();
+        if (responseServerMsg.action.equals("COMPLETE")) {
+            //Save msgs to database
+            numNewMsgs = mMsgLocalDataSource.saveMsg(aContext,responseServerMsg.rows);
+            return numNewMsgs;
+        } else {
+            //Notify user that there has been a problem with getting new msgs. This is indicated by -1.
+            return numNewMsgs;
+        }
+    }
+
     public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {
         return mMsgLocalDataSource.getMsgs(aContext, aConversationPublicId);
+    }
+
+    //Not implemented yet but this should allow searching msgs list by the body.
+    public CursorLoader getMsgsViaBody(Context aContext, long aConversationPublicId, String aQuery) {
+        return null;
     }
 }

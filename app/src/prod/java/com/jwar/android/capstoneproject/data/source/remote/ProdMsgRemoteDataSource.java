@@ -30,6 +30,6 @@ public class ProdMsgRemoteDataSource implements MsgRemoteDataSource {
     public ResponseServerMsg getMsgsFromServer() {
         return mBackendApi.getMsgs("",
                 BackendApi.SEARCH_TYPES.ALL.ordinal(),
-                "");
+                Utils.THIS_USER_ID+"");
     }
 }
