@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
-
+//TODO: will need to handle marking conversation as unread.
 public class MsgsActivity extends AppCompatActivity {
 
     private static final String CO_ID = "coId";

@@ -33,10 +33,14 @@ public class ConversationActivity extends AppCompatActivity {
                         .add(R.id.conversation_fragment_container, conversationFragment, ConversationFragment.TAG)
                         .commit();
                 //Hmm this is where the database gets init... the Presenter inits the Repo inits LocalDataSource which inits DB.
-                mConversationPresenter = new ConversationPresenter(Injection.provideConversationRepository(this),
+                mConversationPresenter = new ConversationPresenter(
+                        Injection.provideConversationRepository(
+                                Injection.provideConversationLocalDataSource()),
                         conversationFragment);
             } else if (fragment instanceof ConversationFragment) {
-                mConversationPresenter = new ConversationPresenter(Injection.provideConversationRepository(this),
+                mConversationPresenter = new ConversationPresenter(
+                        Injection.provideConversationRepository(
+                                Injection.provideConversationLocalDataSource()),
                         (ConversationFragment) fragment);
             } else if (fragment instanceof InstallFragment) {
                 mInstallPresenter = new InstallPresenter((InstallFragment) fragment);

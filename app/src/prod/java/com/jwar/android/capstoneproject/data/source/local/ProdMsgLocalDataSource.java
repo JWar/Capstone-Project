@@ -1,12 +1,10 @@
 package com.jwar.android.capstoneproject.data.source.local;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
-
-import java.util.List;
 
 /**
  * Created by JonGaming on 16/04/2018.
@@ -14,23 +12,21 @@ import java.util.List;
 
 public class ProdMsgLocalDataSource implements MsgLocalDataSource {
     private static ProdMsgLocalDataSource sInstance=null;
-    public static ProdMsgLocalDataSource getInstance(@NonNull Context aContext) {
+    public static ProdMsgLocalDataSource getInstance() {
         if (sInstance==null) {
-            sInstance = new ProdMsgLocalDataSource(aContext);
+            sInstance = new ProdMsgLocalDataSource();
         }
         return sInstance;
     }
-    private ProdMsgLocalDataSource(@NonNull Context aContext) {
-
-    }
+    private ProdMsgLocalDataSource() {}
 
     @Override
-    public List<Msg> getMsgs(long aConversationPublicId) {
+    public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {
         return null;
     }
 
     @Override
-    public long saveMsg(Msg aMsg) {
+    public long saveMsg(Context aContext, Msg aMsg) {
         return 0;
     }
 }

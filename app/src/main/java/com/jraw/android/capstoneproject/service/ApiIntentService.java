@@ -9,9 +9,6 @@ import android.widget.Toast;
 
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
-import com.jraw.android.capstoneproject.data.source.remote.BackendApi;
-import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
-import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 
@@ -25,7 +22,7 @@ public class ApiIntentService extends IntentService {
 
     private static final String EXTRA_MSG = "com.jraw.android.capstoneproject.service.extra.msg";
 
-    //Urgh dont like this at all. Storing static field in IntentService sounds like a bad.
+    //Urgh dont like this at all. Storing static field in IntentService sounds like a bad idea.
     private static MsgRepository sMsgRepository;
 
     public ApiIntentService() {
@@ -79,10 +76,10 @@ public class ApiIntentService extends IntentService {
     private void handleActionGetNewMsgs() {
         try {
             int numNewMsgs = sMsgRepository.getNewMsgs(this);
-            if (numNewMsgs>0) {
+            if (numNewMsgs>-1) {
                 //Successfully save this number of new msgs. Just debug, no need to let user know.
                 Utils.logDebug("ApiIntentService.handleActionGetNewMsgs: saved " + numNewMsgs + " from server!");
-            } else if (numNewMsgs==-1){
+            } else {
                 //Notify user that there has been a problem with getting new msgs.
                 showToastMsg("Problem getting new msgs");
             }

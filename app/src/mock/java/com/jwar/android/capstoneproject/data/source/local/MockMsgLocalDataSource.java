@@ -19,14 +19,13 @@ import java.util.List;
 public class MockMsgLocalDataSource implements MsgLocalDataSource {
     private static MockMsgLocalDataSource sInstance=null;
     //Param redundant?
-    public static synchronized MockMsgLocalDataSource getInstance(@NonNull Context aContext) {
+    public static synchronized MockMsgLocalDataSource getInstance() {
         if (sInstance==null) {
-            sInstance = new MockMsgLocalDataSource(aContext.getApplicationContext());
+            sInstance = new MockMsgLocalDataSource();
         }
         return sInstance;
     }
-    private MockMsgLocalDataSource(@NonNull Context aContext) {
-    }
+    private MockMsgLocalDataSource() {}
 
     @Override
     public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {
@@ -44,23 +43,5 @@ public class MockMsgLocalDataSource implements MsgLocalDataSource {
                 MsgTable.CONTENT_URI,
                 aMsg.toCV()
         ));
-    }
-    //This will need to handle NEW conversations AND update conversations to reflect changes in their msg lists.
-    //So need to check for existence of COPublicId in Conversation List. If not existing then there needs to be
-    //a new conversation with the title and Public Id (what about created by?).
-    //Will also need to update any conversations with the msg snippet, time, and read status.
-    //Sounds like bulk insert is a bad idea... Will have to go through each new msg and do checks/updates/inserts
-    @Override
-    public int saveMsg(Context aContext, List<Msg> aMsgList) {
-        //This is far more complicated than it first appears.
-        int numNewMsgs = -1;
-        ContentValues[] contentValues = new ContentValues[aMsgList.size()];
-        for (int i = 0; i < aMsgList.size(); i++) {
-            contentValues[i] = aMsgList.get(i).toCV();
-        }
-        numNewMsgs = aContext.getContentResolver().bulkInsert(MsgTable.CONTENT_URI,contentValues);
-        //Install lots of new things
-
-        return numNewMsgs;
     }
 }

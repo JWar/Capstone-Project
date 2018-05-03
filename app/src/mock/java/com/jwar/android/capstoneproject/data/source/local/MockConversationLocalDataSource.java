@@ -5,6 +5,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
@@ -34,15 +35,13 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
     private static final String FIRST_INIT = "firstInit";
 
     //Param redundant??
-    public static synchronized MockConversationLocalDataSource getInstance(@NonNull Context aContext) {
+    public static synchronized MockConversationLocalDataSource getInstance() {
         if (sInstance==null) {
-            sInstance = new MockConversationLocalDataSource(aContext.getApplicationContext());
+            sInstance = new MockConversationLocalDataSource();
         }
         return sInstance;
     }
-    private MockConversationLocalDataSource(@NonNull Context aContext) {
-
-    }
+    private MockConversationLocalDataSource() {}
 
     @Override
     public CursorLoader getConversations(Context aContext) {
@@ -108,6 +107,18 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
                 DbSchema.ConversationTable.Cols.DATELASTMSG + " DESC"
         );
     }
+
+    @Override
+    public Cursor getConversationViaPublicId(Context aContext, int aCOPublicId) {
+        return aContext.getContentResolver().query(
+                DbSchema.ConversationTable.CONTENT_URI,
+                null,
+                DbSchema.ConversationTable.Cols.PUBLICID + "=?",
+                new String[] {aCOPublicId+""},
+                null
+        );
+    }
+
     //This will need to return id which is then used to get the conversations publicid
     //Though I suppose its generated in Conversation creation so maybe can just get publicid that way...
     @Override
@@ -116,5 +127,15 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
                 DbSchema.ConversationTable.CONTENT_URI,
                 aConversation.toCV()
         ));
+    }
+
+    @Override
+    public int updateConversation(Context aContext, Conversation aConversation) {
+        return aContext.getContentResolver().update(
+                DbSchema.ConversationTable.CONTENT_URI,
+                aConversation.toCV(),
+                DbSchema.ConversationTable.Cols.PUBLICID + "= ?",
+                new String[]{aConversation.getCOPublicId()+""}
+        );
     }
 }

@@ -18,17 +18,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import com.jraw.android.capstoneproject.R;
-import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
-import com.jraw.android.capstoneproject.utils.Utils;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Handles View part of Msgs functionality.
