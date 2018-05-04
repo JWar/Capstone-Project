@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.data.repository;
 
 import android.support.annotation.NonNull;
+import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
@@ -26,7 +27,7 @@ public class PersonRepository {
         mPersonLocalDataSource = aPersonLocalDataSource;
         mPersonRemoteDataSource = aPersonRemoteDataSource;
     }
-    public List<Person> getPersons() {
+    public CursorLoader getPersons() {
         return mPersonLocalDataSource.getPersons();
     }
     public Person getPerson(int aPersonId) {

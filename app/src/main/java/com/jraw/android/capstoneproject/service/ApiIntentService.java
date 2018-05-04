@@ -53,7 +53,11 @@ public class ApiIntentService extends IntentService {
         if (intent != null) {
             if (sMsgRepository==null) {
                 try {//Init Repo if null
-                    sMsgRepository = Injection.provideMsgRepository(this, Injection.provideBackendApi());
+                    sMsgRepository = Injection.provideMsgRepository(
+                            Injection.provideMsgLocalDataSource(),
+                            Injection.provideMsgRemoteDataSource(
+                                    Injection.provideBackendApi()),
+                            Injection.provideConversationLocalDataSource());
                 } catch (Exception e) {
                     Utils.logDebug("Problem in ApiIntentService.onHandleIntent: MsgRepo init");
                     showToastMsg("Problem initialising Messages");
