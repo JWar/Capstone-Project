@@ -7,6 +7,7 @@ import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.PersonRemoteDataSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonRepository {
@@ -14,6 +15,9 @@ public class PersonRepository {
     private static PersonRepository sInstance = null;
     private PersonLocalDataSource mPersonLocalDataSource;
     private PersonRemoteDataSource mPersonRemoteDataSource;
+
+    //Person list for new conversation of added people
+    private List<Person> mAddedPersons;
 
     public static synchronized PersonRepository getInstance(@NonNull PersonLocalDataSource aPersonLocalDataSource,
                                                             @NonNull PersonRemoteDataSource aPersonRemoteDataSource) {
@@ -26,6 +30,7 @@ public class PersonRepository {
                              @NonNull PersonRemoteDataSource aPersonRemoteDataSource) {
         mPersonLocalDataSource = aPersonLocalDataSource;
         mPersonRemoteDataSource = aPersonRemoteDataSource;
+        mAddedPersons = new ArrayList<>();
     }
     public CursorLoader getPersons() {
         return mPersonLocalDataSource.getPersons();
@@ -37,5 +42,11 @@ public class PersonRepository {
     public long savePerson(Person aPerson) {
         mPersonRemoteDataSource.savePerson(aPerson);
         return mPersonLocalDataSource.savePerson(aPerson);
+    }
+    public List<Person> getAddedPersons() {
+        return mAddedPersons;
+    }
+    public void saveAddedPerson(Person aPerson) {
+        mAddedPersons.add(aPerson);
     }
 }

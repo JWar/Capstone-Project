@@ -1,7 +1,5 @@
 package com.jraw.android.capstoneproject.ui.newconversation;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -10,17 +8,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.jraw.android.capstoneproject.R;
+import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
+import com.jraw.android.capstoneproject.ui.list.ListHandlerCallbackPerson;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
-import com.jraw.android.capstoneproject.utils.Utils;
 
 /**
  * Handles new conversations creation.
@@ -28,7 +27,9 @@ import com.jraw.android.capstoneproject.utils.Utils;
  * The horizontal will contain all the people selected to be in the conversation.
  * The vertical will contain a list of all persons to select.
  */
-public class NewConversationFragment extends Fragment {
+public class NewConversationFragment extends Fragment implements NewConversationContract.ViewNewConversation {
+
+    private NewConversationContract.PresenterNewConversation mPresenterNewConversation;
 
     private ListHandler mAddedLH;
     private static final String ADDED_STATE = "addedState";
@@ -38,7 +39,7 @@ public class NewConversationFragment extends Fragment {
     private static final String PERSONS_STATE = "personsState";
     private Parcelable mPersonsState;
 
-    public NewConversationFragment() {}
+    public NewConversationFragment() {setHasOptionsMenu(true);}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,10 +64,10 @@ public class NewConversationFragment extends Fragment {
         mAddedLH = new ListHandler(
                 this,
                 mAddedRV,
-                new ListRecyclerViewAdapter(new ListHandlerCallback() {
+                new ListRecyclerViewAdapter(new ListHandlerCallbackPerson() {
                     @Override
-                    public void onListClick(int aPosition, String aId) {
-
+                    public void onListClick(int aPosition, Person aPerson) {
+                        //Removes person from this list
                     }
 
                     @Override
@@ -81,10 +82,10 @@ public class NewConversationFragment extends Fragment {
         mPersonsLH = new ListHandler(
                 this,
                 view.findViewById(R.id.fragment_new_conversation_persons_rv),
-                new ListRecyclerViewAdapter(new ListHandlerCallback() {
+                new ListRecyclerViewAdapter(new ListHandlerCallbackPerson() {
                     @Override
-                    public void onListClick(int aPosition, String aId) {
-
+                    public void onListClick(int aPosition, Person aPerson) {
+                        //Adds person to added list
                     }
 
                     @Override
@@ -98,4 +99,32 @@ public class NewConversationFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_new_conversation, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_new_conversation_create:
+                mPresenterNewConversation.onCreateConv();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void setPresenter(NewConversationContract.PresenterNewConversation aPresenter) {
+        mPresenterNewConversation=aPresenter;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(ADDED_STATE,mAddedState);
+        outState.putParcelable(PERSONS_STATE,mPersonsState);
+    }
 }
