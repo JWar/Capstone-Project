@@ -16,7 +16,7 @@ public class Conversation extends entity {
     private String CODateCreated;
     private String CODateLastMsg;
     private String COSnippet;
-    private boolean COUnread;
+    private int COUnread;
 
     public Conversation() {}
 
@@ -32,13 +32,7 @@ public class Conversation extends entity {
     }
     public void setCODateLastMsg(String aCODateLastMsg) {CODateLastMsg = aCODateLastMsg;}
     public void setCOSnippet(String aCOSnippet) {COSnippet = aCOSnippet;}
-    public void setCOUnread(int aCOUnread) {
-        if (aCOUnread==0) {
-            COUnread = false;
-        } else {
-            COUnread = true;
-        }
-    }
+    public void setCOUnread(int aCOUnread) {COUnread = aCOUnread;}
 
     public String getCOTitle() {
         return COTitle;
@@ -52,7 +46,7 @@ public class Conversation extends entity {
     }
     public String getCODateLastMsg() {return CODateLastMsg;}
     public String getCOSnippet() {return COSnippet;}
-    public boolean isCOUnread() {return COUnread;}
+    public int getCOUnread() {return COUnread;}
 
     public ContentValues toCV() {
         try {
@@ -75,8 +69,8 @@ public class Conversation extends entity {
             if (COSnippet!=null) {
                 cv.put(ConversationTable.Cols.SNIPPET,COSnippet);
             }
-            if (COUnread) {
-                cv.put(ConversationTable.Cols.UNREAD,1);
+            if (COUnread>0) {
+                cv.put(ConversationTable.Cols.UNREAD,COUnread);
             }
             return cv;
         } catch (Exception e) {

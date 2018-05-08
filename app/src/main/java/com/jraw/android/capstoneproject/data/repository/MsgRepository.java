@@ -101,9 +101,9 @@ public class MsgRepository {
                     Conversation conversation = conversationCursorWrapper.getConversation();
                     conversation.setCODateLastMsg(msg.getMSEventDate());
                     conversation.setCOSnippet(msg.getMSBody().substring(0,50));
-                    conversation.setCOUnread(1);//It is now unread as new msg
-                    mConversationLocalDataSource.updateConversation(aContext,conversation);
+                    conversation.setCOUnread(conversation.getCOUnread()+1);//+1 to Unread count
 
+                    mConversationLocalDataSource.updateConversation(aContext,conversation);
                     if (mMsgLocalDataSource.saveMsg(aContext,msg)>0) {
                         numNewMsgs+=1;
                     }
@@ -113,10 +113,10 @@ public class MsgRepository {
                     conversation.setCOPublicId(msg.getMSCOPublicId());
                     conversation.setCODateLastMsg(msg.getMSEventDate());
                     conversation.setCOSnippet(msg.getMSBody().substring(0,50));
-                    conversation.setCOUnread(1);//It is unread...
+                    conversation.setCOUnread(1);//Since new conversation there is 1 unread msg!
+
                     //To find createdBy can use fromId of Msg and check Persons. Not sure if needed though... so leave for moment
                     mConversationLocalDataSource.saveConversation(aContext,conversation);
-
                     if (mMsgLocalDataSource.saveMsg(aContext,msg)>0) {
                         numNewMsgs+=1;
                     }

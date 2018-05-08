@@ -75,7 +75,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     ConversationTable.Cols.DATECREATED + " VARCHAR DEFAULT NULL, " +
                     ConversationTable.Cols.DATELASTMSG + " VARCHAR DEFAULT NULL," +
                     ConversationTable.Cols.SNIPPET + " VARCHAR DEFAULT NULL," +
-                    ConversationTable.Cols.UNREAD + " INTEGER(1) DEFAULT 0);";
+                    ConversationTable.Cols.UNREAD + " INTEGER DEFAULT 0);";
     private static final String DATABASE_CREATE_PECO =
             "CREATE TABLE " + PeCoTable.NAME + " (" +
                     PeCoTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +

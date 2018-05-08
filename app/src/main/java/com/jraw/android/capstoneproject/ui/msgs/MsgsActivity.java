@@ -13,12 +13,15 @@ public class MsgsActivity extends AppCompatActivity {
 
     private static final String CO_ID = "coId";
     private int mCOId;
+    private static final String CO_TITLE = "coTitle";
+    private String mCOTitle;
 
     private MsgsPresenter mMsgsPresenter;
 
-    public static void start(Context aContext, int aCOId) {
+    public static void start(Context aContext, int aCOId, String aCOTitle) {
         Intent intent = new Intent(aContext,MsgsActivity.class);
         intent.putExtra(CO_ID,aCOId);
+        intent.putExtra(CO_TITLE,aCOTitle);
         aContext.startActivity(intent);
     }
 
@@ -28,13 +31,15 @@ public class MsgsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_msgs);
         if (savedInstanceState!=null) {
             mCOId = savedInstanceState.getInt(CO_ID);
+            mCOTitle = savedInstanceState.getString(CO_TITLE);
         } else if (getIntent()!=null) {
             mCOId = getIntent().getIntExtra(CO_ID,-1);
+            mCOTitle = getIntent().getStringExtra(CO_TITLE);
         }
         try {
             MsgsFragment fragment = (MsgsFragment) getSupportFragmentManager().findFragmentByTag(MsgsFragment.TAG);
             if (fragment==null) {
-                fragment = MsgsFragment.getInstance(mCOId);
+                fragment = MsgsFragment.getInstance(mCOId,mCOTitle);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .addToBackStack(MsgsFragment.TAG)
@@ -52,6 +57,7 @@ public class MsgsActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(CO_ID,mCOId);
+        outState.putString(CO_TITLE,mCOTitle);
     }
 
     @Override

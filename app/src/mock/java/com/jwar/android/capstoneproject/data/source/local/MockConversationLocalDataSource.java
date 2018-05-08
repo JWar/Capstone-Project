@@ -134,7 +134,7 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
         return aContext.getContentResolver().update(
                 DbSchema.ConversationTable.CONTENT_URI,
                 aConversation.toCV(),
-                DbSchema.ConversationTable.Cols.PUBLICID + "= ?",
+                DbSchema.ConversationTable.Cols.PUBLICID + "=?",
                 new String[]{aConversation.getCOPublicId()+""}
         );
     }

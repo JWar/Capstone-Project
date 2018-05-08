@@ -69,7 +69,7 @@ public class DbSchema {
             public static final String DATELASTMSG = "CODateLastMsg";
             //Displays bit of the latest msg.
             public static final String SNIPPET = "COSnippet";
-            //If there are unread msgs then unread is true.
+            //Num of unread msgs. 0 means none (... funnily enough)
             public static final String UNREAD = "COUnread";
         }
     }

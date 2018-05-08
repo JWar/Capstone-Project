@@ -3,6 +3,7 @@ package com.jraw.android.capstoneproject.ui.list.holders;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Person;
 
 public class NewConvAddedPersonHolder extends AbstractHolder {
