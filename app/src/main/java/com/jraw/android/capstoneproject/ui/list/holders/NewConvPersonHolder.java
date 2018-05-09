@@ -8,23 +8,21 @@ import com.jraw.android.capstoneproject.data.model.Person;
 
 public class NewConvPersonHolder extends AbstractHolder {
     private View mView;
-    private TextView mFnameTV;
-    private TextView mSnameTV;
+    private TextView mFullNameTV;
     private Person mPerson;
 
     public NewConvPersonHolder(View view) {
         super(view);
         mView = view;
-        mFnameTV = view.findViewById(R.id.list_item_new_conv_fname);
-        mSnameTV = view.findViewById(R.id.list_item_new_conv_sname);
+        mFullNameTV = view.findViewById(R.id.list_item_new_conv_fullname);
+
     }
     public Person bindData(Person aPerson, int aPos) {
         return setViews(aPerson,aPos);
     }
     private Person setViews(Person aPerson, int aPos) {
         mPerson = aPerson;
-        mFnameTV.setText(mPerson.getPEFname());
-        mSnameTV.setText(mPerson.getPESname());
+        mFullNameTV.setText(mPerson.getFullName());
         return mPerson;
     }
 
@@ -34,8 +32,7 @@ public class NewConvPersonHolder extends AbstractHolder {
     }
     @Override
     public String toString() {
-        return super.toString() + " '" + mFnameTV.getText()
-                + " " + mSnameTV.getText()
+        return super.toString() + " '" + mFullNameTV.getText()
                 + " '";
     }
 }

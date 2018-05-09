@@ -14,6 +14,7 @@ public interface NewConversationContract {
         CursorLoader getPersons();
         List<Person> getAddedPersons();
         void addAddedPerson(Person aPerson);
+        void removeAddedPerson(Person aPerson);
         void onCreateConv();//Will need to take added person list and start new conversation with them.
     }
 }

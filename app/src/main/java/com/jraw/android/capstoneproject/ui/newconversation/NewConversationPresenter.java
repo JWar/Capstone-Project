@@ -38,7 +38,13 @@ public class NewConversationPresenter implements NewConversationContract.Present
     }
 
     @Override
-    public void onCreateConv() {
+    public void removeAddedPerson(Person aPerson) {
+        mPersonRepository.removeAddedPerson(aPerson);
+    }
 
+    @Override
+    public void onCreateConv() {
+        //This will need to create a new conv with the people involved.
+        //So PECO, CO needs to be inserted.
     }
 }

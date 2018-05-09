@@ -5,16 +5,21 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
+import com.jraw.android.capstoneproject.data.repository.PeCoRepository;
 import com.jraw.android.capstoneproject.data.repository.PersonRepository;
 import com.jraw.android.capstoneproject.data.source.local.ConversationLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
+import com.jraw.android.capstoneproject.data.source.local.PeCoLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.BackendApi;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.PersonRemoteDataSource;
 import com.jwar.android.capstoneproject.data.source.local.ProdConversationLocalDataSource;
 import com.jwar.android.capstoneproject.data.source.local.ProdMsgLocalDataSource;
+import com.jwar.android.capstoneproject.data.source.local.ProdPeCoLocalDataSource;
+import com.jwar.android.capstoneproject.data.source.local.ProdPersonLocalDataSource;
 import com.jwar.android.capstoneproject.data.source.remote.ProdMsgRemoteDataSource;
+import com.jwar.android.capstoneproject.data.source.remote.ProdPersonRemoteDataSource;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,6 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Injection {
+    public static PeCoRepository providePeCoRepository(@NonNull PeCoLocalDataSource aPeCoLocalDataSource) throws Exception {
+        return PeCoRepository.getInstance(aPeCoLocalDataSource);
+    }
     public static PersonRepository providePersonRepository(@NonNull PersonLocalDataSource aPersonLocalDataSource,
                                                            @NonNull PersonRemoteDataSource aPersonRemoteDataSource) throws Exception {
         return PersonRepository.getInstance(
@@ -55,6 +63,9 @@ public class Injection {
     }
     public static PersonLocalDataSource providePersonLocalDataSource() {
         return ProdPersonLocalDataSource.getInstance();
+    }
+    public static PeCoLocalDataSource providePeCoLocalDataSource() {
+        return ProdPeCoLocalDataSource.getInstance();
     }
     public static BackendApi provideBackendApi() throws Exception {
         Retrofit retrofit = new Retrofit.Builder()

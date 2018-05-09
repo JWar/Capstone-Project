@@ -30,6 +30,14 @@ public class Person extends entity {
     public String getPESname() {return PESname;}
     public String getPETelNum() {return PETelNum;}
 
+    public String getFullName() {
+        String fullname = PEFname;
+        if (PESname!=null) {
+            fullname+= " " + PESname;
+        }
+        return fullname;
+    }
+
     public ContentValues toCV() {
         try {
             ContentValues cv = new ContentValues();

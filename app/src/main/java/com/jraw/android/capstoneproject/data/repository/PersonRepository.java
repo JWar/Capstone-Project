@@ -49,4 +49,7 @@ public class PersonRepository {
     public void saveAddedPerson(Person aPerson) {
         mAddedPersons.add(aPerson);
     }
+    public void removeAddedPerson(Person aPerson) {
+        mAddedPersons.remove(aPerson);
+    }
 }

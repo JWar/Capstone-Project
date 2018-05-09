@@ -26,6 +26,7 @@ import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
  * This will be two lists, one horizontal, one vertical.
  * The horizontal will contain all the people selected to be in the conversation.
  * The vertical will contain a list of all persons to select.
+ * TODO: how best to handle new PublicId?
  */
 public class NewConversationFragment extends Fragment implements NewConversationContract.ViewNewConversation {
 
@@ -67,13 +68,11 @@ public class NewConversationFragment extends Fragment implements NewConversation
                 new ListRecyclerViewAdapter(new ListHandlerCallbackPerson() {
                     @Override
                     public void onListClick(int aPosition, Person aPerson) {
-                        //Removes person from this list
+                        mPresenterNewConversation.removeAddedPerson(aPerson);
                     }
 
                     @Override
-                    public void onListTouch(View aView, MotionEvent aMotionEvent) {
-
-                    }
+                    public void onListTouch(View aView, MotionEvent aMotionEvent) {}
                 }, R.layout.list_item_added_person)
         );
         if (mAddedState!=null) {
@@ -85,13 +84,11 @@ public class NewConversationFragment extends Fragment implements NewConversation
                 new ListRecyclerViewAdapter(new ListHandlerCallbackPerson() {
                     @Override
                     public void onListClick(int aPosition, Person aPerson) {
-                        //Adds person to added list
+                        mPresenterNewConversation.addAddedPerson(aPerson);
                     }
 
                     @Override
-                    public void onListTouch(View aView, MotionEvent aMotionEvent) {
-
-                    }
+                    public void onListTouch(View aView, MotionEvent aMotionEvent) {}
                 }, R.layout.list_item_person)
         );
         if (mPersonsState!=null) {

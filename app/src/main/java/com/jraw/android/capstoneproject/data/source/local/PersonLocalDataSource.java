@@ -1,12 +1,13 @@
 package com.jraw.android.capstoneproject.data.source.local;
 
+import android.content.Context;
 import android.support.v4.content.CursorLoader;
 import com.jraw.android.capstoneproject.data.model.Person;
 
 public interface PersonLocalDataSource {
     //Gets all Contacts...
-    CursorLoader getPersons();
+    CursorLoader getPersons(Context aContext);
     //For PersonDetail
-    Person getPerson(int aPersonId);
-    long savePerson(Person aPerson);
+    Person getPerson(Context aContext, int aPersonId);
+    long savePerson(Context aContext, Person aPerson);
 }
