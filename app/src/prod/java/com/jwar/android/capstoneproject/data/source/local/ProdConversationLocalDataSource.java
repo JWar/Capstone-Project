@@ -7,7 +7,7 @@ import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.source.local.ConversationLocalDataSource;
-
+import com.jraw.android.capstoneproject.database.DbSchema.ConversationTable;
 import java.util.List;
 
 /**
@@ -26,26 +26,56 @@ public class ProdConversationLocalDataSource implements ConversationLocalDataSou
 
     @Override
     public CursorLoader getConversations(Context aContext) {
-        return null;
+        return new CursorLoader(
+                aContext,
+                ConversationTable.CONTENT_URI,
+                null,
+                null,
+                null,
+                ConversationTable.Cols.DATELASTMSG + " DESC"//Order by newest message
+        );
     }
 
     @Override
     public CursorLoader getConversationsViaTitle(Context aContext, String aTitle) {
-        return null;
+        return new CursorLoader(
+                aContext,
+                ConversationTable.CONTENT_URI,
+                null,
+                ConversationTable.Cols.TITLE + " LIKE ?",
+                new String[] {"%"+aTitle+"%"},
+                ConversationTable.Cols.DATELASTMSG + " DESC"
+        );
     }
 
     @Override
     public Cursor getConversationViaPublicId(Context aContext, int aCOPublicId) {
-        return null;
+        return aContext.getContentResolver().query(
+                ConversationTable.CONTENT_URI,
+                null,
+                ConversationTable.Cols.PUBLICID + "=?",
+                new String[] {aCOPublicId+""},
+                null
+        );
     }
 
+    //This will need to return id which is then used to get the conversations publicid
+    //Though I suppose its generated in Conversation creation so maybe can just get publicid that way...
     @Override
     public long saveConversation(Context aContext, Conversation aConversation) {
-        return 0;
+        return ContentUris.parseId(aContext.getContentResolver().insert(
+                ConversationTable.CONTENT_URI,
+                aConversation.toCV()
+        ));
     }
 
     @Override
     public int updateConversation(Context aContext, Conversation aConversation) {
-        return 0;
+        return aContext.getContentResolver().update(
+                ConversationTable.CONTENT_URI,
+                aConversation.toCV(),
+                ConversationTable.Cols.PUBLICID + "=?",
+                new String[]{aConversation.getCOPublicId()+""}
+        );
     }
 }

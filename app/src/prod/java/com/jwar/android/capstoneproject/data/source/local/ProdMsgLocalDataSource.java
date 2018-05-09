@@ -22,11 +22,19 @@ public class ProdMsgLocalDataSource implements MsgLocalDataSource {
 
     @Override
     public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {
-        return null;
+        return new CursorLoader(aContext,
+                MsgTable.CONTENT_URI,
+                null,
+                MsgTable.Cols.COPUBLICID + "=?",
+                new String[] {aConversationPublicId+""},
+                MsgTable.Cols.EVENTDATE + " DESC");
     }
 
     @Override
     public long saveMsg(Context aContext, Msg aMsg) {
-        return 0;
+        return ContentUris.parseId(aContext.getContentResolver().insert(
+                MsgTable.CONTENT_URI,
+                aMsg.toCV()
+        ));
     }
 }

@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.data.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
@@ -32,16 +33,16 @@ public class PersonRepository {
         mPersonRemoteDataSource = aPersonRemoteDataSource;
         mAddedPersons = new ArrayList<>();
     }
-    public CursorLoader getPersons() {
-        return mPersonLocalDataSource.getPersons();
+    public CursorLoader getPersons(Context aContext) {
+        return mPersonLocalDataSource.getPersons(aContext);
     }
-    public Person getPerson(int aPersonId) {
-        return mPersonLocalDataSource.getPerson(aPersonId);
+    public Person getPerson(Context aContext, int aPersonId) {
+        return mPersonLocalDataSource.getPerson(aContext, aPersonId);
     }
     //Not sure best way to do this... save person to database first? Callback?
-    public long savePerson(Person aPerson) {
+    public long savePerson(Context aContext, Person aPerson) {
         mPersonRemoteDataSource.savePerson(aPerson);
-        return mPersonLocalDataSource.savePerson(aPerson);
+        return mPersonLocalDataSource.savePerson(aContext, aPerson);
     }
     public List<Person> getAddedPersons() {
         return mAddedPersons;

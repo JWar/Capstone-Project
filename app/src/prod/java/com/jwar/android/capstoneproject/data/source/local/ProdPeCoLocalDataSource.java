@@ -17,6 +17,9 @@ public class ProdPeCoLocalDataSource implements PeCoLocalDataSource {
 
     @Override
     public long savePeCo(Context aContext, PeCo aPeCo) {
-        return 0;
+        return ContentUris.parseId(aContext.getContentResolver().insert(
+                DbSchema.PeCoTable.CONTENT_URI,
+                aPeCo.toCV())
+        );
     }
 }

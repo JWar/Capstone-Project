@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;

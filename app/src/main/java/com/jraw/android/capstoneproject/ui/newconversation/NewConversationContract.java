@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.ui.newconversation;
 
+import android.content.Context;
 import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Person;
@@ -11,10 +12,10 @@ public interface NewConversationContract {
         void setPresenter(PresenterNewConversation aPresenter);
     }
     interface PresenterNewConversation {
-        CursorLoader getPersons();
+        CursorLoader getPersons(Context aContext);
         List<Person> getAddedPersons();
         void addAddedPerson(Person aPerson);
         void removeAddedPerson(Person aPerson);
-        void onCreateConv();//Will need to take added person list and start new conversation with them.
+        void onCreateConv(Context aContext, String aCoTitle);//Will need to take added person list and start new conversation with them.
     }
 }
