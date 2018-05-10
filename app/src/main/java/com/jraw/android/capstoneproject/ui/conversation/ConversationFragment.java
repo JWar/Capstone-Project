@@ -69,7 +69,8 @@ public class ConversationFragment extends Fragment implements ConversationContra
                     @Override
                     public void onListClick(int aPosition, String aId) {
                         //This is what is set on every item in the list
-                        MsgsActivity.start(getContext(),Integer.parseInt(aId));
+                        String[] split = aId.split("/");
+                        MsgsActivity.start(getContext(),Long.parseLong(split[0]), split[1]);
                     }
 
                     @Override

@@ -25,7 +25,7 @@ public class Msg extends entity implements Parcelable {
     }
     //Which conversation this msg is part of, uses public id...
     @SerializedName("copublicid")
-    private int MSCOPublicId = 0;
+    private long MSCOPublicId = 0;
     //Supposed to be the ID this msg is to but redundant given the way COID handles everything
     @SerializedName("toid")
     private int MSToId = 0;
@@ -55,7 +55,7 @@ public class Msg extends entity implements Parcelable {
     public Msg() {}
 
     public Msg(Parcel pc) {
-        MSCOPublicId = pc.readInt();
+        MSCOPublicId = pc.readLong();
         MSToId = pc.readInt();
         MSFromId = pc.readInt();
         MSBody = pc.readString();
@@ -66,7 +66,7 @@ public class Msg extends entity implements Parcelable {
     }
     @Override
     public void writeToParcel(Parcel pc, int flags) {
-        pc.writeInt(MSCOPublicId);
+        pc.writeLong(MSCOPublicId);
         pc.writeInt(MSToId);
         pc.writeInt(MSFromId);
         pc.writeString(MSBody);
@@ -90,8 +90,8 @@ public class Msg extends entity implements Parcelable {
         return 0;
     }
 
-    public void setMSCOPublicId(int aInt) {
-        MSCOPublicId = aInt;
+    public void setMSCOPublicId(long aLong) {
+        MSCOPublicId = aLong;
     }
     public void setMSToId(int aInt) {
         MSToId = aInt;
@@ -116,7 +116,7 @@ public class Msg extends entity implements Parcelable {
     public void setMSCOTitle(String aMSCOTitle) {MSCOTitle = aMSCOTitle;}
     public String getMSCOTitle() {return MSCOTitle;}
 
-    public int getMSCOPublicId() {
+    public long getMSCOPublicId() {
         return MSCOPublicId;
     }
     public int getMSToId() {

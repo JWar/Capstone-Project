@@ -12,14 +12,16 @@ import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.install.InstallContract;
 import com.jraw.android.capstoneproject.ui.install.InstallFragment;
 import com.jraw.android.capstoneproject.ui.install.InstallPresenter;
+import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
+import com.jraw.android.capstoneproject.ui.newconversation.NewConversationContract;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 
 import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
-
 public class ConversationActivity extends AppCompatActivity implements
-        InstallContract.ActivityInstall {
+        InstallContract.ActivityInstall,
+        NewConversationContract.ActivityNewConversation {
 
     private static final String IS_INSTALLED = "isInstalled";
 
@@ -95,6 +97,17 @@ public class ConversationActivity extends AppCompatActivity implements
                     conversationFragment);
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.onInstalled: "+e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public void goToConversation(long aCoPublicId, String aCoTitle) {
+        try {
+            MsgsActivity.start(this,aCoPublicId,aCoTitle);//Show new conversation.
+            //Close newConversation fragment
+
+        } catch (Exception e) {
+            Utils.logDebug("ConversationActivity.goToConversation: "+e.getLocalizedMessage());
         }
     }
 

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
+import com.jraw.android.capstoneproject.data.model.PeCo;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.PeCoRepository;
@@ -24,12 +25,16 @@ public class NewConversationPresenter implements NewConversationContract.Present
     private final ConversationRepository mConversationRepository;
     private final PeCoRepository mPeCoRepository;
 
+    private final NewConversationContract.ActivityNewConversation mActivityNewConversation;
+
     public NewConversationPresenter(@NonNull PersonRepository aPersonRepository,
                                     @NonNull ConversationRepository aConversationRepository,
-                                    @NonNull PeCoRepository aPeCoRepository) {
+                                    @NonNull PeCoRepository aPeCoRepository,
+                                    @NonNull NewConversationContract.ActivityNewConversation aActivityNewConversation) {
         mPersonRepository = aPersonRepository;
         mConversationRepository=aConversationRepository;
         mPeCoRepository=aPeCoRepository;
+        mActivityNewConversation=aActivityNewConversation;
     }
     //Gets all persons for user to select
     @Override
@@ -60,7 +65,17 @@ public class NewConversationPresenter implements NewConversationContract.Present
         Conversation newConversation = new Conversation();
         newConversation.setCOTitle(aCoTitle);
         //Just using this method for now. cba with bitwise ops
-        newConversation.setCOPublicId(System.currentTimeMillis());
-
+        long publicId = System.currentTimeMillis();
+        newConversation.setCOPublicId(publicId);
+        //Save Conv. Use PublicId to assign PeCos in PersonList
+        mConversationRepository.saveConversation(aContext, newConversation);
+        for (Person person: personList) {
+            PeCo peCo = new PeCo();
+            peCo.setPCPEId(person.getId());
+            peCo.setPCCOPublicId(publicId);
+            mPeCoRepository.savePeCo(peCo);
+        }
+        //Need to open new conversation so user can start msging.
+        mActivityNewConversation.goToConversation(publicId);
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +21,8 @@ import com.jraw.android.capstoneproject.R;
  * This will need name, tel num, get contacts list?
  * Not sure...
  */
-public class InstallFragment extends Fragment implements InstallContract.ViewInstall {
+public class InstallFragment extends Fragment implements InstallContract.ViewInstall,
+        LoaderManager.LoaderCallbacks<>{
 
     public static final String TAG = "installFragmentTag";
 
@@ -61,11 +63,17 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.install_save:
-                mInstallPresenter.onSave(mFirstNameET.getText().toString(),
-                        mSurnameET.getText().toString(),
-                        mTelNumET.getText().toString());
+                //TODO: this must be called async.
+                save();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void save() {
+        //Call loader?
+        //TODO: install routine must be async
+        mInstallPresenter.onSave(mFirstNameET.getText().toString(),
+                mSurnameET.getText().toString(),
+                mTelNumET.getText().toString());
     }
 }

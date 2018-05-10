@@ -32,4 +32,7 @@ public class ConversationRepository {
     public CursorLoader getConversationsViaTitle(Context aContext, String aTitle) {
         return mConversationLocalDataSource.getConversationsViaTitle(aContext, aTitle);
     }
+    public long saveConversation(Context aContext, Conversation aConversation) {
+        return mConversationLocalDataSource.saveConversation(aContext,aConversation);
+    }
 }

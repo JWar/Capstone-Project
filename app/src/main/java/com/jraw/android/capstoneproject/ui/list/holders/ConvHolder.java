@@ -33,7 +33,7 @@ public class ConvHolder extends AbstractHolder {
             mSnippetTV.setTypeface(mSnippetTV.getTypeface(),Typeface.BOLD);
             mUnreadCountTV.setTypeface(mUnreadCountTV.getTypeface(),Typeface.BOLD);
         }
-        return aConv.getId()+"";
+        return aConv.getId()+"/"+aConv.getCOTitle();
     }
 
     @Override

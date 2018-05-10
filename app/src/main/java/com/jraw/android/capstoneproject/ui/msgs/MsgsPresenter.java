@@ -31,17 +31,17 @@ public class MsgsPresenter implements MsgsContract.PresenterMsgs {
     }
 
     @Override
-    public CursorLoader getMsgs(Context aContext, int aCOId) {
-        return mMsgRepository.getMsgs(aContext,aCOId);
+    public CursorLoader getMsgs(Context aContext, long aCoPublicId) {
+        return mMsgRepository.getMsgs(aContext,aCoPublicId);
     }
 
     @Override
-    public CursorLoader getMsgsViaBody(Context aContext, int aCOId, String aText) {
-        return mMsgRepository.getMsgsViaBody(aContext,aCOId,aText);
+    public CursorLoader getMsgsViaBody(Context aContext, long aCoPublicId, String aText) {
+        return mMsgRepository.getMsgsViaBody(aContext,aCoPublicId,aText);
     }
 
     @Override
-    public void sendNewMsg(Context aContext, int aCOPublicId, String aCOTitle, String aBody) {
+    public void sendNewMsg(Context aContext, long aCOPublicId, String aCOTitle, String aBody) {
         Msg newMsg = new Msg();
         newMsg.setMSBody(aBody);
         newMsg.setMSCOPublicId(aCOPublicId);

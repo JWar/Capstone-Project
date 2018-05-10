@@ -1,10 +1,13 @@
 package com.jraw.android.capstoneproject.ui.newconversation;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +24,8 @@ import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallbackPerson;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
 
+import java.util.List;
+
 /**
  * Handles new conversations creation.
  * This will be two lists, one horizontal, one vertical.
@@ -28,7 +33,9 @@ import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
  * The vertical will contain a list of all persons to select.
  * TODO: how best to handle new PublicId?
  */
-public class NewConversationFragment extends Fragment implements NewConversationContract.ViewNewConversation {
+public class NewConversationFragment extends Fragment implements NewConversationContract.ViewNewConversation,
+        ListHandler.ListHandlerContract,
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private NewConversationContract.PresenterNewConversation mPresenterNewConversation;
 
@@ -75,9 +82,7 @@ public class NewConversationFragment extends Fragment implements NewConversation
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {}
                 }, R.layout.list_item_added_person)
         );
-        if (mAddedState!=null) {
-            mAddedLH.setState(mAddedState);
-        }
+
         mPersonsLH = new ListHandler(
                 this,
                 view.findViewById(R.id.fragment_new_conversation_persons_rv),
@@ -85,15 +90,57 @@ public class NewConversationFragment extends Fragment implements NewConversation
                     @Override
                     public void onListClick(int aPosition, Person aPerson) {
                         mPresenterNewConversation.addAddedPerson(aPerson);
+                        getAddedPersons();//Updates list to reflect changes.
                     }
 
                     @Override
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {}
                 }, R.layout.list_item_person)
         );
+        getLoaderManager().initLoader(1,null,this);
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        return mPresenterNewConversation.getPersons(getActivity());
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        setPersons(data);
+        //Ensures added persons list is set
+        getAddedPersons();
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        mPersonsLH.swapPerson(null);
+    }
+
+    @Override
+    public void setPersons(Cursor aCursor) {
+        mPersonsLH.swapPerson(aCursor);
         if (mPersonsState!=null) {
             mPersonsLH.setState(mPersonsState);
         }
+    }
+
+    @Override
+    public void getAddedPersons() {
+        mAddedLH.swapAddedPerson(mPresenterNewConversation.getAddedPersons());
+        if (mAddedState!=null) {
+            mAddedLH.setState(mAddedState);
+            //This ensures it is only done once. Doing it this way so the state isnt called on every update of list.
+            //Using this one method to do it all.
+            mAddedState=null;
+        }
+    }
+
+    @Override
+    public void clearListHandler() {
+        mPersonsLH.clearListHandler();
+        mAddedLH.clearListHandler();
     }
 
     @Override
@@ -121,7 +168,13 @@ public class NewConversationFragment extends Fragment implements NewConversation
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(ADDED_STATE,mAddedState);
-        outState.putParcelable(PERSONS_STATE,mPersonsState);
+        outState.putParcelable(ADDED_STATE,mAddedLH.getState());
+        outState.putParcelable(PERSONS_STATE,mPersonsLH.getState());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        clearListHandler();
     }
 }

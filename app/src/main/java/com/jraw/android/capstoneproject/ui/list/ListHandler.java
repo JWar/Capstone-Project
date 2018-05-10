@@ -13,6 +13,7 @@ import static android.widget.LinearLayout.VERTICAL;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
+import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.utils.Utils;
 
 import java.util.List;
@@ -110,8 +111,8 @@ public class ListHandler {
     public void swapMsgs(Cursor aCursor) {
         mListRecyclerAdapter.setMsgCursorWrapper(aCursor);
     }
-
-
+    public void swapPerson(Cursor aCursor) {mListRecyclerAdapter.setPersonCursorWrapper(aCursor);}
+    public void swapAddedPerson(List<Person> aAddedPersonList) {mListRecyclerAdapter.setPersonAddedList(aAddedPersonList);}
     /**
      * Check whether the last item in RecyclerView is being displayed or not
      *

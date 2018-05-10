@@ -12,18 +12,18 @@ import com.jraw.android.capstoneproject.utils.Utils;
 
 public class PeCo extends entity {
     private int PCPEId;
-    private int PCCOPublicId;
+    private long PCCOPublicId;
 
     public int getPCPEId() {
         return PCPEId;
     }
-    public int getPCCOPublicId() {
+    public long getPCCOPublicId() {
         return PCCOPublicId;
     }
     public void setPCPEId(int aPCPEId) {
         PCPEId=aPCPEId;
     }
-    public void setPCCOPublicId(int aPCCOPublicId) {
+    public void setPCCOPublicId(long aPCCOPublicId) {
         PCCOPublicId=aPCCOPublicId;
     }
 

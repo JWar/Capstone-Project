@@ -36,7 +36,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
 
     public static final String TAG = "msgsFragTag";
     private static final String CO_PUBLIC_ID = "coPubId";
-    private int mCOPubId;
+    private long mCOPubId;
     private static final String CO_TITLE = "coTitle";
     private String mCOTitle;
 
@@ -50,10 +50,10 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
 
     public MsgsFragment() {}
 
-    public static MsgsFragment getInstance(int aCOPublicID, String aCOTitle) {
+    public static MsgsFragment getInstance(long aCOPublicID, String aCOTitle) {
         MsgsFragment fragment = new MsgsFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(CO_PUBLIC_ID,aCOPublicID);
+        bundle.putLong(CO_PUBLIC_ID,aCOPublicID);
         bundle.putString(CO_TITLE,aCOTitle);
         fragment.setArguments(bundle);
         return fragment;
@@ -63,11 +63,11 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState!=null) {
-            mCOPubId = savedInstanceState.getInt(CO_PUBLIC_ID);
+            mCOPubId = savedInstanceState.getLong(CO_PUBLIC_ID);
             mCOTitle = savedInstanceState.getString(CO_TITLE);
             mListState = savedInstanceState.getParcelable(LIST_STATE);
         } else if (getArguments()!=null) {
-            mCOPubId = getArguments().getInt(CO_PUBLIC_ID);
+            mCOPubId = getArguments().getLong(CO_PUBLIC_ID);
             mCOTitle = getArguments().getString(CO_TITLE);
         }
     }
@@ -110,14 +110,14 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
                 }, R.layout.fragment_list_item_msgs),
                 new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL,false));
         Bundle args = new Bundle();
-        args.putInt(CO_PUBLIC_ID,mCOPubId);
+        args.putLong(CO_PUBLIC_ID,mCOPubId);
         getLoaderManager().initLoader(1,args,this);
     }
 
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        return mPresenterMsgs.getMsgs(getActivity(),args.getInt(CO_PUBLIC_ID));
+        return mPresenterMsgs.getMsgs(getActivity(),args.getLong(CO_PUBLIC_ID));
     }
 
     @Override
@@ -152,7 +152,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(CO_PUBLIC_ID,mCOPubId);
+        outState.putLong(CO_PUBLIC_ID,mCOPubId);
         outState.putString(CO_TITLE,mCOTitle);
         outState.putParcelable(LIST_STATE,mListHandler.getState());
     }

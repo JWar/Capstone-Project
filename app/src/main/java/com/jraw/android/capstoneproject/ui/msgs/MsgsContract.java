@@ -20,9 +20,9 @@ public interface MsgsContract {
     }
     interface PresenterMsgs {
         //I hope this is fairly self explanatory. Called by View.
-        CursorLoader getMsgs(Context aContext, int aCOId);
+        CursorLoader getMsgs(Context aContext, long aCoPublicId);
         //Used in Search Query to filter Msgs by their content
-        CursorLoader getMsgsViaBody(Context aContext, int aCOId, String aText);
-        void sendNewMsg(Context aContext, int aCOPublicId, String aCOTitle, String aBody);
+        CursorLoader getMsgsViaBody(Context aContext, long aCoPublicId, String aText);
+        void sendNewMsg(Context aContext, long aCoPublicId, String aCoTitle, String aBody);
     }
 }
