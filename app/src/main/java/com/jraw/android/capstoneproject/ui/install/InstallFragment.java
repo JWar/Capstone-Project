@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.jraw.android.capstoneproject.R;
 
@@ -22,12 +25,15 @@ import com.jraw.android.capstoneproject.R;
  * Not sure...
  */
 public class InstallFragment extends Fragment implements InstallContract.ViewInstall,
-        LoaderManager.LoaderCallbacks<>{
+        LoaderManager.LoaderCallbacks<Integer>{
 
     public static final String TAG = "installFragmentTag";
 
+    private static final String FIRST_NAME = "fname";
     private EditText mFirstNameET;
+    private static final String SUR_NAME = "sname";
     private EditText mSurnameET;
+    private static final String TEL_NUM = "telnum";
     private EditText mTelNumET;
 
     private InstallContract.PresenterInstall mInstallPresenter;
@@ -63,17 +69,58 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.install_save:
-                //TODO: this must be called async.
                 save();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
     private void save() {
-        //Call loader?
-        //TODO: install routine must be async
-        mInstallPresenter.onSave(mFirstNameET.getText().toString(),
-                mSurnameET.getText().toString(),
-                mTelNumET.getText().toString());
+        Bundle args = new Bundle();
+        args.putString(FIRST_NAME,mFirstNameET.getText().toString());
+        args.putString(SUR_NAME,mSurnameET.getText().toString());
+        args.putString(TEL_NUM,mTelNumET.getText().toString());
+        getLoaderManager().initLoader(1,args,this);
+    }
+
+    @NonNull
+    @Override
+    public Loader<Integer> onCreateLoader(int id, @Nullable Bundle args) {
+        final String fName = args.getString(FIRST_NAME);
+        final String sName = args.getString(SUR_NAME);
+        final String telNum = args.getString(TEL_NUM);
+        return new AsyncTaskLoader<Integer>(getActivity()) {
+            @Nullable
+            @Override
+            public Integer loadInBackground() {
+                return mInstallPresenter.onSave(fName,
+                        sName,
+                        telNum);
+            }
+        };
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Integer> loader, Integer data) {
+        //Go through result codes?
+        if (data==-1) {
+            //Error.
+            Toast.makeText(getActivity(), getString(R.string.install_error_msg), Toast.LENGTH_SHORT).show();
+        } else if (data==0) {
+            //Unsuccessful server conn?
+            Toast.makeText(getActivity(), getString(R.string.install_unsuccessful_msg), Toast.LENGTH_SHORT).show();
+        } else {
+            //Success.
+            mInstallPresenter.onInstalled();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Integer> loader) {
+
+    }
+
+    @Override
+    public void onFailure() {
+
     }
 }
