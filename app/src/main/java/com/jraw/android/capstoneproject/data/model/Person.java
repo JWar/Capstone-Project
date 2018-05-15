@@ -15,6 +15,8 @@ public class Person extends entity {
     //Only using one tel for the moment.
     private String PETelNum;
 
+    private String PEFirebaseToken;
+
     public Person() {}
 
     public void setPEFname(String aName) {
@@ -24,11 +26,14 @@ public class Person extends entity {
         PESname = aName;
     }
     public void setPETelNum(String aPETelNum) {PETelNum = aPETelNum;}
+    public void setPEFirebaseToken(String aPEFirebaseToken) {PEFirebaseToken = aPEFirebaseToken;}
+
     public String getPEFname() {
         return PEFname;
     }
     public String getPESname() {return PESname;}
     public String getPETelNum() {return PETelNum;}
+    public String getPEFirebaseToken() {return PEFirebaseToken;}
 
     public String getFullName() {
         String fullname = PEFname;

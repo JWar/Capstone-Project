@@ -3,10 +3,12 @@ package com.jraw.android.capstoneproject.ui.conversation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.install.InstallContract;
@@ -62,6 +64,12 @@ public class ConversationActivity extends AppCompatActivity implements
                             .add(R.id.conversation_fragment_container, installFragment, InstallFragment.TAG)
                             .commit();
                     mInstallPresenter = new InstallPresenter(
+                            Injection.providePersonRepository(
+                                    Injection.providePersonLocalDataSource(),
+                                    Injection.providePersonRemoteDataSource(
+                                            Injection.provideBackendApi()
+                                    )
+                            ),
                             installFragment,
                             this
                     );
@@ -74,6 +82,12 @@ public class ConversationActivity extends AppCompatActivity implements
                         (ConversationFragment) fragment);
             } else if (fragment instanceof InstallFragment) {
                 mInstallPresenter = new InstallPresenter(
+                        Injection.providePersonRepository(
+                                Injection.providePersonLocalDataSource(),
+                                Injection.providePersonRemoteDataSource(
+                                        Injection.provideBackendApi()
+                                )
+                        ),
                         (InstallFragment) fragment,
                         this);
             }
@@ -105,7 +119,9 @@ public class ConversationActivity extends AppCompatActivity implements
         try {
             MsgsActivity.start(this,aCoPublicId,aCoTitle);//Show new conversation.
             //Close newConversation fragment
-
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .remove()
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.goToConversation: "+e.getLocalizedMessage());
         }

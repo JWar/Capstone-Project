@@ -7,6 +7,7 @@ import android.support.v4.content.CursorLoader;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.PersonRemoteDataSource;
+import com.jraw.android.capstoneproject.data.source.remote.ResponseServerPersonSave;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +40,11 @@ public class PersonRepository {
     public Person getPerson(Context aContext, int aPersonId) {
         return mPersonLocalDataSource.getPerson(aContext, aPersonId);
     }
-    //Not sure best way to do this... save person to database first? Callback?
-    public long savePerson(Context aContext, Person aPerson) {
-        mPersonRemoteDataSource.savePerson(aPerson);
+    public long savePersonLocal(Context aContext, Person aPerson) {
         return mPersonLocalDataSource.savePerson(aContext, aPerson);
+    }
+    public ResponseServerPersonSave savePersonRemote(Person aPerson) {
+        return mPersonRemoteDataSource.savePerson(aPerson);
     }
     public List<Person> getAddedPersons() {
         return mAddedPersons;

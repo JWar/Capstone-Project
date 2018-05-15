@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jraw.android.capstoneproject.R;
+import com.jraw.android.capstoneproject.ui.IntegerAsyncTaskLoader;
 
 /**
  * ... handles installation routine.
@@ -88,15 +88,8 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         final String fName = args.getString(FIRST_NAME);
         final String sName = args.getString(SUR_NAME);
         final String telNum = args.getString(TEL_NUM);
-        return new AsyncTaskLoader<Integer>(getActivity()) {
-            @Nullable
-            @Override
-            public Integer loadInBackground() {
-                return mInstallPresenter.onSave(fName,
-                        sName,
-                        telNum);
-            }
-        };
+        return new IntegerAsyncTaskLoader(getActivity(),mInstallPresenter,
+                fName,sName,telNum);
     }
 
     @Override
@@ -116,11 +109,6 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
 
     @Override
     public void onLoaderReset(@NonNull Loader<Integer> loader) {
-
-    }
-
-    @Override
-    public void onFailure() {
 
     }
 }

@@ -11,4 +11,12 @@
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fragment_conversation_new_conv_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@draw"
+        android:layout_margin="16dp"/>
+
 </FrameLayout>

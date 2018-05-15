@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -39,6 +40,8 @@ public class ConversationFragment extends Fragment implements ConversationContra
     public static final String TAG = "conversationFragTag";
     private static final String TITLE_QUERY = "titleQuery";
 
+    private FloatingActionButton mFab;
+
     private ConversationContract.PresenterConversations mPresenter;
 
     private ListHandler mListHandler;
@@ -61,6 +64,14 @@ public class ConversationFragment extends Fragment implements ConversationContra
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mFab = view.findViewById(R.id.fragment_conversation_new_conv_fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View aView) {
+                onNewConv();
+            }
+        });
         //Set ListHandler here
         RecyclerView recyclerView = view.findViewById(R.id.fragment_conversation_recycler_view);
         mListHandler = new ListHandler(this,
@@ -94,7 +105,11 @@ public class ConversationFragment extends Fragment implements ConversationContra
     public void setPresenter(ConversationContract.PresenterConversations aPresenter) {
         mPresenter = aPresenter;
     }
-    //Sigh anon loader...
+
+    private void onNewConv(){
+        //TODO: finish new conv fragment switch. ConvActivity needs to do it
+    }
+
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable final Bundle args) {

@@ -12,9 +12,10 @@ import com.jraw.android.capstoneproject.utils.Utils;
 public class InstanceIdService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
+        //Hmm any point in having this do anything? Can just add to shared preferences if needs be.
         // Get updated InstanceID token.
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Utils.logDebug("Refreshed token: " + refreshedToken);
+//        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+//        Utils.logDebug("Refreshed token: " + refreshedToken);
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
