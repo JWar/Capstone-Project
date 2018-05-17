@@ -15,5 +15,9 @@ public interface ConversationContract {
         CursorLoader getConversations(Context aContext);
         //Used in Search Query to filter Conversations with a particular title.
         CursorLoader getConversationsViaTitle(Context aContext, String aTitle);
+        void onNewConversation();//New conv button.
+    }
+    interface ActivityConversation {
+        void onNewConversation();//Response for new conv button
     }
 }

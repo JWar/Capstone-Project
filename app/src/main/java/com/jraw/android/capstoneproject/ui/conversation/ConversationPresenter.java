@@ -16,11 +16,15 @@ public class ConversationPresenter implements ConversationContract.PresenterConv
     //Redundant with Loader in View?
     private ConversationContract.ViewConversations mViewConversations;
 
+    private ConversationContract.ActivityConversation mActivityConversation;
+
     public ConversationPresenter(@NonNull ConversationRepository aConversationRepository,
-                                 @NonNull ConversationContract.ViewConversations aViewConversations) {
+                                 @NonNull ConversationContract.ViewConversations aViewConversations,
+                                 @NonNull ConversationContract.ActivityConversation aActivityConversation) {
         mConversationRepository = aConversationRepository;
         mViewConversations = aViewConversations;
         mViewConversations.setPresenter(this);
+        mActivityConversation = aActivityConversation;
     }
 
     @Override
@@ -31,5 +35,10 @@ public class ConversationPresenter implements ConversationContract.PresenterConv
     @Override
     public CursorLoader getConversationsViaTitle(Context aContext, String aTitle) {
         return mConversationRepository.getConversationsViaTitle(aContext, aTitle);
+    }
+
+    @Override
+    public void onNewConversation() {
+        mActivityConversation.onNewConversation();
     }
 }

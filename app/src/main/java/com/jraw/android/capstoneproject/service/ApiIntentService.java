@@ -14,6 +14,8 @@ import com.jwar.android.capstoneproject.Injection;
 
 /**
  * Handles getting and saving msgs via Retrofit.
+ * Also handles notifications.
+ * Also handles Widget via static method in provider
  */
 public class ApiIntentService extends IntentService {
 
@@ -82,6 +84,8 @@ public class ApiIntentService extends IntentService {
             int numNewMsgs = sMsgRepository.getNewMsgs(this);
             if (numNewMsgs>-1) {
                 //Successfully save this number of new msgs. Just debug, no need to let user know.
+                //TODO:This will need to update/add notifications AND update widget. Will need msgs for notifs?
+                //So getNewMsgs cant just return the num of msgs, will need to return msg list...
                 Utils.logDebug("ApiIntentService.handleActionGetNewMsgs: saved " + numNewMsgs + " from server!");
             } else {
                 //Notify user that there has been a problem with getting new msgs.

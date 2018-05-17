@@ -3,12 +3,10 @@ package com.jraw.android.capstoneproject.ui.conversation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.install.InstallContract;
@@ -16,12 +14,32 @@ import com.jraw.android.capstoneproject.ui.install.InstallFragment;
 import com.jraw.android.capstoneproject.ui.install.InstallPresenter;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationContract;
+import com.jraw.android.capstoneproject.ui.newconversation.NewConversationFragment;
+import com.jraw.android.capstoneproject.ui.newconversation.NewConversationPresenter;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 
 import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
+/**
+ * Todos will be here.
+ * TODO: general todo list. The presence of this means there is still things todo!
+ * Notifications - handled in intent service. Simple case of msg snippet? Will need to update same
+ * notification with multiple messages, dont need snippet for that though.
+ * Analytics - get it set up.
+ * Widget! - will need to think up an elegant way of keeping most popular conversations in widget.
+ *  Obviously the point of change is when a new msg comes in. So intent service will need some way of
+ *  updating Widget. But whats best way of handling it? Widget receives the new conversations to be
+ *  shown. This means whatever calls the widget method must figure out whats changed. Either
+ *  have a method that goes through finding num msgs, or keep a running total in conversation field.
+ *  Msg delete will need to keep conversation field updated.
+ *      Intent Service handles it all. ConversationRepo will have a get first two convs with highest
+ *      count.
+ * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
+ *
+ */
 public class ConversationActivity extends AppCompatActivity implements
+        ConversationContract.ActivityConversation,
         InstallContract.ActivityInstall,
         NewConversationContract.ActivityNewConversation {
 
@@ -29,6 +47,7 @@ public class ConversationActivity extends AppCompatActivity implements
 
     private ConversationPresenter mConversationPresenter;
     private InstallPresenter mInstallPresenter;
+    private NewConversationPresenter mNewConversationPresenter;
 
     public static void start(Context aContext) {
         Intent intent = new Intent(aContext, ConversationActivity.class);
@@ -55,7 +74,8 @@ public class ConversationActivity extends AppCompatActivity implements
                     mConversationPresenter = new ConversationPresenter(
                             Injection.provideConversationRepository(
                                     Injection.provideConversationLocalDataSource()),
-                            conversationFragment);
+                            conversationFragment,
+                            this);
                 } else {//Not installed
                     InstallFragment installFragment = new InstallFragment();
                     getSupportFragmentManager()
@@ -71,15 +91,15 @@ public class ConversationActivity extends AppCompatActivity implements
                                     )
                             ),
                             installFragment,
-                            this
-                    );
+                            this);
                 }
             } else if (fragment instanceof ConversationFragment) {
                 //If it is a conversation fragment that means app must be IS_INSTALLED
                 mConversationPresenter = new ConversationPresenter(
                         Injection.provideConversationRepository(
                                 Injection.provideConversationLocalDataSource()),
-                        (ConversationFragment) fragment);
+                        (ConversationFragment) fragment,
+                        this);
             } else if (fragment instanceof InstallFragment) {
                 mInstallPresenter = new InstallPresenter(
                         Injection.providePersonRepository(
@@ -90,9 +110,52 @@ public class ConversationActivity extends AppCompatActivity implements
                         ),
                         (InstallFragment) fragment,
                         this);
+            } else if (fragment instanceof NewConversationFragment) {
+                mNewConversationPresenter = new NewConversationPresenter(
+                        Injection.providePersonRepository(
+                                Injection.providePersonLocalDataSource(),
+                                Injection.providePersonRemoteDataSource(
+                                        Injection.provideBackendApi()
+                                )
+                        ),
+                        Injection.provideConversationRepository(
+                                Injection.provideConversationLocalDataSource()
+                        ),
+                        Injection.providePeCoRepository(
+                                Injection.providePeCoLocalDataSource()
+                        ),
+                        this);
             }
         } catch (Exception e) {
             Utils.logDebug("Error in ConversationActivity.onCreate: "+e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public void onNewConversation() {
+        try {
+            NewConversationFragment newConversationFragment = new NewConversationFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(NewConversationFragment.TAG)
+                    .add(R.id.conversation_fragment_container, newConversationFragment, NewConversationFragment.TAG)
+                    .commit();
+            mNewConversationPresenter = new NewConversationPresenter(
+                    Injection.providePersonRepository(
+                            Injection.providePersonLocalDataSource(),
+                            Injection.providePersonRemoteDataSource(
+                                    Injection.provideBackendApi()
+                            )
+                    ),
+                    Injection.provideConversationRepository(
+                            Injection.provideConversationLocalDataSource()
+                    ),
+                    Injection.providePeCoRepository(
+                            Injection.providePeCoLocalDataSource()
+                    ),
+                    this);
+        } catch (Exception e) {
+            Utils.logDebug("ConversationActivity.onNewConversation: "+e.getLocalizedMessage());
         }
     }
 
@@ -108,7 +171,8 @@ public class ConversationActivity extends AppCompatActivity implements
             mConversationPresenter = new ConversationPresenter(
                     Injection.provideConversationRepository(
                             Injection.provideConversationLocalDataSource()),
-                    conversationFragment);
+                    conversationFragment,
+                    this);
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.onInstalled: "+e.getLocalizedMessage());
         }
@@ -119,9 +183,8 @@ public class ConversationActivity extends AppCompatActivity implements
         try {
             MsgsActivity.start(this,aCoPublicId,aCoTitle);//Show new conversation.
             //Close newConversation fragment
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .remove()
+            //Trying to just use popBackStack. Think it should work...
+            getSupportFragmentManager().popBackStack();
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.goToConversation: "+e.getLocalizedMessage());
         }

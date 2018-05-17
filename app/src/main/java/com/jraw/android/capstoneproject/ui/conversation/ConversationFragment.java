@@ -28,8 +28,6 @@ import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 import com.jraw.android.capstoneproject.utils.Utils;
 
-import java.util.List;
-
 /**
  * Handles View for Conversation list
  */
@@ -68,9 +66,7 @@ public class ConversationFragment extends Fragment implements ConversationContra
         mFab = view.findViewById(R.id.fragment_conversation_new_conv_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View aView) {
-                onNewConv();
-            }
+            public void onClick(View aView) {mPresenter.onNewConversation();}
         });
         //Set ListHandler here
         RecyclerView recyclerView = view.findViewById(R.id.fragment_conversation_recycler_view);
@@ -104,10 +100,6 @@ public class ConversationFragment extends Fragment implements ConversationContra
     @Override
     public void setPresenter(ConversationContract.PresenterConversations aPresenter) {
         mPresenter = aPresenter;
-    }
-
-    private void onNewConv(){
-        //TODO: finish new conv fragment switch. ConvActivity needs to do it
     }
 
     @NonNull
@@ -161,7 +153,6 @@ public class ConversationFragment extends Fragment implements ConversationContra
                     return true;
                 }
             });
-            //TODO: 180120_This is where you set the onClickListeners for the buttons in SearchBar
         }
         super.onPrepareOptionsMenu(menu);
     }

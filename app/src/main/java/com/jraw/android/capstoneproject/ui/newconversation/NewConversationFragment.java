@@ -37,6 +37,8 @@ public class NewConversationFragment extends Fragment implements NewConversation
         ListHandler.ListHandlerContract,
         LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final String TAG = "newConvFragTag";
+
     private NewConversationContract.PresenterNewConversation mPresenterNewConversation;
 
     private ListHandler mAddedLH;
