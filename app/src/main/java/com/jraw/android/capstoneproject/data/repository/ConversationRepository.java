@@ -32,6 +32,10 @@ public class ConversationRepository {
     public CursorLoader getConversationsViaTitle(Context aContext, String aTitle) {
         return mConversationLocalDataSource.getConversationsViaTitle(aContext, aTitle);
     }
+    //Gets two most popular conversations (ones with most msgs...).
+    public Conversation[] getConversationsTopTwo(Context aContext) {
+        return mConversationLocalDataSource.getConversationsTopTwo(aContext);
+    }
     public long saveConversation(Context aContext, Conversation aConversation) {
         return mConversationLocalDataSource.saveConversation(aContext,aConversation);
     }

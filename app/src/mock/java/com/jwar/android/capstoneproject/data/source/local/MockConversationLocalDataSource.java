@@ -118,6 +118,23 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
         );
     }
 
+    @Override
+    public Conversation[] getConversationsTopTwo(Context aContext) {
+        Cursor cursorTT=null;
+        try {
+            cursorTT = aContext.getContentResolver().query(
+                    DbSchema.ConversationTable.CONTENT_URI,
+                    null,
+                    DbSchema.ConversationTable.Cols.PUBLICID + "=?",
+                    new String[] {aCOPublicId+""},
+                    null
+            );
+        } finally {
+            Utils.closeCursor(cursorTT);
+        }
+        return new Conversation[0];
+    }
+
     //This will need to return id which is then used to get the conversations publicid
     //Though I suppose its generated in Conversation creation so maybe can just get publicid that way...
     @Override

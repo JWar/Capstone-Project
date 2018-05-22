@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 
@@ -16,11 +17,9 @@ public class CapstoneAppWidgetProvider extends AppWidgetProvider {
 
     public static void updateWidgetConversations(
             Context context,
-                                                 AppWidgetManager appWidgetManager, int appWidgetId,
-
-
-                                           Conversation[] aConversations) {
-
+            AppWidgetManager appWidgetManager,
+            int appWidgetId,
+            Conversation[] aConversations) {
         Conversation firstConversation = aConversations[0];
         Conversation secondConversation = aConversations[1];
 

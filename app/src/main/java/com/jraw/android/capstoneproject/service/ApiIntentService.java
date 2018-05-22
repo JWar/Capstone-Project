@@ -1,14 +1,19 @@
 package com.jraw.android.capstoneproject.service;
 
 import android.app.IntentService;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
+import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
+import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
+import com.jraw.android.capstoneproject.ui.widget.CapstoneAppWidgetProvider;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 
@@ -28,6 +33,7 @@ public class ApiIntentService extends IntentService {
 
     //Urgh dont like this at all. Storing static field in IntentService sounds like a bad idea.
     private static MsgRepository sMsgRepository;
+    private static ConversationRepository sConversationRepository;
 
     public ApiIntentService() {
         super("ApiIntentService");
@@ -68,6 +74,16 @@ public class ApiIntentService extends IntentService {
                     return;
                 }
             }
+            if (sConversationRepository==null) {
+                try {//Init Repo if null
+                    sConversationRepository = Injection.provideConversationRepository(
+                            Injection.provideConversationLocalDataSource());
+                } catch (Exception e) {
+                    Utils.logDebug("Problem in ApiIntentService.onHandleIntent: ConvRepo init");
+                    showToastMsg("Problem initialising Conversations");
+                    return;
+                }
+            }
             final String action = intent.getAction();
             if (ACTION_GET_NEW_MSGS.equals(action)) {
                 handleActionGetNewMsgs();
@@ -88,6 +104,11 @@ public class ApiIntentService extends IntentService {
                 //Successfully save this number of new msgs. Just debug, no need to let user know.
                 //TODO:This will need to update/add notifications AND update widget. Will need msgs for notifs?
                 //So getNewMsgs cant just return the num of msgs, will need to return msg list...
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CapstoneAppWidgetProvider.class));
+                Conversation[] conversations = sConversationRepository.getConversationsTopTwo(this);
+                CapstoneAppWidgetProvider.updateWidgetConversations(this, appWidgetManager, appWidgetIds,
+                        conversations);
                 Utils.logDebug("ApiIntentService.handleActionGetNewMsgs: saved " + newMsgs.size() + " from server!");
             } else {
                 //Notify user that there has been a problem with getting new msgs.
