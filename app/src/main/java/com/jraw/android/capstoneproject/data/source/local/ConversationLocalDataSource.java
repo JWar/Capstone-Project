@@ -9,7 +9,7 @@ import com.jraw.android.capstoneproject.data.model.Conversation;
 public interface ConversationLocalDataSource {
     CursorLoader getConversations(Context aContext);
     CursorLoader getConversationsViaTitle(Context aContext, String aTitle);
-    Cursor getConversationViaPublicId(Context aContext, int aCOPublicId);
+    Cursor getConversationViaPublicId(Context aContext, long aCOPublicId);
     long saveConversation(Context aContext, Conversation aConversation);
     int updateConversation(Context aContext, Conversation aConversation);
 }

@@ -14,6 +14,7 @@ import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,17 +49,15 @@ public class MsgRepository {
         sInstance = null;
     }
 
-    //Just returns number of new msgs or -1 if error. Should never be 0... as this is the point of the firebase push...
-    public int getNewMsgs(Context aContext) throws Exception {
-        int numNewMsgs = -1;
+    //Needs to return received msgs for notifications and snippets.
+    public List<Msg> getNewMsgs(Context aContext) throws Exception {
         ResponseServerMsg responseServerMsg = mMsgRemoteDataSource.getMsgsFromServer();
         if (responseServerMsg.action.equals("COMPLETE")) {
             //Save msgs to database
-            numNewMsgs = saveMsgs(aContext,responseServerMsg.rows);
-            return numNewMsgs;
+            return saveMsgs(aContext,responseServerMsg.rows);
         } else {
-            //Notify user that there has been a problem with getting new msgs. This is indicated by -1.
-            return numNewMsgs;
+            //Notify user that there has been a problem with getting new msgs. This is indicated by null.
+            return null;
         }
     }
     /**
@@ -87,9 +86,10 @@ public class MsgRepository {
      * Will also need to update any conversations with the msg snippet, time, and read status.
      * Sounds like bulk insert is a bad idea... Will have to go through each new msg and do checks/updates/inserts
      * May make more sense to do this in repository... Will this mean msgrepo needs Conversation DS too?
+     * Updated to return list of msgs successfully saved. For notifications/widget handling in IntentService
      */
-    private int saveMsgs(Context aContext, List<Msg> aMsgList) throws Exception {
-        int numNewMsgs = 0;
+    private List<Msg> saveMsgs(Context aContext, List<Msg> aMsgList) throws Exception {
+        List<Msg> msgList = new ArrayList<>();
         //Iterate through msg list. Checking each msg's publicid in conversation list
         for (int i = 0; i < aMsgList.size(); i++) {
             Msg msg = aMsgList.get(i);
@@ -105,7 +105,7 @@ public class MsgRepository {
 
                     mConversationLocalDataSource.updateConversation(aContext,conversation);
                     if (mMsgLocalDataSource.saveMsg(aContext,msg)>0) {
-                        numNewMsgs+=1;
+                        msgList.add(msg);
                     }
                 } else {//New conversation.
                     Conversation conversation = new Conversation();
@@ -118,14 +118,14 @@ public class MsgRepository {
                     //To find createdBy can use fromId of Msg and check Persons. Not sure if needed though... so leave for moment
                     mConversationLocalDataSource.saveConversation(aContext,conversation);
                     if (mMsgLocalDataSource.saveMsg(aContext,msg)>0) {
-                        numNewMsgs+=1;
+                        msgList.add(msg);
                     }
                 }
             } else {
                 throw new Exception("MsgRepo.saveMsg list cursor == null");
             }
         }
-        return numNewMsgs;
+        return msgList;
     }
     public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {
         return mMsgLocalDataSource.getMsgs(aContext, aConversationPublicId);

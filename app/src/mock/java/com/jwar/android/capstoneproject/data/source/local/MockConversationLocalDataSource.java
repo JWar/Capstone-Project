@@ -108,7 +108,7 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
     }
 
     @Override
-    public Cursor getConversationViaPublicId(Context aContext, int aCOPublicId) {
+    public Cursor getConversationViaPublicId(Context aContext, long aCOPublicId) {
         return aContext.getContentResolver().query(
                 DbSchema.ConversationTable.CONTENT_URI,
                 null,

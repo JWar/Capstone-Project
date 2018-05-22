@@ -49,7 +49,7 @@ public class ProdConversationLocalDataSource implements ConversationLocalDataSou
     }
 
     @Override
-    public Cursor getConversationViaPublicId(Context aContext, int aCOPublicId) {
+    public Cursor getConversationViaPublicId(Context aContext, long aCOPublicId) {
         return aContext.getContentResolver().query(
                 ConversationTable.CONTENT_URI,
                 null,
