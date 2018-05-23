@@ -17,6 +17,8 @@ public class Utils {
 
     public static final String SHAR_PREFS = "capstonePrefs";
 
+    public static final String CHANNEL_ID = "capChanId";
+
     //This is for dummy data...
     public static final int USER_A=1;
     public static final int USER_B=2;

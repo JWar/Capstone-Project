@@ -1,8 +1,11 @@
 package com.jraw.android.capstoneproject.ui.conversation;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import com.jraw.android.capstoneproject.ui.newconversation.NewConversationPresen
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 
+import static com.jraw.android.capstoneproject.utils.Utils.CHANNEL_ID;
 import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
 /**
@@ -122,10 +126,27 @@ public class ConversationActivity extends AppCompatActivity implements
                         ),
                         this);
             }
+            createNotificationChannel();
         } catch (Exception e) {
             Utils.logDebug("Error in ConversationActivity.onCreate: "+e.getLocalizedMessage());
         }
     }
+    private void createNotificationChannel() throws Exception {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 
     @Override
     public void onNewConversation() {

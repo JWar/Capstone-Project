@@ -45,5 +45,7 @@
     <string name="widget_default_title">No conversation available</string>
 
     <string name="notification_unread_msgs">new unread messages</string>
+    <string name="channel_name">Capstone Channel</string>
+    <string name="channel_description">Channel Desc</string>
 
 </resources>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
@@ -148,8 +149,14 @@ public class ApiIntentService extends IntentService {
             case 1:
                 Msg msg = aMsgList.get(0);
                 Person person = sPersonRepository.getPerson(this,msg.getMSFromTel());
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
+                        .setSmallIcon(R.drawable.notification_icon)
+                        .setContentTitle(person.getFullName())
+                        .setContentText(msg.getBodySnippet())
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-                msg.getBodySnippet();
+
+
                 break;
             case 0://Shouldnt have a msg list of 0...
                 break;
