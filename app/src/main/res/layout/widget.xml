@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/widget_first_conv_rl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:id="@+id/widget_first_conv_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            tools:text="1st Title"/>
+
+        <TextView
+            android:id="@+id/widget_first_conv_snippet_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/widget_first_conv_title_tv"
+            android:textSize="32sp"
+            tools:text="1st Snippet"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/widget_second_conv_rl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:id="@+id/widget_second_conv_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            tools:text="2nd Title"/>
+
+        <TextView
+            android:id="@+id/widget_second_conv_snippet_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/widget_second_conv_title_tv"
+            android:textSize="32sp"
+            tools:text="2nd Snippet"/>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -11,8 +11,10 @@ import android.widget.Toast;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
+import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
+import com.jraw.android.capstoneproject.data.repository.PersonRepository;
 import com.jraw.android.capstoneproject.ui.widget.CapstoneAppWidgetProvider;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
@@ -34,6 +36,7 @@ public class ApiIntentService extends IntentService {
     //Urgh dont like this at all. Storing static field in IntentService sounds like a bad idea.
     private static MsgRepository sMsgRepository;
     private static ConversationRepository sConversationRepository;
+    private static PersonRepository sPersonRepository;
 
     public ApiIntentService() {
         super("ApiIntentService");
@@ -84,6 +87,19 @@ public class ApiIntentService extends IntentService {
                     return;
                 }
             }
+            if (sPersonRepository==null) {
+                try {//Init Repo if null
+                    sPersonRepository = Injection.providePersonRepository(
+                            Injection.providePersonLocalDataSource(),
+                            Injection.providePersonRemoteDataSource(
+                                    Injection.provideBackendApi()
+                            ));
+                } catch (Exception e) {
+                    Utils.logDebug("Problem in ApiIntentService.onHandleIntent: PersonRepo init");
+                    showToastMsg("Problem initialising Persons");
+                    return;
+                }
+            }
             final String action = intent.getAction();
             if (ACTION_GET_NEW_MSGS.equals(action)) {
                 handleActionGetNewMsgs();
@@ -104,11 +120,8 @@ public class ApiIntentService extends IntentService {
                 //Successfully save this number of new msgs. Just debug, no need to let user know.
                 //TODO:This will need to update/add notifications AND update widget. Will need msgs for notifs?
                 //So getNewMsgs cant just return the num of msgs, will need to return msg list...
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CapstoneAppWidgetProvider.class));
-                Conversation[] conversations = sConversationRepository.getConversationsTopTwo(this);
-                CapstoneAppWidgetProvider.updateWidgetConversations(this, appWidgetManager, appWidgetIds,
-                        conversations);
+                handleNotifications(newMsgs);
+                updateWidgetConversations();
                 Utils.logDebug("ApiIntentService.handleActionGetNewMsgs: saved " + newMsgs.size() + " from server!");
             } else {
                 //Notify user that there has been a problem with getting new msgs.
@@ -119,7 +132,32 @@ public class ApiIntentService extends IntentService {
             showToastMsg("Problem getting new msgs");
         }
     }
+    private void updateWidgetConversations() {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, CapstoneAppWidgetProvider.class));
+        Conversation[] conversations = sConversationRepository.getConversationsTopTwo(this);
+        for (int appWidgetId: appWidgetIds) {
+            CapstoneAppWidgetProvider.updateWidgetConversations(this, appWidgetManager, appWidgetId,
+                    conversations);
+        }
+    }
+    //Need to check presence of already set notifications.
+    //Need to update notifications on read. Need to therefore store public id against the
+    private void handleNotifications(List<Msg> aMsgList) {
+        switch (aMsgList.size()) {
+            case 1:
+                Msg msg = aMsgList.get(0);
+                Person person = sPersonRepository.getPerson(this,msg.getMSFromTel());
 
+                msg.getBodySnippet();
+                break;
+            case 0://Shouldnt have a msg list of 0...
+                break;
+            default:
+                //Set notification title as size of list + notification new msg string
+                String toDisplay = aMsgList.size()+ " " + getString(R.string.notification_unread_msgs);
+        }
+    }
     /**
      * Handle action SendNewMsg in the provided background thread with the provided
      * parameters. Uses Retrofit to send Msg.

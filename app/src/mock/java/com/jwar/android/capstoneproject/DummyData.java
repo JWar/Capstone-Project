@@ -24,7 +24,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Hello fellow human");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_A);
+        msg.setMSFromTel(Utils.USER_A);
         msg.setMSEventDate("2018/01/11 16:20:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -32,7 +32,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Hello back");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_B);
+        msg.setMSFromTel(Utils.USER_B);
         msg.setMSEventDate("2018/01/11 16:22:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -40,7 +40,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("How goes it?");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_A);
+        msg.setMSFromTel(Utils.USER_A);
         msg.setMSEventDate("2018/01/11 16:23:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -48,7 +48,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("It goes");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_B);
+        msg.setMSFromTel(Utils.USER_B);
         msg.setMSEventDate("2018/01/11 16:24:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -56,7 +56,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("And yourself?");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_B);
+        msg.setMSFromTel(Utils.USER_B);
         msg.setMSEventDate("2018/01/11 16:24:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -64,7 +64,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("I'm here");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_A);
+        msg.setMSFromTel(Utils.USER_A);
         msg.setMSEventDate("2018/01/11 16:25:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -72,7 +72,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Not there though?");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_B);
+        msg.setMSFromTel(Utils.USER_B);
         msg.setMSEventDate("2018/01/11 16:26:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -80,7 +80,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Where?");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_A);
+        msg.setMSFromTel(Utils.USER_A);
         msg.setMSEventDate("2018/01/11 16:27:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -88,7 +88,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Exactly");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_B);
+        msg.setMSFromTel(Utils.USER_B);
         msg.setMSEventDate("2018/01/11 16:28:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -96,7 +96,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("...");
         msg.setMSCOPublicId(1);
-        msg.setMSFromId(Utils.USER_C);
+        msg.setMSFromTel(Utils.USER_C);
         msg.setMSEventDate("2018/01/11 16:29:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -105,7 +105,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Hey there");
         msg.setMSCOPublicId(2);
-        msg.setMSFromId(Utils.USER_A);
+        msg.setMSFromTel(Utils.USER_A);
         msg.setMSEventDate("2018/01/11 16:24:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -113,7 +113,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Hi!");
         msg.setMSCOPublicId(2);
-        msg.setMSFromId(Utils.USER_D);
+        msg.setMSFromTel(Utils.USER_D);
         msg.setMSEventDate("2018/01/11 16:25:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -121,7 +121,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Was really nice seeing you!");
         msg.setMSCOPublicId(2);
-        msg.setMSFromId(Utils.USER_D);
+        msg.setMSFromTel(Utils.USER_D);
         msg.setMSEventDate("2018/01/11 16:25:05");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -129,7 +129,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("You too :)");
         msg.setMSCOPublicId(2);
-        msg.setMSFromId(Utils.USER_A);
+        msg.setMSFromTel(Utils.USER_A);
         msg.setMSEventDate("2018/01/11 16:25:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -137,7 +137,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("What time did you make it back home?");
         msg.setMSCOPublicId(2);
-        msg.setMSFromId(Utils.USER_D);
+        msg.setMSFromTel(Utils.USER_D);
         msg.setMSEventDate("2018/01/11 16:26:30");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -145,7 +145,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody(":)");
         msg.setMSCOPublicId(2);
-        msg.setMSFromId(Utils.USER_D);
+        msg.setMSFromTel(Utils.USER_D);
         msg.setMSEventDate("2018/01/11 16:27:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());

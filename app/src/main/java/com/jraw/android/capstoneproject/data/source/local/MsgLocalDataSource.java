@@ -7,4 +7,5 @@ import com.jraw.android.capstoneproject.data.model.Msg;
 public interface MsgLocalDataSource {
     CursorLoader getMsgs(Context aContext, long aConversationPublicId);
     long saveMsg(Context aContext, Msg aMsg);
+    int deleteMsg(Msg aMsg);
 }

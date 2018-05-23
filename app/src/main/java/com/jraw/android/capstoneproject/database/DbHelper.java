@@ -35,7 +35,7 @@ public class DbHelper extends SQLiteOpenHelper {
             // Simplest implementation is to drop all old tables and recreate them
             //toExec needed because of lint error with string concatenation
             String dropTable = "DROP TABLE IF EXISTS ";
-            String toExec =  dropTable + DATABASE_CREATE_PERSON;
+            String toExec = dropTable + DATABASE_CREATE_PERSON;
             db.execSQL(toExec);
             toExec = dropTable + DATABASE_CREATE_MSG;
             db.execSQL(toExec);
@@ -46,6 +46,7 @@ public class DbHelper extends SQLiteOpenHelper {
             onCreate(db);
         }
     }
+
     private static final String DATABASE_CREATE_PERSON =
             "CREATE TABLE " + PersonTable.NAME + " (" +
                     PersonTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
@@ -56,8 +57,7 @@ public class DbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + MsgTable.NAME + " (" +
                     MsgTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     MsgTable.Cols.COPUBLICID + " INTEGER(11) DEFAULT 0, " +
-                    MsgTable.Cols.TOID + " INTEGER(11) DEFAULT 0, " +
-                    MsgTable.Cols.FROMID + " INTEGER(11) DEFAULT 0, " +
+                    MsgTable.Cols.FROMTEL + " VARCHAR DEFAULT NULL, " +
                     MsgTable.Cols.BODY + " VARCHAR DEFAULT NULL, " +
                     MsgTable.Cols.EVENTDATE + " VARCHAR DEFAULT NULL, " +
                     //Type of msg - text, img, video
@@ -73,9 +73,10 @@ public class DbHelper extends SQLiteOpenHelper {
                     ConversationTable.Cols.PUBLICID + " INTEGER DEFAULT 0, " +
                     ConversationTable.Cols.CREATEDBY + " VARCHAR, " +
                     ConversationTable.Cols.DATECREATED + " VARCHAR DEFAULT NULL, " +
-                    ConversationTable.Cols.DATELASTMSG + " VARCHAR DEFAULT NULL," +
-                    ConversationTable.Cols.SNIPPET + " VARCHAR DEFAULT NULL," +
-                    ConversationTable.Cols.UNREAD + " INTEGER DEFAULT 0);";
+                    ConversationTable.Cols.DATELASTMSG + " VARCHAR DEFAULT NULL, " +
+                    ConversationTable.Cols.SNIPPET + " VARCHAR DEFAULT NULL, " +
+                    ConversationTable.Cols.UNREAD + " INTEGER DEFAULT 0, " +
+                    ConversationTable.Cols.COUNT + " INTEGER DEFAULT 0);";
     private static final String DATABASE_CREATE_PECO =
             "CREATE TABLE " + PeCoTable.NAME + " (" +
                     PeCoTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +

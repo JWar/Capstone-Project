@@ -59,6 +59,32 @@ public class ProdConversationLocalDataSource implements ConversationLocalDataSou
         );
     }
 
+    //Gets top two conversations in terms of count. Adds them to conversation list.
+    @Override
+    public Conversation[] getConversationsTopTwo(Context aContext) {
+        ConversationCursorWrapper cursorTT=null;
+        Conversation[] conversations= new Conversation[2];
+        try {
+            cursorTT = new ConversationCursorWrapper(aContext.getContentResolver().query(
+                    DbSchema.ConversationTable.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    DbSchema.ConversationTable.Cols.COUNT + " DESC" +
+                            " LIMIT 2"
+            ));
+            int count = cursorTT.getCount();
+            if (count>0) {
+                for (int i=0;i<count;i++) {
+                    conversations[i]=cursorTT.getConversation();
+                }
+            }
+        } finally {
+            Utils.closeCursor(cursorTT);
+        }
+        return conversations;
+    }
+
     //This will need to return id which is then used to get the conversations publicid
     //Though I suppose its generated in Conversation creation so maybe can just get publicid that way...
     @Override

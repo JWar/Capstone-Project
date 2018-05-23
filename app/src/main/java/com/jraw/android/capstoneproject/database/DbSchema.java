@@ -41,8 +41,7 @@ public class DbSchema {
         public static final class Cols {
             public static final String ID = "ID";
             public static final String COPUBLICID = "MSCOPublicID";
-            public static final String TOID = "MSToID";
-            public static final String FROMID = "MSFromID";
+            public static final String FROMTEL = "MSFromID";
             public static final String BODY = "MSBody";
             public static final String EVENTDATE = "MSEventDate";
             public static final String TYPE = "MSType";
@@ -71,6 +70,8 @@ public class DbSchema {
             public static final String SNIPPET = "COSnippet";
             //Num of unread msgs. 0 means none (... funnily enough)
             public static final String UNREAD = "COUnread";
+            //Number of msgs in converssation. So widget can be easily updated.
+            public static final String COUNT = "COCount";
         }
     }
     //This is needed to link Persons with Conversation. Basically all people in the conversation!

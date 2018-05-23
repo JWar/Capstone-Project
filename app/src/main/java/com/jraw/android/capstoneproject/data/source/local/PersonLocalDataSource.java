@@ -9,5 +9,6 @@ public interface PersonLocalDataSource {
     CursorLoader getPersons(Context aContext);
     //For PersonDetail
     Person getPerson(Context aContext, int aPersonId);
+    Person getPerson(Context aContext, String aPersonTel);
     long savePerson(Context aContext, Person aPerson);
 }

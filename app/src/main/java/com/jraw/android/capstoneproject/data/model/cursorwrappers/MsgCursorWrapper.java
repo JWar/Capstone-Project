@@ -30,9 +30,9 @@ public class MsgCursorWrapper extends CursorWrapper {
                     msg.setMSToId(getInt(getColumnIndex(MsgTable.Cols.TOID)));
                 }
             }
-            if (getColumnIndex(MsgTable.Cols.FROMID) > -1) {
-                if (!isNull(getColumnIndex(MsgTable.Cols.FROMID))) {
-                    msg.setMSFromId(getInt(getColumnIndex(MsgTable.Cols.FROMID)));
+            if (getColumnIndex(MsgTable.Cols.FROMTEL) > -1) {
+                if (!isNull(getColumnIndex(MsgTable.Cols.FROMTEL))) {
+                    msg.setMSFromTel(getInt(getColumnIndex(MsgTable.Cols.FROMTEL)));
                 }
             }
             if (getColumnIndex(MsgTable.Cols.BODY) > -1) {

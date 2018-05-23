@@ -27,11 +27,7 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  * Notifications - handled in intent service. Simple case of msg snippet? Will need to update same
  * notification with multiple messages, dont need snippet for that though.
  * Analytics - get it set up.
- * Widget! - will need to think up an elegant way of keeping most popular conversations in widget.
- *  Obviously the point of change is when a new msg comes in. So intent service will need some way of
- *  updating Widget. But whats best way of handling it? Widget receives the new conversations to be
- *  shown. This means whatever calls the widget method must figure out whats changed. Either
- *  have a method that goes through finding num msgs, or keep a running total in conversation field.
+ *
  *  Msg delete will need to keep conversation field updated.
  *      Intent Service handles it all. ConversationRepo will have a get first two convs with highest
  *      count.

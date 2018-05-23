@@ -100,8 +100,9 @@ public class MsgRepository {
                     conversationCursorWrapper.moveToFirst();
                     Conversation conversation = conversationCursorWrapper.getConversation();
                     conversation.setCODateLastMsg(msg.getMSEventDate());
-                    conversation.setCOSnippet(msg.getMSBody().substring(0,50));
+                    conversation.setCOSnippet(msg.getBodySnippet());
                     conversation.setCOUnread(conversation.getCOUnread()+1);//+1 to Unread count
+                    conversation.setCOCount(conversation.getCOCount()+1);//Update count by one
 
                     mConversationLocalDataSource.updateConversation(aContext,conversation);
                     if (mMsgLocalDataSource.saveMsg(aContext,msg)>0) {
@@ -112,10 +113,12 @@ public class MsgRepository {
                     conversation.setCOTitle(msg.getMSCOTitle());
                     conversation.setCOPublicId(msg.getMSCOPublicId());
                     conversation.setCODateLastMsg(msg.getMSEventDate());
-                    conversation.setCOSnippet(msg.getMSBody().substring(0,50));
+                    conversation.setCOSnippet(msg.getBodySnippet());
                     conversation.setCOUnread(1);//Since new conversation there is 1 unread msg!
+                    conversation.setCOCount(1);//Since new conversation there is 1 msg!
 
                     //To find createdBy can use fromId of Msg and check Persons. Not sure if needed though... so leave for moment
+
                     mConversationLocalDataSource.saveConversation(aContext,conversation);
                     if (mMsgLocalDataSource.saveMsg(aContext,msg)>0) {
                         msgList.add(msg);
@@ -134,5 +137,18 @@ public class MsgRepository {
     //Not implemented yet but this should allow searching msgs list by the body.
     public CursorLoader getMsgsViaBody(Context aContext, long aConversationPublicId, String aQuery) {
         return null;
+    }
+
+    //Not implemented msg delete yet. Will need to also trigger conversation count change.
+    public void deleteMsg(Context aContext, Msg aMsg) {
+        if (mMsgLocalDataSource.deleteMsg(aMsg)>0) {
+            ConversationCursorWrapper conversationCursorWrapper = new ConversationCursorWrapper(
+                    mConversationLocalDataSource.getConversationViaPublicId(aContext, aMsg.getMSCOPublicId()));
+            conversationCursorWrapper.moveToFirst();
+            Conversation conversation = conversationCursorWrapper.getConversation();
+            conversationCursorWrapper.close();
+            conversation.setCOCount(conversation.getCOCount()-1);
+            mConversationLocalDataSource.updateConversation(aContext,conversation);
+        }
     }
 }

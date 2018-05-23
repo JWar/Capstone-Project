@@ -37,4 +37,8 @@ public class ProdMsgLocalDataSource implements MsgLocalDataSource {
                 aMsg.toCV()
         ));
     }
+    @Override
+    public int deleteMsg(Msg aMsg) {
+        return 0;
+    }
 }

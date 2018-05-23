@@ -17,6 +17,7 @@ public class Conversation extends entity {
     private String CODateLastMsg;
     private String COSnippet;
     private int COUnread;
+    private int COCount;
 
     public Conversation() {}
 
@@ -33,6 +34,7 @@ public class Conversation extends entity {
     public void setCODateLastMsg(String aCODateLastMsg) {CODateLastMsg = aCODateLastMsg;}
     public void setCOSnippet(String aCOSnippet) {COSnippet = aCOSnippet;}
     public void setCOUnread(int aCOUnread) {COUnread = aCOUnread;}
+    public void setCOCount(int aCOCount) {COCount = aCOCount;}
 
     public String getCOTitle() {
         return COTitle;
@@ -47,6 +49,7 @@ public class Conversation extends entity {
     public String getCODateLastMsg() {return CODateLastMsg;}
     public String getCOSnippet() {return COSnippet;}
     public int getCOUnread() {return COUnread;}
+    public int getCOCount() {return COCount;}
 
     public ContentValues toCV() {
         try {
@@ -72,6 +75,9 @@ public class Conversation extends entity {
             if (COUnread>0) {
                 cv.put(ConversationTable.Cols.UNREAD,COUnread);
             }
+            if (COCount>0) {
+                cv.put(ConversationTable.Cols.COUNT,COCount);
+            }
             return cv;
         } catch (Exception e) {
             Utils.logDebug("Problem in Conversation.toCV: "+e.getLocalizedMessage());
@@ -89,6 +95,7 @@ public class Conversation extends entity {
                 ", CODateLastMsg='" + CODateLastMsg + '\'' +
                 ", COSnippet='" + COSnippet + '\'' +
                 ", COUnread=" + COUnread +
+                ", COCount=" + COCount +
                 '}';
     }
 }

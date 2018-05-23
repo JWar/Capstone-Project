@@ -40,6 +40,9 @@ public class PersonRepository {
     public Person getPerson(Context aContext, int aPersonId) {
         return mPersonLocalDataSource.getPerson(aContext, aPersonId);
     }
+    public Person getPerson(Context aContext, String aPersonTel) {
+        return mPersonLocalDataSource.getPerson(aContext, aPersonTel);
+    }
     public long savePersonLocal(Context aContext, Person aPerson) {
         return mPersonLocalDataSource.savePerson(aContext, aPerson);
     }

@@ -12,6 +12,7 @@ import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.PeCo;
 import com.jraw.android.capstoneproject.data.model.Person;
+import com.jraw.android.capstoneproject.data.model.cursorwrappers.ConversationCursorWrapper;
 import com.jraw.android.capstoneproject.data.source.local.ConversationLocalDataSource;
 import com.jraw.android.capstoneproject.database.DbSchema;
 import com.jraw.android.capstoneproject.utils.Utils;
@@ -117,22 +118,30 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
                 null
         );
     }
-
+    //Gets top two conversations in terms of count. Adds them to conversation list.
     @Override
     public Conversation[] getConversationsTopTwo(Context aContext) {
-        Cursor cursorTT=null;
+        ConversationCursorWrapper cursorTT=null;
+        Conversation[] conversations= new Conversation[2];
         try {
-            cursorTT = aContext.getContentResolver().query(
+            cursorTT = new ConversationCursorWrapper(aContext.getContentResolver().query(
                     DbSchema.ConversationTable.CONTENT_URI,
                     null,
-                    DbSchema.ConversationTable.Cols.PUBLICID + "=?",
-                    new String[] {aCOPublicId+""},
-                    null
-            );
+                    null,
+                    null,
+                    DbSchema.ConversationTable.Cols.COUNT + " DESC" +
+                            " LIMIT 2"
+            ));
+            int count = cursorTT.getCount();
+            if (count>0) {
+                for (int i=0;i<count;i++) {
+                    conversations[i]=cursorTT.getConversation();
+                }
+            }
         } finally {
             Utils.closeCursor(cursorTT);
         }
-        return new Conversation[0];
+        return conversations;
     }
 
     //This will need to return id which is then used to get the conversations publicid

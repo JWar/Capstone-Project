@@ -56,6 +56,11 @@ public class ConversationCursorWrapper extends CursorWrapper {
                     con.setCOUnread(getInt(getColumnIndex(ConversationTable.Cols.UNREAD)));
                 }
             }
+            if (getColumnIndex(ConversationTable.Cols.COUNT) > -1) {
+                if (!isNull(getColumnIndex(ConversationTable.Cols.COUNT))) {
+                    con.setCOCount(getInt(getColumnIndex(ConversationTable.Cols.COUNT)));
+                }
+            }
             return con;
         } catch (Exception e) {
             Utils.logDebug("Error in ConversationCursorWrapper.getConversation: " + e.getMessage());

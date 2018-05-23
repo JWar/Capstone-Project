@@ -47,6 +47,23 @@ public class MockPersonLocalDataSource implements PersonLocalDataSource {
     }
 
     @Override
+    public Person getPerson(Context aContext, String aPersonTel) {
+        PersonCursorWrapper personCursorWrapper = new PersonCursorWrapper(
+                aContext.getContentResolver().query(
+                        PersonTable.CONTENT_URI,
+                        null,
+                        PersonTable.Cols.TELNUM + " LIKE"+
+                                "%"+aPersonTel+"%",
+                        null,
+                        null
+                )
+        );
+        Person person = personCursorWrapper.getPerson();
+        personCursorWrapper.close();
+        return person;
+    }
+
+    @Override
     public long savePerson(Context aContext, Person aPerson) {
         return ContentUris.parseId(
                 aContext.getContentResolver().insert(

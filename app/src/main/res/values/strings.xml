@@ -42,4 +42,8 @@
     <string name="install_error_msg">Error installing</string>
     <string name="install_unsuccessful_msg">Server problem whilst installing</string>
 
+    <string name="widget_default_title">No conversation available</string>
+
+    <string name="notification_unread_msgs">new unread messages</string>
+
 </resources>

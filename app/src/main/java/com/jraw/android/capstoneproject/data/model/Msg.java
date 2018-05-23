@@ -26,12 +26,10 @@ public class Msg extends entity implements Parcelable {
     //Which conversation this msg is part of, uses public id...
     @SerializedName("copublicid")
     private long MSCOPublicId = 0;
-    //Supposed to be the ID this msg is to but redundant given the way COID handles everything
-    @SerializedName("toid")
-    private int MSToId = 0;
     //See MSToID above, although knowing who the msg is from is necessary. Remove toId?
-    @SerializedName("fromid")
-    private int MSFromId = 0;
+    //This is the tel of the person who sent this.
+    @SerializedName("fromtel")
+    private String MSFromTel;
     //Content of Msg
     @SerializedName("body")
     private String MSBody;
@@ -56,8 +54,7 @@ public class Msg extends entity implements Parcelable {
 
     public Msg(Parcel pc) {
         MSCOPublicId = pc.readLong();
-        MSToId = pc.readInt();
-        MSFromId = pc.readInt();
+        MSFromTel = pc.readString();
         MSBody = pc.readString();
         MSEventDate = pc.readString();
         MSType = pc.readInt();
@@ -67,8 +64,7 @@ public class Msg extends entity implements Parcelable {
     @Override
     public void writeToParcel(Parcel pc, int flags) {
         pc.writeLong(MSCOPublicId);
-        pc.writeInt(MSToId);
-        pc.writeInt(MSFromId);
+        pc.writeString(MSFromTel);
         pc.writeString(MSBody);
         pc.writeString(MSEventDate);
         pc.writeInt(MSType);
@@ -93,11 +89,8 @@ public class Msg extends entity implements Parcelable {
     public void setMSCOPublicId(long aLong) {
         MSCOPublicId = aLong;
     }
-    public void setMSToId(int aInt) {
-        MSToId = aInt;
-    }
-    public void setMSFromId(int aInt) {
-        MSFromId = aInt;
+    public void setMSFromTel(String aStr) {
+        MSFromTel = aStr;
     }
     public void setMSBody(String aStr) {
         MSBody = aStr;
@@ -119,14 +112,16 @@ public class Msg extends entity implements Parcelable {
     public long getMSCOPublicId() {
         return MSCOPublicId;
     }
-    public int getMSToId() {
-        return MSToId;
-    }
-    public int getMSFromId() {
-        return MSFromId;
-    }
+    public String getMSFromTel() {return MSFromTel;}
     public String getMSBody() {
         return MSBody;
+    }
+    public String getBodySnippet() {
+        if (MSBody.length()>49) {
+            return MSBody.substring(0, 50);
+        } else {
+            return MSBody;
+        }
     }
     public String getMSEventDate() {
         return MSEventDate;
@@ -148,11 +143,8 @@ public class Msg extends entity implements Parcelable {
         if (MSCOPublicId!=0) {
             cV.put(MsgTable.Cols.COPUBLICID,MSCOPublicId);
         }
-        if (MSToId!=0) {
-            cV.put(MsgTable.Cols.TOID,MSToId);
-        }
-        if (MSFromId!=0) {
-            cV.put(MsgTable.Cols.FROMID,MSFromId);
+        if (MSFromTel!=null) {
+            cV.put(MsgTable.Cols.FROMTEL,MSFromTel);
         }
         if (MSBody!=null) {
             cV.put(MsgTable.Cols.BODY,MSBody);
@@ -176,8 +168,7 @@ public class Msg extends entity implements Parcelable {
     public String toString() {
         return "Msg{" +
                 "MSCOPublicId=" + MSCOPublicId +
-                ", MSToId=" + MSToId +
-                ", MSFromId=" + MSFromId +
+                ", MSFromTel=" + MSFromTel +
                 ", MSBody='" + MSBody + '\'' +
                 ", MSEventDate='" + MSEventDate + '\'' +
                 ", MSType=" + MSType +
