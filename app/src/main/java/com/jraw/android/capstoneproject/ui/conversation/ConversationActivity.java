@@ -29,12 +29,13 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  * Todos will be here.
  * TODO: general todo list. The presence of this means there is still things todo!
  * Notifications - handled in intent service. Simple case of msg snippet? Will need to update same
- * notification with multiple messages, dont need snippet for that though.
+ *  notification with multiple messages, dont need snippet for that though.
+ *  Notifications will need a way of recording the conversations that are in there, to ensure when theyre
+ *  read the notification is removed. Basically need to set up a communication between the act of reading a
+ *  conversation and its unread notification.
  * Analytics - get it set up.
  *
- *  Msg delete will need to keep conversation field updated.
- *      Intent Service handles it all. ConversationRepo will have a get first two convs with highest
- *      count.
+ * Msg delete will need to keep conversation field updated.
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
  *
  */

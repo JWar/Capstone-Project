@@ -25,6 +25,12 @@ public class MsgsActivity extends AppCompatActivity {
         intent.putExtra(CO_TITLE, aCOTitle);
         aContext.startActivity(intent);
     }
+    public static Intent getIntent(Context aContext, long aCoPublicId, String aCOTitle) {
+        Intent intent = new Intent(aContext, MsgsActivity.class);
+        intent.putExtra(CO_PUBLIC_ID, aCoPublicId);
+        intent.putExtra(CO_TITLE, aCOTitle);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

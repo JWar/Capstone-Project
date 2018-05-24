@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.service;
 
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.widget.Toast;
 
 import com.jraw.android.capstoneproject.data.model.Conversation;
@@ -16,6 +18,7 @@ import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
 import com.jraw.android.capstoneproject.data.repository.PersonRepository;
+import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 import com.jraw.android.capstoneproject.ui.widget.CapstoneAppWidgetProvider;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
@@ -38,6 +41,8 @@ public class ApiIntentService extends IntentService {
     private static MsgRepository sMsgRepository;
     private static ConversationRepository sConversationRepository;
     private static PersonRepository sPersonRepository;
+
+    private int mNotificationId=1;
 
     public ApiIntentService() {
         super("ApiIntentService");
@@ -145,24 +150,41 @@ public class ApiIntentService extends IntentService {
     //Need to check presence of already set notifications.
     //Need to update notifications on read. Need to therefore store public id against the
     private void handleNotifications(List<Msg> aMsgList) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        NotificationCompat.Builder mBuilder;
         switch (aMsgList.size()) {
             case 1:
                 Msg msg = aMsgList.get(0);
                 Person person = sPersonRepository.getPerson(this,msg.getMSFromTel());
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
+                PendingIntent pendingIntent = PendingIntent.getActivity(
+                        this,
+                        0,
+                        MsgsActivity.getIntent(this,msg.getMSCOPublicId(),msg.getMSCOTitle()),
+                        0);
+                mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
                         .setSmallIcon(R.drawable.notification_icon)
                         .setContentTitle(person.getFullName())
                         .setContentText(msg.getBodySnippet())
+                        .setAutoCancel(true)
+                        .setContentIntent(pendingIntent)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-
-
+                notificationManager.notify(mNotificationId, mBuilder.build());
                 break;
             case 0://Shouldnt have a msg list of 0...
                 break;
             default:
                 //Set notification title as size of list + notification new msg string
+                //TODO: this will not work beyond the first unread msg notification.
+                //Will need a running total of unread msgs.
+                //Perhaps can just have a more than 1 unread msg count.
+                //Possible to get notification? So can check notification then get data from it.
                 String toDisplay = aMsgList.size()+ " " + getString(R.string.notification_unread_msgs);
+                mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
+                        .setSmallIcon(R.drawable.notification_icon)
+                        .setContentText(toDisplay)
+                        .setAutoCancel(true)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                notificationManager.notify(mNotificationId, mBuilder.build());
         }
     }
     /**
