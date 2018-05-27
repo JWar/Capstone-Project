@@ -107,7 +107,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {
                         //This is what is set on every item in the list
                     }
-                }, R.layout.fragment_list_item_msgs),
+                }, R.layout.list_item_msgs),
                 new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL,false));
         Bundle args = new Bundle();
         args.putLong(CO_PUBLIC_ID,mCOPubId);

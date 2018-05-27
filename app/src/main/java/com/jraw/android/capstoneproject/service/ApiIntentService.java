@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.widget.Toast;
 
+import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.Person;
@@ -162,7 +163,7 @@ public class ApiIntentService extends IntentService {
                         MsgsActivity.getIntent(this,msg.getMSCOPublicId(),msg.getMSCOTitle()),
                         0);
                 mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.notification_icon)
+                        .setSmallIcon(R.drawable.ic_baseline_message_24px)
                         .setContentTitle(person.getFullName())
                         .setContentText(msg.getBodySnippet())
                         .setAutoCancel(true)
@@ -180,7 +181,7 @@ public class ApiIntentService extends IntentService {
                 //Possible to get notification? So can check notification then get data from it.
                 String toDisplay = aMsgList.size()+ " " + getString(R.string.notification_unread_msgs);
                 mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.notification_icon)
+                        .setSmallIcon(R.drawable.ic_baseline_message_24px)
                         .setContentText(toDisplay)
                         .setAutoCancel(true)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);

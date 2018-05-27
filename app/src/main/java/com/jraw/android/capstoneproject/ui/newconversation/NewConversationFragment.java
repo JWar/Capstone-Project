@@ -70,7 +70,6 @@ public class NewConversationFragment extends Fragment implements NewConversation
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RecyclerView mAddedRV = view.findViewById(R.id.fragment_new_conversation_added_rv);
-        mAddedRV.setLayoutManager(new LinearLayoutManager(mAddedRV.getContext(),LinearLayoutManager.VERTICAL,false));
         mAddedLH = new ListHandler(
                 this,
                 mAddedRV,
@@ -82,12 +81,13 @@ public class NewConversationFragment extends Fragment implements NewConversation
 
                     @Override
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {}
-                }, R.layout.list_item_added_person)
+                }, R.layout.list_item_added_person),
+                new LinearLayoutManager(mAddedRV.getContext(),LinearLayoutManager.VERTICAL,false)
         );
-
+        RecyclerView personsRV = view.findViewById(R.id.fragment_new_conversation_persons_rv);
         mPersonsLH = new ListHandler(
                 this,
-                view.findViewById(R.id.fragment_new_conversation_persons_rv),
+                personsRV,
                 new ListRecyclerViewAdapter(new ListHandlerCallbackPerson() {
                     @Override
                     public void onListClick(int aPosition, Person aPerson) {
@@ -97,7 +97,8 @@ public class NewConversationFragment extends Fragment implements NewConversation
 
                     @Override
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {}
-                }, R.layout.list_item_person)
+                }, R.layout.list_item_person),
+                new LinearLayoutManager(personsRV.getContext(), LinearLayoutManager.HORIZONTAL,false)
         );
         getLoaderManager().initLoader(1,null,this);
     }
@@ -155,7 +156,7 @@ public class NewConversationFragment extends Fragment implements NewConversation
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_new_conversation_create:
-                mPresenterNewConversation.onCreateConv();
+                mPresenterNewConversation.onCreateConv(getActivity(),null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

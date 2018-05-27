@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.install.InstallContract;
 import com.jraw.android.capstoneproject.ui.install.InstallFragment;
@@ -46,13 +47,23 @@ public class ConversationActivity extends AppCompatActivity implements
 
     private static final String IS_INSTALLED = "isInstalled";
 
+    //This is part of analystics, to see how often widget is used!
+    private static final String FROM_WIDGET = "fromWidget";
+
     private ConversationPresenter mConversationPresenter;
     private InstallPresenter mInstallPresenter;
     private NewConversationPresenter mNewConversationPresenter;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     public static void start(Context aContext) {
         Intent intent = new Intent(aContext, ConversationActivity.class);
         aContext.startActivity(intent);
+    }
+    public static Intent getIntent(Context aContext, boolean aFromWidget) {
+        Intent intent = new Intent(aContext, ConversationActivity.class);
+        intent.putExtra(FROM_WIDGET,aFromWidget);
+        return intent;
     }
 
     @Override
@@ -61,6 +72,21 @@ public class ConversationActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_conversation);
         Toolbar toolbar = findViewById(R.id.conversation_toolbar);
         setSupportActionBar(toolbar);
+
+        if (getIntent()!=null) {
+            if (getIntent().hasExtra(FROM_WIDGET)) {
+                mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+                //This is to log how often a user uses (!) the widget functionality.
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "0");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Conversations");
+                //This will be the users id to link event with user. Used shar prefs
+                //but for now just using utils.
+                bundle.putString(FirebaseAnalytics.Param.SOURCE, Utils.THIS_USER_ID+"");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,
+                        bundle);
+            }
+        }
         try {
             SharedPreferences sharedPreferences = getSharedPreferences(SHAR_PREFS,0);
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.conversation_fragment_container);

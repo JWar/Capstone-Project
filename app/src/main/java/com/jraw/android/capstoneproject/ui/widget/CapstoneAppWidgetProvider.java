@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.ui.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -24,32 +25,40 @@ public class CapstoneAppWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Conversation firstConversation = aConversations[0];
         Conversation secondConversation = aConversations[1];
-
+        PendingIntent pendingIntent;
         if (firstConversation != null) {
-            Intent firstConvIntent = new Intent(context, MsgsActivity.class);
-            firstConvIntent.putExtra(FIRST_CONV_PUBLIC_ID, firstConversation.getCOPublicId());
+            Intent firstConvIntent = MsgsActivity.getIntent(context,
+                    firstConversation.getCOPublicId(),
+                    firstConversation.getCOTitle(),
+                    true);
+            pendingIntent = PendingIntent.getActivity(context, 0, firstConvIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             views.setTextViewText(R.id.widget_first_conv_title_tv, firstConversation.getCOTitle());
             views.setTextViewText(R.id.widget_first_conv_snippet_tv, firstConversation.getCOSnippet());
 
-            views.setOnClickPendingIntent(R.id.widget_first_conv_rl, firstConvIntent);
+            views.setOnClickPendingIntent(R.id.widget_first_conv_rl, pendingIntent);
 
             if (secondConversation != null) {
-                Intent secondConvIntent = new Intent(context, MsgsActivity.class);
-                secondConvIntent.putExtra(SECOND_CONV_PUBLIC_ID, secondConversation.getCOPublicId());
+                Intent secondConvIntent = MsgsActivity.getIntent(context,
+                        secondConversation.getCOPublicId(),
+                        secondConversation.getCOTitle(),
+                        true);
+                pendingIntent = PendingIntent.getActivity(context, 0, secondConvIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 views.setTextViewText(R.id.widget_second_conv_title_tv, secondConversation.getCOTitle());
                 views.setTextViewText(R.id.widget_second_conv_snippet_tv, secondConversation.getCOSnippet());
 
-                views.setOnClickPendingIntent(R.id.widget_second_conv_rl, secondConvIntent);
+                views.setOnClickPendingIntent(R.id.widget_second_conv_rl, pendingIntent);
             }
         } else {
             //Only if first conv null do we need default widget string.
             views.setTextViewText(R.id.widget_first_conv_title_tv, context.getString(R.string.widget_default_title));
             //Set widget press to open ConversationActivity
-            Intent nullConvIntent = new Intent(context, ConversationActivity.class);
-            views.setOnClickPendingIntent(R.id.widget_first_conv_rl, nullConvIntent);
-            views.setOnClickPendingIntent(R.id.widget_second_conv_rl, nullConvIntent);
+            Intent nullConvIntent = ConversationActivity.getIntent(context, true);
+            pendingIntent = PendingIntent.getActivity(context, 0, nullConvIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            views.setOnClickPendingIntent(R.id.widget_first_conv_rl, pendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_second_conv_rl, pendingIntent);
         }
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
