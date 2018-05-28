@@ -6,4 +6,9 @@
     <color name="colorListItem">#1d76fc</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="steelBlue">#4682b4</color>
+    <color name="metallicSilver">#C0C0C0</color>
+    <color name="reflectiveSilver">#F0F0FF</color>
+    <color name="silver">#9498a1</color>
+    <color name="lightSkyBlue">#87cefa</color>
 </resources>

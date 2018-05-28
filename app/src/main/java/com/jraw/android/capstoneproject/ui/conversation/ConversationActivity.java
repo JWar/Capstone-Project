@@ -34,10 +34,9 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  *  Notifications will need a way of recording the conversations that are in there, to ensure when theyre
  *  read the notification is removed. Basically need to set up a communication between the act of reading a
  *  conversation and its unread notification.
- * InstallRelease?
  * Keystore?
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
- *
+ * Style! Background black. Metallic silver, metallic blue.
  */
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,
@@ -205,6 +204,11 @@ public class ConversationActivity extends AppCompatActivity implements
     @Override
     public void onInstalled() {
         try {
+            //Update shar prefs to say is installed.
+            SharedPreferences sharedPreferences = getSharedPreferences(SHAR_PREFS,0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(IS_INSTALLED,true);
+            editor.apply();
             ConversationFragment conversationFragment = new ConversationFragment();
             getSupportFragmentManager()
                     .beginTransaction()
