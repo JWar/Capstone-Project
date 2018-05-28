@@ -34,9 +34,8 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  *  Notifications will need a way of recording the conversations that are in there, to ensure when theyre
  *  read the notification is removed. Basically need to set up a communication between the act of reading a
  *  conversation and its unread notification.
- * Analytics - get it set up.
- *
- * Msg delete will need to keep conversation field updated.
+ * InstallRelease?
+ * Keystore?
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
  *
  */
@@ -47,7 +46,7 @@ public class ConversationActivity extends AppCompatActivity implements
 
     private static final String IS_INSTALLED = "isInstalled";
 
-    //This is part of analystics, to see how often widget is used!
+    //This is part of analytics, to see how often widget is used!
     private static final String FROM_WIDGET = "fromWidget";
 
     private ConversationPresenter mConversationPresenter;

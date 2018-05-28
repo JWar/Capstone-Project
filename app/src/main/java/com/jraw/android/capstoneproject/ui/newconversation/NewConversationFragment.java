@@ -17,6 +17,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
@@ -40,6 +43,8 @@ public class NewConversationFragment extends Fragment implements NewConversation
     public static final String TAG = "newConvFragTag";
 
     private NewConversationContract.PresenterNewConversation mPresenterNewConversation;
+
+    private EditText mTitleET;
 
     private ListHandler mAddedLH;
     private static final String ADDED_STATE = "addedState";
@@ -69,6 +74,7 @@ public class NewConversationFragment extends Fragment implements NewConversation
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mTitleET = view.findViewById(R.id.fragment_new_conversation_title_et);
         RecyclerView mAddedRV = view.findViewById(R.id.fragment_new_conversation_added_rv);
         mAddedLH = new ListHandler(
                 this,
@@ -156,7 +162,14 @@ public class NewConversationFragment extends Fragment implements NewConversation
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_new_conversation_create:
-                mPresenterNewConversation.onCreateConv(getActivity(),null);
+                if (mTitleET.getText().length()>0) {
+                    mPresenterNewConversation.onCreateConv(getActivity(), mTitleET.getText().toString());
+                } else {
+                    Toast.makeText(
+                            getActivity(), getString(R.string.new_conversation_empty_title_message),
+                            Toast.LENGTH_SHORT)
+                            .show();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

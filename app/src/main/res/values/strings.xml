@@ -27,6 +27,7 @@
     <string name="new_conversation_button_title">Press button to add contact to conversation</string>
     <string name="new_conversation_button_cd">Add contact</string>
     <string name="new_conversation_contacts_title">"Contacts added: "</string>
+    <string name="new_conversation_empty_title_message">Please enter title!</string>
 
     <string name="notification_new_msg_received">New Message!</string>
 
