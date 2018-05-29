@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +24,7 @@
             android:name=".ui.msgs.MsgsActivity"
             android:label="@string/title_activity_msgs"
             android:parentActivityName=".ui.conversation.ConversationActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <service android:name=".service.firebase.InstanceIdService">
             <intent-filter>
@@ -43,7 +44,7 @@
 
         <service
             android:name=".service.ApiIntentService"
-            android:exported="false"></service>
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -197,7 +197,7 @@ public class ApiIntentService extends IntentService {
             if (sMsgRepository.saveMsg(this, aMsg)>0) {
                 Utils.logDebug("ApiIntentService.handleActionSendMsg: Msg sent successfully. Msg Id: "+aMsg.getId());
             } else {
-                showToastMsg("Problem saving msg");
+                showToastMsg(getString(R.string.send_msg_error));
             }
         } catch (Exception e) {
             Utils.logDebug("ApiIntentService.handleActionSendNewMsg: "+e.getLocalizedMessage());

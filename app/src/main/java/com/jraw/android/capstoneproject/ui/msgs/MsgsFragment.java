@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
@@ -142,6 +144,17 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     public void sendNewMsg() {
         String body = mMsgET.getText().toString();
         mPresenterMsgs.sendNewMsg(getActivity(), mCOPubId,mCOTitle,body);
+    }
+
+    @Override
+    public void sentNewMsg() {
+        //Clear sent msg.
+        mMsgET.setText(null);
+    }
+
+    @Override
+    public void problemSendingMsg() {
+        Toast.makeText(getActivity(), getString(R.string.send_msg_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override

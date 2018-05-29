@@ -1,8 +1,12 @@
 package com.jraw.android.capstoneproject.ui.msgs;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -67,6 +71,11 @@ public class MsgsActivity extends AppCompatActivity {
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,
                         bundle);
             }
+        }
+        //Checks for sms permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED&&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 10);
         }
         try {
             MsgsFragment fragment = (MsgsFragment) getSupportFragmentManager().findFragmentByTag(MsgsFragment.TAG);

@@ -16,6 +16,8 @@ public interface MsgsContract {
         //Sets ListHandler to use this list.
         void setMsgs(Cursor aList);
         void sendNewMsg();
+        void sentNewMsg();//This is so view knows to clear edittext!
+        void problemSendingMsg();//This is triggered on exception. Could be more specific but atm just general
         void setPresenter(PresenterMsgs aPresenter);
     }
     interface PresenterMsgs {

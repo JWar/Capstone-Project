@@ -3,9 +3,9 @@ package com.jraw.android.capstoneproject.ui.msgs;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
-
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
+import com.jraw.android.capstoneproject.service.ApiIntentService;
 import com.jraw.android.capstoneproject.utils.Utils;
 
 import java.text.SimpleDateFormat;
@@ -42,15 +42,21 @@ public class MsgsPresenter implements MsgsContract.PresenterMsgs {
 
     @Override
     public void sendNewMsg(Context aContext, long aCOPublicId, String aCOTitle, String aBody) {
-        Msg newMsg = new Msg();
-        newMsg.setMSBody(aBody);
-        newMsg.setMSCOPublicId(aCOPublicId);
-        newMsg.setMSCOTitle(aCOTitle);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss", Locale.ENGLISH);
-        newMsg.setMSEventDate(sdf.format(Calendar.getInstance().getTime()));
-        newMsg.setMSFromTel(Utils.THIS_USER_ID);
-        newMsg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());//Assuming all are text messages for now.
-        //What to do now? Intent Service call? Do it in Repository as Repository is an app wide object whereas Presenter isnt.
-        mMsgRepository.saveMsg(aContext,newMsg);
+        try {
+            Msg newMsg = new Msg();
+            newMsg.setMSBody(aBody);
+            newMsg.setMSCOPublicId(aCOPublicId);
+            newMsg.setMSCOTitle(aCOTitle);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss", Locale.ENGLISH);
+            newMsg.setMSEventDate(sdf.format(Calendar.getInstance().getTime()));
+            newMsg.setMSFromTel(Utils.THIS_USER_TEL);
+            newMsg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());//Assuming all are text messages for now.
+            //Done async via intentservice!
+            ApiIntentService.startActionSendNewMsgs(aContext,newMsg);
+            mViewMsgs.sentNewMsg();
+        } catch (Exception e) {
+            Utils.logDebug("MsgsPresenter.sendNewMsg: "+e.getLocalizedMessage());
+            mViewMsgs.problemSendingMsg();
+        }
     }
 }

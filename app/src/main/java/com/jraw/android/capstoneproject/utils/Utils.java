@@ -29,6 +29,7 @@ public class Utils {
 
     //Dummy value for user id. Usually acquired from srver and stored in sharPref
     public static final int THIS_USER_ID=1;
+    public static final String THIS_USER_TEL="01234567890";
     public static void logDebug(String aLog) {if (LOG_DEBUG) {
         Log.i(LOG_TAG, aLog);}
     }

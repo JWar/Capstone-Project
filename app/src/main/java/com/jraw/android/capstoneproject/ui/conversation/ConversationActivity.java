@@ -36,6 +36,8 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  *  conversation and its unread notification.
  * Keystore?
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
+ *  Need to set up presenter tests.
+ *  Need to set up activity tests.
  * Style! Background black. Metallic silver, metallic blue.
  */
 public class ConversationActivity extends AppCompatActivity implements
