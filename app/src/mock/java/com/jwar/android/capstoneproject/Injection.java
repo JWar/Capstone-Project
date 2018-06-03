@@ -78,4 +78,16 @@ public class Injection {
     private static Gson provideGson() {
         return new GsonBuilder().create();
     }
+    //Sets androidTest expected response for Mock
+    public static String getTestConvTitle() {
+        return "Mad Bantz";
+    }
+    //Sets androidTest expected response for Mock
+    public static String getTestMsgBody() {
+        return "...";
+    }
+    //This is for making sure Mock AndroidTest of ConversationActivity doesnt trigger install fragment.
+    public static boolean getIsInstallDefault() {
+        return true;
+    }
 }

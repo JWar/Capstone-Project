@@ -26,6 +26,7 @@ import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallbackPerson;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
+import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
 
 import java.util.List;
 
@@ -112,11 +113,15 @@ public class NewConversationFragment extends Fragment implements NewConversation
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        EspressoIdlingResource.increment();
         return mPresenterNewConversation.getPersons(getActivity());
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+            EspressoIdlingResource.decrement(); // Set app as idle.
+        }
         setPersons(data);
         //Ensures added persons list is set
         getAddedPersons();

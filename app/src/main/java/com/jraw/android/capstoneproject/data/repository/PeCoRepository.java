@@ -1,5 +1,6 @@
 package com.jraw.android.capstoneproject.data.repository;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.jraw.android.capstoneproject.data.model.PeCo;
@@ -17,7 +18,7 @@ public class PeCoRepository {
     private PeCoRepository(@NonNull PeCoLocalDataSource aPeCoLocalDataSource) {
         mPeCoLocalDataSource=aPeCoLocalDataSource;
     }
-    public long savePeCo(PeCo aPeCo) {
-        return mPeCoLocalDataSource.savePeCo(aPeCo);
+    public long savePeCo(Context aContext, PeCo aPeCo) {
+        return mPeCoLocalDataSource.savePeCo(aContext, aPeCo);
     }
 }

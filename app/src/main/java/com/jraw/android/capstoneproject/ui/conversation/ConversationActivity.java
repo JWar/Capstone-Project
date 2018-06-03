@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationContract;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationFragment;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationPresenter;
+import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 
@@ -39,6 +42,7 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  *  Need to set up presenter tests.
  *  Need to set up activity tests.
  * Style! Background black. Metallic silver, metallic blue.
+ * Contact list? Add person/delete/edit?
  */
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,
@@ -91,7 +95,7 @@ public class ConversationActivity extends AppCompatActivity implements
             SharedPreferences sharedPreferences = getSharedPreferences(SHAR_PREFS,0);
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.conversation_fragment_container);
             if (fragment == null) {//If null then check for install flag.
-                if (sharedPreferences.getBoolean(IS_INSTALLED,false)) {//Is installed
+                if (sharedPreferences.getBoolean(IS_INSTALLED,Injection.getIsInstallDefault())) {//Is installed
                     ConversationFragment conversationFragment = new ConversationFragment();
                     getSupportFragmentManager()
                             .beginTransaction()
@@ -247,5 +251,9 @@ public class ConversationActivity extends AppCompatActivity implements
         } else {
             super.onBackPressed();
         }
+    }
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }

@@ -23,6 +23,7 @@ import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
+import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
 
 /**
  * Handles View part of Msgs functionality.
@@ -119,6 +120,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        EspressoIdlingResource.increment();
         return mPresenterMsgs.getMsgs(getActivity(),args.getLong(CO_PUBLIC_ID));
     }
 
@@ -134,6 +136,9 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
 
     @Override
     public void setMsgs(Cursor aList) {
+        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+            EspressoIdlingResource.decrement(); // Set app as idle.
+        }
         mListHandler.swapMsgs(aList);
         if (mListState!=null) {
             mListHandler.setState(mListState);

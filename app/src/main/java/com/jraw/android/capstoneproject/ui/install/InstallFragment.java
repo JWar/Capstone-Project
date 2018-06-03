@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.IntegerAsyncTaskLoader;
+import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
 
 /**
  * ... handles installation routine.
@@ -88,6 +89,7 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         final String fName = args.getString(FIRST_NAME);
         final String sName = args.getString(SUR_NAME);
         final String telNum = args.getString(TEL_NUM);
+        EspressoIdlingResource.increment();
         return new IntegerAsyncTaskLoader(getActivity(),mInstallPresenter,
                 fName,sName,telNum);
     }
@@ -95,6 +97,9 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
     @Override
     public void onLoadFinished(@NonNull Loader<Integer> loader, Integer data) {
         //Go through result codes?
+        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+            EspressoIdlingResource.decrement(); // Set app as idle.
+        }
         if (data==-1) {
             //Error.
             Toast.makeText(getActivity(), getString(R.string.install_error_msg), Toast.LENGTH_SHORT).show();

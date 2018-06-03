@@ -25,14 +25,9 @@ public class MsgCursorWrapper extends CursorWrapper {
                     msg.setMSCOPublicId(getInt(getColumnIndex(MsgTable.Cols.COPUBLICID)));
                 }
             }
-            if (getColumnIndex(MsgTable.Cols.TOID) > -1) {
-                if (!isNull(getColumnIndex(MsgTable.Cols.TOID))) {
-                    msg.setMSToId(getInt(getColumnIndex(MsgTable.Cols.TOID)));
-                }
-            }
             if (getColumnIndex(MsgTable.Cols.FROMTEL) > -1) {
                 if (!isNull(getColumnIndex(MsgTable.Cols.FROMTEL))) {
-                    msg.setMSFromTel(getInt(getColumnIndex(MsgTable.Cols.FROMTEL)));
+                    msg.setMSFromTel(getString(getColumnIndex(MsgTable.Cols.FROMTEL)));
                 }
             }
             if (getColumnIndex(MsgTable.Cols.BODY) > -1) {

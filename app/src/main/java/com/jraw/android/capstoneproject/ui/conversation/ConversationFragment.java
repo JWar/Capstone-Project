@@ -26,6 +26,7 @@ import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
+import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
 import com.jraw.android.capstoneproject.utils.Utils;
 
 /**
@@ -84,13 +85,16 @@ public class ConversationFragment extends Fragment implements ConversationContra
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {
                         //This is what is set on every item in the list
                     }
-                }, R.layout.fragment_list_item_convs),
+                }, R.layout.list_item_convs),
                 new LinearLayoutManager(recyclerView.getContext(),LinearLayoutManager.VERTICAL,false));
         getLoaderManager().initLoader(1,null,this);
     }
 
     @Override
     public void setConversations(Cursor aCursor) {
+        if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
+            EspressoIdlingResource.decrement(); // Set app as idle.
+        }
         mListHandler.swapConversations(aCursor);
         if (mListState!=null) {
             mListHandler.setState(mListState);
@@ -106,6 +110,7 @@ public class ConversationFragment extends Fragment implements ConversationContra
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable final Bundle args) {
         if (mPresenter!=null) {
+            EspressoIdlingResource.increment();
             if (args != null) {
                 return mPresenter.getConversationsViaTitle(getActivity(), args.getString(TITLE_QUERY));
             } else {

@@ -63,7 +63,7 @@ public class MsgHolder extends AbstractHolder {
     private String setViews(Msg aMsg, int aPos) {
         String toDisplay=aMsg.getMSEventDate();
         mDateTV.setText(toDisplay);
-        if (aMsg.getMSFromTel()== Utils.THIS_USER_ID) {//If msg is from this user
+        if (aMsg.getMSFromTel().equals(Utils.THIS_USER_TEL)) {//If msg is from this user
 //            if (Build.VERSION.SDK_INT<Build.VERSION_CODES.LOLLIPOP) {
 //                mBodyRL.setBackground(mView.getResources().getDrawable(
 //                        R.drawable.bg_outgoing_bubble

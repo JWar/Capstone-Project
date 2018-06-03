@@ -57,13 +57,13 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
                 .inflate(listItemType, parent, false);
         //Control which viewholder to call based upon list (item) type.
         switch(listItemType) {
-            case R.layout.fragment_list_item_msgs:
+            case R.layout.list_item_msgs:
                 return new MsgHolder(view);
-            case R.layout.fragment_list_item_convs:
+            case R.layout.list_item_convs:
                 return new ConvHolder(view);
-            case R.layout.fragment_list_item_new_conv_person:
+            case R.layout.list_item_person:
                 return new NewConvPersonHolder(view);
-            case R.layout.fragment_list_item_new_conv_person_added:
+            case R.layout.list_item_added_person:
                 return new NewConvAddedPersonHolder(view);
             default:
                 Utils.logDebug("Error in ListRecyclerAdapter.onCreateViewHolder: listItemType unrecognised.");

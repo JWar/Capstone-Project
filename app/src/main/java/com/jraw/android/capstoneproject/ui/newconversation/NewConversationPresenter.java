@@ -73,9 +73,9 @@ public class NewConversationPresenter implements NewConversationContract.Present
             PeCo peCo = new PeCo();
             peCo.setPCPEId(person.getId());
             peCo.setPCCOPublicId(publicId);
-            mPeCoRepository.savePeCo(peCo);
+            mPeCoRepository.savePeCo(aContext, peCo);
         }
         //Need to open new conversation so user can start msging.
-        mActivityNewConversation.goToConversation(publicId);
+        mActivityNewConversation.goToConversation(publicId, aCoTitle);
     }
 }

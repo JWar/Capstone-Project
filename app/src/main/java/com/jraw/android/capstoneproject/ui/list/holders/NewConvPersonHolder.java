@@ -14,7 +14,7 @@ public class NewConvPersonHolder extends AbstractHolder {
     public NewConvPersonHolder(View view) {
         super(view);
         mView = view;
-        mFullNameTV = view.findViewById(R.id.list_item_new_conv_fullname);
+        mFullNameTV = view.findViewById(R.id.list_item_new_conv_added_fullname);
 
     }
     public Person bindData(Person aPerson, int aPos) {
