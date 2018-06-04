@@ -37,12 +37,15 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  *  Notifications will need a way of recording the conversations that are in there, to ensure when theyre
  *  read the notification is removed. Basically need to set up a communication between the act of reading a
  *  conversation and its unread notification.
- * Keystore?
+ *  Think simplest way is just to have a general check for unread conversations. If unread convs == 1 then show
+ *  snippet. If convs > 1 then just show number of unread conversations. Dont need to pass anything, just let
+ *  process check using repo itself.
+ * Keystore? hmm need to include keystore and passwords in repo? relative path to keystore?
+ * Need to validate user input. Validate data from server. Log errors and must not crash.
+ * Accessibility? D-Pad?
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
- *  Need to set up presenter tests.
- *  Need to set up activity tests.
  * Style! Background black. Metallic silver, metallic blue.
- * Contact list? Add person/delete/edit?
+ * Contact list? Add person/delete/edit? Cant rem. spec... did it have a contact list?
  */
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,
