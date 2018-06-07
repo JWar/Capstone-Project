@@ -46,6 +46,8 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
  * Style! Background black. Metallic silver, metallic blue.
  * Contact list? Add person/delete/edit? Cant rem. spec... did it have a contact list?
+ * Possible extensions:
+ *  Notifications above 1 show more than just basic message
  */
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,

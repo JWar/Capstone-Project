@@ -143,6 +143,17 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
         }
         return conversations;
     }
+    //If unread msgs great than 0..
+    @Override
+    public Cursor getAllUnreadConversations(Context aContext) {
+        return aContext.getContentResolver().query(
+                DbSchema.ConversationTable.CONTENT_URI,
+                null,
+                DbSchema.ConversationTable.Cols.UNREAD + ">0",
+                null,
+                null
+        );
+    }
 
     //This will need to return id which is then used to get the conversations publicid
     //Though I suppose its generated in Conversation creation so maybe can just get publicid that way...

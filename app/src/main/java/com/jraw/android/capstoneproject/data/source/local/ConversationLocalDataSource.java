@@ -11,6 +11,7 @@ public interface ConversationLocalDataSource {
     CursorLoader getConversationsViaTitle(Context aContext, String aTitle);
     Cursor getConversationViaPublicId(Context aContext, long aCOPublicId);
     Conversation[] getConversationsTopTwo(Context aContext);
+    Cursor getAllUnreadConversations(Context aContext);
     long saveConversation(Context aContext, Conversation aConversation);
     int updateConversation(Context aContext, Conversation aConversation);
 }

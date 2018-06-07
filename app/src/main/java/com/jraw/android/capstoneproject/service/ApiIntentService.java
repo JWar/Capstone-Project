@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
@@ -16,6 +17,7 @@ import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.Person;
+import com.jraw.android.capstoneproject.data.model.cursorwrappers.ConversationCursorWrapper;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
 import com.jraw.android.capstoneproject.data.repository.PersonRepository;
@@ -122,21 +124,18 @@ public class ApiIntentService extends IntentService {
      */
     private void handleActionGetNewMsgs() {
         try {
-            List<Msg> newMsgs = sMsgRepository.getNewMsgs(this);
-            if (newMsgs!=null) {
-                //Successfully save this number of new msgs. Just debug, no need to let user know.
-                //TODO:This will need to update/add notifications AND update widget. Will need msgs for notifs?
-                //So getNewMsgs cant just return the num of msgs, will need to return msg list...
-                handleNotifications(newMsgs);
+            int numNewMsgs = sMsgRepository.getNewMsgs(this);
+            if (numNewMsgs>-1) {//Not sure in what case it could be 0 but hey...
+                handleNotifications();
+                //Will widget need upgrading if numNewMsgs 0? Dont think it can ever be though.
                 updateWidgetConversations();
-                Utils.logDebug("ApiIntentService.handleActionGetNewMsgs: saved " + newMsgs.size() + " from server!");
+                Utils.logDebug("ApiIntentService.handleActionGetNewMsgs: saved " + numNewMsgs + " from server!");
             } else {
-                //Notify user that there has been a problem with getting new msgs.
-                showToastMsg("Problem getting new msgs");
+                throw new Exception(getString(R.string.problem_getting_new_msgs));
             }
         } catch (Exception e) {
             Utils.logDebug("ApiIntentService.handleActionSendNewMsg: "+e.getLocalizedMessage());
-            showToastMsg("Problem getting new msgs");
+            showToastMsg(getString(R.string.problem_getting_new_msgs));
         }
     }
     private void updateWidgetConversations() {
@@ -150,42 +149,54 @@ public class ApiIntentService extends IntentService {
     }
     //Need to check presence of already set notifications.
     //Need to update notifications on read. Need to therefore store public id against the
-    private void handleNotifications(List<Msg> aMsgList) {
+    //Think going to re write this to just do a query of the conversation table for unreads.
+    //So dont need to faff about with anything in app memory, can just rely on database. Better way of
+    //structuring it anyway.
+    //Tad inefficient to get all unread convs and not really use them. But this allows relatively easy
+    //adding of new features!
+    private void handleNotifications() {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         NotificationCompat.Builder mBuilder;
-        switch (aMsgList.size()) {
-            case 1:
-                Msg msg = aMsgList.get(0);
-                Person person = sPersonRepository.getPerson(this,msg.getMSFromTel());
-                PendingIntent pendingIntent = PendingIntent.getActivity(
-                        this,
-                        0,
-                        MsgsActivity.getIntent(this,msg.getMSCOPublicId(),msg.getMSCOTitle()),
-                        0);
-                mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_baseline_message_24px)
-                        .setContentTitle(person.getFullName())
-                        .setContentText(msg.getBodySnippet())
-                        .setAutoCancel(true)
-                        .setContentIntent(pendingIntent)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                notificationManager.notify(mNotificationId, mBuilder.build());
-                break;
-            case 0://Shouldnt have a msg list of 0...
-                break;
-            default:
-                //Set notification title as size of list + notification new msg string
-                //TODO: this will not work beyond the first unread msg notification.
-                //Will need a running total of unread msgs.
-                //Perhaps can just have a more than 1 unread msg count.
-                //Possible to get notification? So can check notification then get data from it.
-                String toDisplay = aMsgList.size()+ " " + getString(R.string.notification_unread_msgs);
-                mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_baseline_message_24px)
-                        .setContentText(toDisplay)
-                        .setAutoCancel(true)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                notificationManager.notify(mNotificationId, mBuilder.build());
+        ConversationCursorWrapper unreadConvsCursor = new ConversationCursorWrapper(
+                sConversationRepository.getAllUnreadConversations(this));
+        try {
+            int curCount = unreadConvsCursor.getCount();
+            switch (curCount) {
+                case 1:
+                    Conversation conv = unreadConvsCursor.getConversation();
+                    PendingIntent pendingIntent = PendingIntent.getActivity(
+                            this,
+                            0,
+                            MsgsActivity.getIntent(this, conv.getCOPublicId(), conv.getCOTitle()),
+                            0);
+                    mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
+                            .setSmallIcon(R.drawable.ic_baseline_message_24px)
+                            .setContentTitle(conv.getCOTitle())
+                            .setContentText(conv.getCOSnippet())
+                            .setAutoCancel(true)
+                            .setContentIntent(pendingIntent)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    notificationManager.notify(mNotificationId, mBuilder.build());
+                    break;
+                case 0:
+                    //If no unread msgs then notification not needed.
+                    notificationManager.cancel(mNotificationId);
+                    break;
+                default:
+                    //Nothing fancy if more than one. This can be extended
+                    String toDisplay = curCount + " " + getString(R.string.notification_unread_msgs);
+                    mBuilder = new NotificationCompat.Builder(this, Utils.CHANNEL_ID)
+                            .setSmallIcon(R.drawable.ic_baseline_message_24px)
+                            .setContentText(toDisplay)
+                            .setAutoCancel(true)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    notificationManager.notify(mNotificationId, mBuilder.build());
+            }
+        } catch (Exception e) {
+            Utils.logDebug("ApiIntentService.handleNotifications: "+e.getLocalizedMessage());
+            showToastMsg("Problem with notifications");
+        } finally {
+            unreadConvsCursor.close();
         }
     }
     /**

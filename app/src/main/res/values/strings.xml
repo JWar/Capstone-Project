@@ -49,5 +49,7 @@
     <string name="notification_unread_msgs">new unread messages</string>
     <string name="channel_name">Capstone Channel</string>
     <string name="channel_description">Channel Desc</string>
+    
+    <string name="problem_getting_new_msg">Problem getting new msgs</string>
 
 </resources>

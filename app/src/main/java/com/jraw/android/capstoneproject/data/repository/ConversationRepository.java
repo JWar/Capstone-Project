@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.data.repository;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
@@ -35,6 +36,10 @@ public class ConversationRepository {
     //Gets two most popular conversations (ones with most msgs...).
     public Conversation[] getConversationsTopTwo(Context aContext) {
         return mConversationLocalDataSource.getConversationsTopTwo(aContext);
+    }
+    //This is used by notifications in IntentService.
+    public Cursor getAllUnreadConversations(Context aContext) {
+        return mConversationLocalDataSource.getAllUnreadConversations(aContext);
     }
     public long saveConversation(Context aContext, Conversation aConversation) {
         return mConversationLocalDataSource.saveConversation(aContext,aConversation);
