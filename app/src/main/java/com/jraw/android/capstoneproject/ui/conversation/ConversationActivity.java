@@ -30,24 +30,17 @@ import static com.jraw.android.capstoneproject.utils.Utils.CHANNEL_ID;
 import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
 /**
- * Todos will be here.
  * TODO: general todo list. The presence of this means there is still things todo!
- * Notifications - handled in intent service. Simple case of msg snippet? Will need to update same
- *  notification with multiple messages, dont need snippet for that though.
- *  Notifications will need a way of recording the conversations that are in there, to ensure when theyre
- *  read the notification is removed. Basically need to set up a communication between the act of reading a
- *  conversation and its unread notification.
- *  Think simplest way is just to have a general check for unread conversations. If unread convs == 1 then show
- *  snippet. If convs > 1 then just show number of unread conversations. Dont need to pass anything, just let
- *  process check using repo itself.
+ * Need to do new contact screen...
  * Keystore? hmm need to include keystore and passwords in repo? relative path to keystore?
- * Need to validate user input. Validate data from server. Log errors and must not crash.
- * Accessibility? D-Pad?
+ * Accessibility? D-Pad? Not sure what to do with this beyond make edittexts focus up down... images has contentdesc
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
  * Style! Background black. Metallic silver, metallic blue.
- * Contact list? Add person/delete/edit? Cant rem. spec... did it have a contact list?
  * Possible extensions:
+ *  RxJava to replace Loader and IntentService. Though IntentService may actually be best thing for the job. Or
+ *  JobScheduler?
  *  Notifications above 1 show more than just basic message
+ *  Contact list. Add person/delete/edit. Standard functionality
  */
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,

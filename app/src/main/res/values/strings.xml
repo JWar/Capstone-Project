@@ -34,6 +34,9 @@
     <string name="send_msg">Send</string>
     <string name="enter_message_hint">Enter message&#8230;</string>
     <string name="save">Save</string>
+    <string name="save_successful">Save successful</string>
+    <string name="problem_saving">Problem saving</string>
+    <string name="cancel">Cancel</string>
     <string name="create">Create</string>
     <string name="send_msg_error">Problem sending message!</string>
 
@@ -49,7 +52,6 @@
     <string name="notification_unread_msgs">new unread messages</string>
     <string name="channel_name">Capstone Channel</string>
     <string name="channel_description">Channel Desc</string>
-    
-    <string name="problem_getting_new_msg">Problem getting new msgs</string>
 
+    <string name="problem_getting_new_msg">Problem getting new msgs</string>
 </resources>

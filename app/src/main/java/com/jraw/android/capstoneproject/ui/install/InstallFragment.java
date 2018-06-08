@@ -51,6 +51,7 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mFirstNameET = view.findViewById(R.id.fragment_install_first_name_et);
+        mFirstNameET.requestFocus();//Focus on start
         mSurnameET = view.findViewById(R.id.fragment_install_surname_et);
         mTelNumET = view.findViewById(R.id.fragment_install_tel_num_et);
     }

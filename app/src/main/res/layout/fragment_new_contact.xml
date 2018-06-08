@@ -1,12 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.jraw.android.capstoneproject.ui.install.InstallFragment">
+    tools:context="com.jraw.android.capstoneproject.ui.newcontact.NewContactFragment">
 
     <EditText
-        android:id="@+id/fragment_install_first_name_et"
+        android:id="@+id/fragment_new_contact_first_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="2"
@@ -14,22 +13,22 @@
         android:hint="@string/first_name"
         android:focusable="true"
         android:imeOptions="actionNext"
-        android:nextFocusDown="@+id/fragment_install_tel_num_et"
+        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"
         android:layout_margin="4dp"/>
 
     <EditText
-        android:id="@+id/fragment_install_surname_et"
+        android:id="@+id/fragment_new_contact_surname_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:inputType="textPersonName"
         android:hint="@string/surname"
         android:imeOptions="actionNext"
-        android:nextFocusDown="@+id/fragment_install_tel_num_et"
+        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"
         android:layout_margin="4dp"/>
 
     <EditText
-        android:id="@+id/fragment_install_tel_num_et"
+        android:id="@+id/fragment_new_contact_tel_num_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
@@ -38,4 +37,4 @@
         android:imeOptions="actionDone"
         android:layout_margin="4dp"/>
 
-</LinearLayout>
+</FrameLayout>

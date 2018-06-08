@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.jraw.android.capstoneproject.ui.conversation.ConversationActivity">
+
+    <item android:id="@+id/new_contact_save"
+        android:title="@string/save"
+        android:orderInCategory="1"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/new_contact_cancel"
+        android:title="@string/cancel"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom"/>
+
+</menu>
