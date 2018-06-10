@@ -32,10 +32,8 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 /**
  * TODO: general todo list. The presence of this means there is still things todo!
  * Need to do new contact screen...
- * Keystore? hmm need to include keystore and passwords in repo? relative path to keystore?
  * Accessibility? D-Pad? Not sure what to do with this beyond make edittexts focus up down... images has contentdesc
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
- * Style! Background black. Metallic silver, metallic blue.
  * Possible extensions:
  *  RxJava to replace Loader and IntentService. Though IntentService may actually be best thing for the job. Or
  *  JobScheduler?

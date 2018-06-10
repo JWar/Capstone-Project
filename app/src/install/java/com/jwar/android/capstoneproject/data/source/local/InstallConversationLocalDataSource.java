@@ -1,28 +1,29 @@
 package com.jwar.android.capstoneproject.data.source.local;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
-
 import com.jraw.android.capstoneproject.data.model.Conversation;
+import com.jraw.android.capstoneproject.data.model.cursorwrappers.ConversationCursorWrapper;
 import com.jraw.android.capstoneproject.data.source.local.ConversationLocalDataSource;
+import com.jraw.android.capstoneproject.database.DbSchema;
 import com.jraw.android.capstoneproject.database.DbSchema.ConversationTable;
-import java.util.List;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 /**
  * Created by JonGaming on 16/04/2018.
  */
 
-public class ProdConversationLocalDataSource implements ConversationLocalDataSource {
-    private static ProdConversationLocalDataSource sInstance=null;
-    public static synchronized ProdConversationLocalDataSource getInstance() {
+public class InstallConversationLocalDataSource implements ConversationLocalDataSource {
+    private static InstallConversationLocalDataSource sInstance=null;
+    public static synchronized InstallConversationLocalDataSource getInstance() {
         if (sInstance==null) {
-            sInstance = new ProdConversationLocalDataSource();
+            sInstance = new InstallConversationLocalDataSource();
         }
         return sInstance;
     }
-    private ProdConversationLocalDataSource() {}
+    private InstallConversationLocalDataSource() {}
 
     @Override
     public CursorLoader getConversations(Context aContext) {

@@ -6,7 +6,6 @@ import com.jraw.android.capstoneproject.data.source.remote.BackendApi;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
-import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.DummyData;
 
 /**

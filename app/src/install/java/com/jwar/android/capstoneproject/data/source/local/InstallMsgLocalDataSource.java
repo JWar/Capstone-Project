@@ -1,5 +1,6 @@
 package com.jwar.android.capstoneproject.data.source.local;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.support.v4.content.CursorLoader;
 
@@ -11,15 +12,15 @@ import com.jraw.android.capstoneproject.database.DbSchema.MsgTable;
  * Created by JonGaming on 16/04/2018.
  */
 
-public class ProdMsgLocalDataSource implements MsgLocalDataSource {
-    private static ProdMsgLocalDataSource sInstance=null;
-    public static ProdMsgLocalDataSource getInstance() {
+public class InstallMsgLocalDataSource implements MsgLocalDataSource {
+    private static InstallMsgLocalDataSource sInstance=null;
+    public static InstallMsgLocalDataSource getInstance() {
         if (sInstance==null) {
-            sInstance = new ProdMsgLocalDataSource();
+            sInstance = new InstallMsgLocalDataSource();
         }
         return sInstance;
     }
-    private ProdMsgLocalDataSource() {}
+    private InstallMsgLocalDataSource() {}
 
     @Override
     public CursorLoader getMsgs(Context aContext, long aConversationPublicId) {

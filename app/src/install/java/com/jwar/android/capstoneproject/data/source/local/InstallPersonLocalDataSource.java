@@ -1,5 +1,6 @@
 package com.jwar.android.capstoneproject.data.source.local;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.support.v4.content.CursorLoader;
 import com.jraw.android.capstoneproject.data.model.cursorwrappers.PersonCursorWrapper;
@@ -7,15 +8,15 @@ import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
 import com.jraw.android.capstoneproject.database.DbSchema.PersonTable;
 
-public class ProdPersonLocalDataSource implements PersonLocalDataSource {
-    private static ProdPersonLocalDataSource sInstance=null;
-    public static synchronized ProdPersonLocalDataSource getInstance() {
+public class InstallPersonLocalDataSource implements PersonLocalDataSource {
+    private static InstallPersonLocalDataSource sInstance=null;
+    public static synchronized InstallPersonLocalDataSource getInstance() {
         if (sInstance==null) {
-            sInstance=new ProdPersonLocalDataSource();
+            sInstance=new InstallPersonLocalDataSource();
         }
         return sInstance;
     }
-    private ProdPersonLocalDataSource() {}
+    private InstallPersonLocalDataSource() {}
 
     @Override
     public CursorLoader getPersons(Context aContext) {
@@ -35,6 +36,23 @@ public class ProdPersonLocalDataSource implements PersonLocalDataSource {
                         PersonTable.CONTENT_URI,
                         null,
                         PersonTable.Cols.ID + "="+aPersonId,
+                        null,
+                        null
+                )
+        );
+        Person person = personCursorWrapper.getPerson();
+        personCursorWrapper.close();
+        return person;
+    }
+
+    @Override
+    public Person getPerson(Context aContext, String aPersonTel) {
+        String tel = "%"+aPersonTel+"%";
+        PersonCursorWrapper personCursorWrapper = new PersonCursorWrapper(
+                aContext.getContentResolver().query(
+                        PersonTable.CONTENT_URI,
+                        null,
+                        PersonTable.Cols.TELNUM + " LIKE "+tel,
                         null,
                         null
                 )

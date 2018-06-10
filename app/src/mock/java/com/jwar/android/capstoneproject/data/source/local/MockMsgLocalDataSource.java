@@ -1,16 +1,11 @@
 package com.jwar.android.capstoneproject.data.source.local;
 
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
-import com.jraw.android.capstoneproject.database.DbSchema;
 import com.jraw.android.capstoneproject.database.DbSchema.MsgTable;
-
-import java.util.List;
 
 /**
  * Created by JonGaming on 16/04/2018.

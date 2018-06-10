@@ -4,21 +4,23 @@ import android.content.Context;
 import android.content.ContentUris;
 import com.jraw.android.capstoneproject.data.model.PeCo;
 import com.jraw.android.capstoneproject.data.source.local.PeCoLocalDataSource;
+import com.jraw.android.capstoneproject.database.DbSchema.PeCoTable;
 
-public class ProdPeCoLocalDataSource implements PeCoLocalDataSource {
-    private static ProdPeCoLocalDataSource sInstance=null;
-    public static synchronized ProdPeCoLocalDataSource getInstance() {
+
+public class InstallPeCoLocalDataSource implements PeCoLocalDataSource {
+    private static InstallPeCoLocalDataSource sInstance=null;
+    public static synchronized InstallPeCoLocalDataSource getInstance() {
         if (sInstance==null) {
-            sInstance = new ProdPeCoLocalDataSource();
+            sInstance = new InstallPeCoLocalDataSource();
         }
         return sInstance;
     }
-    private ProdPeCoLocalDataSource() {}
+    private InstallPeCoLocalDataSource() {}
 
     @Override
     public long savePeCo(Context aContext, PeCo aPeCo) {
         return ContentUris.parseId(aContext.getContentResolver().insert(
-                DbSchema.PeCoTable.CONTENT_URI,
+                PeCoTable.CONTENT_URI,
                 aPeCo.toCV())
         );
     }

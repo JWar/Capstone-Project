@@ -14,12 +14,12 @@ import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.BackendApi;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.PersonRemoteDataSource;
-import com.jwar.android.capstoneproject.data.source.local.ProdConversationLocalDataSource;
-import com.jwar.android.capstoneproject.data.source.local.ProdMsgLocalDataSource;
-import com.jwar.android.capstoneproject.data.source.local.ProdPeCoLocalDataSource;
-import com.jwar.android.capstoneproject.data.source.local.ProdPersonLocalDataSource;
-import com.jwar.android.capstoneproject.data.source.remote.ProdMsgRemoteDataSource;
-import com.jwar.android.capstoneproject.data.source.remote.ProdPersonRemoteDataSource;
+import com.jwar.android.capstoneproject.data.source.local.InstallConversationLocalDataSource;
+import com.jwar.android.capstoneproject.data.source.local.InstallMsgLocalDataSource;
+import com.jwar.android.capstoneproject.data.source.local.InstallPeCoLocalDataSource;
+import com.jwar.android.capstoneproject.data.source.local.InstallPersonLocalDataSource;
+import com.jwar.android.capstoneproject.data.source.remote.InstallMsgRemoteDataSource;
+import com.jwar.android.capstoneproject.data.source.remote.InstallPersonRemoteDataSource;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,22 +50,22 @@ public class Injection {
                 aConversationLocalDataSource);
     }
     public static ConversationLocalDataSource provideConversationLocalDataSource() throws Exception {
-        return ProdConversationLocalDataSource.getInstance();
+        return InstallConversationLocalDataSource.getInstance();
     }
     public static MsgLocalDataSource provideMsgLocalDataSource() throws Exception {
-        return ProdMsgLocalDataSource.getInstance();
+        return InstallMsgLocalDataSource.getInstance();
     }
     public static MsgRemoteDataSource provideMsgRemoteDataSource(@NonNull BackendApi aBackendApi) {
-        return ProdMsgRemoteDataSource.getInstance(aBackendApi);
+        return InstallMsgRemoteDataSource.getInstance(aBackendApi);
     }
     public static PersonRemoteDataSource providePersonRemoteDataSource(@NonNull BackendApi aBackendApi) {
-        return ProdPersonRemoteDataSource.getInstance(aBackendApi);
+        return InstallPersonRemoteDataSource.getInstance(aBackendApi);
     }
     public static PersonLocalDataSource providePersonLocalDataSource() {
-        return ProdPersonLocalDataSource.getInstance();
+        return InstallPersonLocalDataSource.getInstance();
     }
     public static PeCoLocalDataSource providePeCoLocalDataSource() {
-        return ProdPeCoLocalDataSource.getInstance();
+        return InstallPeCoLocalDataSource.getInstance();
     }
     public static BackendApi provideBackendApi() throws Exception {
         Retrofit retrofit = new Retrofit.Builder()

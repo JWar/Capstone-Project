@@ -6,22 +6,25 @@ import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.source.remote.BackendApi;
 import com.jraw.android.capstoneproject.data.source.remote.PersonRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerPersonSave;
+import com.jraw.android.capstoneproject.utils.Utils;
 
-public class ProdPersonRemoteDataSource implements PersonRemoteDataSource {
-    private static ProdPersonRemoteDataSource sInstance=null;
+public class InstallPersonRemoteDataSource implements PersonRemoteDataSource {
+    private static InstallPersonRemoteDataSource sInstance=null;
     private BackendApi mBackendApi;
-    public static synchronized ProdPersonRemoteDataSource getInstance(@NonNull BackendApi aBackendApi) {
+    public static synchronized InstallPersonRemoteDataSource getInstance(@NonNull BackendApi aBackendApi) {
         if (sInstance==null) {
-            sInstance=new ProdPersonRemoteDataSource(aBackendApi);
+            sInstance=new InstallPersonRemoteDataSource(aBackendApi);
         }
         return sInstance;
     }
-    private ProdPersonRemoteDataSource(@NonNull BackendApi aBackendApi) {
+    private InstallPersonRemoteDataSource(@NonNull BackendApi aBackendApi) {
         mBackendApi=aBackendApi;
     }
 
     @Override
     public ResponseServerPersonSave savePerson(Person aPerson) {
-        return mBackendApi.sendPerson("",aPerson);
+        return mBackendApi.sendPerson(
+                Utils.URL,
+                aPerson);
     }
 }

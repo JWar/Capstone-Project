@@ -6,23 +6,23 @@ import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.remote.BackendApi;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
-
-import java.util.List;
+import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 /**
  * Created by JonGaming on 16/04/2018.
  */
 
-public class ProdMsgRemoteDataSource implements MsgRemoteDataSource {
-    private static ProdMsgRemoteDataSource sInstance=null;
+public class InstallMsgRemoteDataSource implements MsgRemoteDataSource {
+    private static InstallMsgRemoteDataSource sInstance=null;
     private BackendApi mBackendApi;
-    public static ProdMsgRemoteDataSource getInstance(@NonNull BackendApi aBackendApi) {
+    public static InstallMsgRemoteDataSource getInstance(@NonNull BackendApi aBackendApi) {
         if (sInstance==null) {
-            sInstance = new ProdMsgRemoteDataSource(aBackendApi);
+            sInstance = new InstallMsgRemoteDataSource(aBackendApi);
         }
         return sInstance;
     }
-    private ProdMsgRemoteDataSource(@NonNull BackendApi aBackendApi) {
+    private InstallMsgRemoteDataSource(@NonNull BackendApi aBackendApi) {
         mBackendApi=aBackendApi;
     }
 
@@ -35,7 +35,9 @@ public class ProdMsgRemoteDataSource implements MsgRemoteDataSource {
     //Returns null for moment
     @Override
     public ResponseServerMsgSave saveMsg(Msg aMsg) {
-
-        return null;
+        return mBackendApi.sendMsg(
+                Utils.URL,
+                aMsg
+        );
     }
 }
