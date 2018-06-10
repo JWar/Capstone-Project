@@ -2,9 +2,10 @@ package com.jwar.android.capstoneproject.data.source.local;
 
 import android.content.Context;
 import android.support.v4.content.CursorLoader;
-
+import com.jraw.android.capstoneproject.data.model.cursorwrappers.PersonCursorWrapper;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
+import com.jraw.android.capstoneproject.database.DbSchema.PersonTable;
 
 public class ProdPersonLocalDataSource implements PersonLocalDataSource {
     private static ProdPersonLocalDataSource sInstance=null;

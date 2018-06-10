@@ -5,6 +5,7 @@ import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
+import com.jraw.android.capstoneproject.database.DbSchema.MsgTable;
 
 /**
  * Created by JonGaming on 16/04/2018.

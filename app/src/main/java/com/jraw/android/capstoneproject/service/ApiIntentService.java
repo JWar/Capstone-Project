@@ -131,11 +131,11 @@ public class ApiIntentService extends IntentService {
                 updateWidgetConversations();
                 Utils.logDebug("ApiIntentService.handleActionGetNewMsgs: saved " + numNewMsgs + " from server!");
             } else {
-                throw new Exception(getString(R.string.problem_getting_new_msgs));
+                throw new Exception(getString(R.string.problem_getting_new_msg));
             }
         } catch (Exception e) {
             Utils.logDebug("ApiIntentService.handleActionSendNewMsg: "+e.getLocalizedMessage());
-            showToastMsg(getString(R.string.problem_getting_new_msgs));
+            showToastMsg(getString(R.string.problem_getting_new_msg));
         }
     }
     private void updateWidgetConversations() {

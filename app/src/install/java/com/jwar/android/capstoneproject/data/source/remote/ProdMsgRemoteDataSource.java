@@ -32,4 +32,10 @@ public class ProdMsgRemoteDataSource implements MsgRemoteDataSource {
                 BackendApi.SEARCH_TYPES.ALL.ordinal(),
                 Utils.THIS_USER_ID+"");
     }
+    //Returns null for moment
+    @Override
+    public ResponseServerMsgSave saveMsg(Msg aMsg) {
+
+        return null;
+    }
 }

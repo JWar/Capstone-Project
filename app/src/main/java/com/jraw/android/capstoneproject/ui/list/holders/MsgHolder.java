@@ -38,7 +38,7 @@ public class MsgHolder extends AbstractHolder {
         String toDisplay=aMsg.getMSEventDate();
         mDateTV.setText(toDisplay);
         if (!aMsg.getMSFromTel().equals(Utils.THIS_USER_TEL)) {//If msg is not from this user
-            mBodyTV.setBackground(R.drawable.rounded_corner_blue);
+            mBodyTV.setBackgroundDrawable(mView.getContext().getResources().getDrawable(R.drawable.rounded_corner_blue));
             setBodyTVToStart();
         }
         mBodyTV.setText(aMsg.getMSBody());
