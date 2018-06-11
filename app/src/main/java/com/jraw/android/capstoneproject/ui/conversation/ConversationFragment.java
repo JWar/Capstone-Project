@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -39,8 +38,6 @@ public class ConversationFragment extends Fragment implements ConversationContra
     public static final String TAG = "conversationFragTag";
     private static final String TITLE_QUERY = "titleQuery";
 
-    private FloatingActionButton mFab;
-
     private ConversationContract.PresenterConversations mPresenter;
 
     private ListHandler mListHandler;
@@ -64,8 +61,8 @@ public class ConversationFragment extends Fragment implements ConversationContra
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mFab = view.findViewById(R.id.fragment_conversation_new_conv_fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.fragment_conversation_new_conv_fab)
+                .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View aView) {mPresenter.onNewConversation();}
         });
@@ -142,6 +139,15 @@ public class ConversationFragment extends Fragment implements ConversationContra
         MenuItem actionViewItem = menu.findItem(R.id.conversations_search_item);
         if (actionViewItem != null) {
             View v = actionViewItem.getActionView();
+            //Sets new contact button method
+            v.findViewById(R.id.conversations_search_bar_new_contact_button)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View aView) {
+                            mPresenter.onNewContact();
+                        }
+                    });
+
             final SearchView sV = v.findViewById(R.id.conversations_search_view);
             sV.setQuery("", false);
             sV.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

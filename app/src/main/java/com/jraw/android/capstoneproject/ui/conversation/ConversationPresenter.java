@@ -41,4 +41,7 @@ public class ConversationPresenter implements ConversationContract.PresenterConv
     public void onNewConversation() {
         mActivityConversation.onNewConversation();
     }
+
+    @Override
+    public void onNewContact() {mActivityConversation.onNewContact();}
 }

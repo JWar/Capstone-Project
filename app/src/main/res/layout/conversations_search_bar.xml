@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:queryHint="@string/conversations_search_by_title_hint"
-        android:layout_toStartOf="@+id/conversations_search_bar_new_conversation_button"/>
+        android:layout_toStartOf="@+id/conversations_search_bar_new_contact_button"/>
 
     <Button
-        android:contentDescription="@string/action_new_conversation"
-        android:id="@+id/conversations_search_bar_new_conversation_button"
+        android:contentDescription="@string/action_new_contact"
+        android:id="@+id/conversations_search_bar_new_contact_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="@string/action_new_conversation"
+        android:text="@string/action_new_contact"
         android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

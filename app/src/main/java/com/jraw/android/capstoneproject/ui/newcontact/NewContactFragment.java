@@ -17,6 +17,8 @@ import com.jraw.android.capstoneproject.R;
 
 public class NewContactFragment extends Fragment implements NewContactContract.ViewNewContact {
 
+    public static final String TAG = "newContactFragTag";
+
     private EditText mFirstNameET;
     private EditText mSurnameET;
     private EditText mTelNumET;

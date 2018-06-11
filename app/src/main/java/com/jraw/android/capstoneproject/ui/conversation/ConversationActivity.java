@@ -19,6 +19,9 @@ import com.jraw.android.capstoneproject.ui.install.InstallContract;
 import com.jraw.android.capstoneproject.ui.install.InstallFragment;
 import com.jraw.android.capstoneproject.ui.install.InstallPresenter;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
+import com.jraw.android.capstoneproject.ui.newcontact.NewContactContract;
+import com.jraw.android.capstoneproject.ui.newcontact.NewContactFragment;
+import com.jraw.android.capstoneproject.ui.newcontact.NewContactPresenter;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationContract;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationFragment;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationPresenter;
@@ -32,6 +35,7 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 /**
  * TODO: general todo list. The presence of this means there is still things todo!
  * Need to do new contact screen...
+ *  Where can you access new contact?
  * Accessibility? D-Pad? Not sure what to do with this beyond make edittexts focus up down... images has contentdesc
  * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
  * Possible extensions:
@@ -43,7 +47,8 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,
         InstallContract.ActivityInstall,
-        NewConversationContract.ActivityNewConversation {
+        NewConversationContract.ActivityNewConversation,
+        NewContactContract.ActivityNewContact {
 
     private static final String IS_INSTALLED = "isInstalled";
 
@@ -53,6 +58,7 @@ public class ConversationActivity extends AppCompatActivity implements
     private ConversationPresenter mConversationPresenter;
     private InstallPresenter mInstallPresenter;
     private NewConversationPresenter mNewConversationPresenter;
+    private NewContactPresenter mNewContactPresenter;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -174,7 +180,6 @@ public class ConversationActivity extends AppCompatActivity implements
         }
     }
 
-
     @Override
     public void onNewConversation() {
         try {
@@ -200,6 +205,30 @@ public class ConversationActivity extends AppCompatActivity implements
                     this);
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.onNewConversation: "+e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public void onNewContact() {
+        try {
+            NewContactFragment newContactFragment = new NewContactFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(NewContactFragment.TAG)
+                    .add(R.id.conversation_fragment_container, newContactFragment, NewContactFragment.TAG)
+                    .commit();
+            mNewContactPresenter = new NewContactPresenter(
+                    Injection.providePersonRepository(
+                            Injection.providePersonLocalDataSource(),
+                            Injection.providePersonRemoteDataSource(
+                                    Injection.provideBackendApi()
+                            )
+                    ),
+                    newContactFragment,
+                    this
+            );
+        } catch (Exception e) {
+            Utils.logDebug("ConversationActivity.onNewContact: "+e.getLocalizedMessage());
         }
     }
 
@@ -237,6 +266,11 @@ public class ConversationActivity extends AppCompatActivity implements
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.goToConversation: "+e.getLocalizedMessage());
         }
+    }
+
+    @Override
+    public void onCancel() {
+        onBackPressed();
     }
 
     @Override

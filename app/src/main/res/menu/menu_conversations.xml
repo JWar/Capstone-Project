@@ -2,9 +2,11 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.jraw.android.capstoneproject.ui.conversation.ConversationActivity">
+
     <item
         android:id="@+id/conversations_search_item"
         android:title="@string/conversations_search_item_title"
         app:actionLayout="@layout/conversations_search_bar"
+        android:orderInCategory="1"
         app:showAsAction="always"/>
 </menu>

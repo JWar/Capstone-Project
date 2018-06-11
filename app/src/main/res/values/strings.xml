@@ -3,7 +3,7 @@
     <string name="content_authority">com.jraw.android.capstoneproject</string>
 
     <string name="action_settings">Settings</string>
-    <string name="action_new_conversation">New Conv</string>
+    <string name="action_new_contact">Add new Contact</string>
 
     <string name="error_message">Problem getting data</string>
     <string name="error_message_records">No records found</string>
@@ -39,6 +39,7 @@
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
     <string name="send_msg_error">Problem sending message!</string>
+    <string name="new_contact">Add new Contact</string>
 
     <string name="first_name">First name</string>
     <string name="surname">Surname</string>
