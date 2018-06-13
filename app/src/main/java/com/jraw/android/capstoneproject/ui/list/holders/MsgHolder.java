@@ -21,13 +21,14 @@ public class MsgHolder extends AbstractHolder {
         mView = view;
         mBodyRL = view.findViewById(R.id.list_item_msgs_body_rl);
         mDateTV = view.findViewById(R.id.list_item_msgs_time);
-        mBodyTV = view.findViewById(R.id.list_item_msgs_text_view);
+        mBodyTV = view.findViewById(R.id.list_item_msgs_body_tv);
     }
 
     private void setBodyTVToStart() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.ALIGN_PARENT_START);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_END);
+        lp.addRule(RelativeLayout.BELOW, R.id.list_item_msgs_time);
         lp.setMargins(4, 4, 4, 4);
         mBodyRL.setLayoutParams(lp);
 //        mNameTV.setX(60);
@@ -37,11 +38,15 @@ public class MsgHolder extends AbstractHolder {
     private String setViews(Msg aMsg, int aPos) {
         String toDisplay=aMsg.getMSEventDate();
         mDateTV.setText(toDisplay);
-        if (!aMsg.getMSFromTel().equals(Utils.THIS_USER_TEL)) {//If msg is not from this user
+        toDisplay="";
+        if (aMsg.getMSFromTel().equals(Utils.THIS_USER_TEL)) {//If msg is not from this user
             mBodyTV.setBackground(mView.getContext().getResources().getDrawable(R.drawable.rounded_corner_blue));
             setBodyTVToStart();
+        } else {
+            toDisplay += aMsg.getMSFromTel() + ":\n";
         }
-        mBodyTV.setText(aMsg.getMSBody());
+        toDisplay+=aMsg.getMSBody();
+        mBodyTV.setText(toDisplay);
         return aMsg.getId()+"";
     }
 

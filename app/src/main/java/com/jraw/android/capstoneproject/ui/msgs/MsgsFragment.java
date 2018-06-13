@@ -24,6 +24,7 @@ import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
 import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 /**
  * Handles View part of Msgs functionality.
@@ -111,7 +112,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
                         //This is what is set on every item in the list
                     }
                 }, R.layout.list_item_msgs),
-                new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL,false));
+                new LinearLayoutManager(recyclerView.getContext(), LinearLayoutManager.VERTICAL,true));
         Bundle args = new Bundle();
         args.putLong(CO_PUBLIC_ID,mCOPubId);
         getLoaderManager().initLoader(1,args,this);
@@ -143,6 +144,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
         if (mListState!=null) {
             mListHandler.setState(mListState);
         }
+        getActivity().setTitle(mCOTitle);
     }
 
     @Override

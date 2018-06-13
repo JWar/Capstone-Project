@@ -139,7 +139,9 @@ public class Msg extends entity implements Parcelable {
     //Returns this Msg as a ContentValues object
     public ContentValues toCV() {
         ContentValues cV = new ContentValues();
-        cV.put(MsgTable.Cols.ID,getId());
+        if (getId()>0) {
+            cV.put(MsgTable.Cols.ID,getId());
+        }
         if (MSCOPublicId!=0) {
             cV.put(MsgTable.Cols.COPUBLICID,MSCOPublicId);
         }

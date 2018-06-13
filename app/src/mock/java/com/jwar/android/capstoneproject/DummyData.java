@@ -24,7 +24,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Hello fellow human");
         msg.setMSCOPublicId(1);
-        msg.setMSFromTel(Utils.USER_A);
+        msg.setMSFromTel(Utils.THIS_USER_TEL);
         msg.setMSEventDate("2018/01/11 16:20:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -40,7 +40,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("How goes it?");
         msg.setMSCOPublicId(1);
-        msg.setMSFromTel(Utils.USER_A);
+        msg.setMSFromTel(Utils.THIS_USER_TEL);
         msg.setMSEventDate("2018/01/11 16:23:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -64,7 +64,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("I'm here");
         msg.setMSCOPublicId(1);
-        msg.setMSFromTel(Utils.USER_A);
+        msg.setMSFromTel(Utils.THIS_USER_TEL);
         msg.setMSEventDate("2018/01/11 16:25:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -80,7 +80,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Where?");
         msg.setMSCOPublicId(1);
-        msg.setMSFromTel(Utils.USER_A);
+        msg.setMSFromTel(Utils.THIS_USER_TEL);
         msg.setMSEventDate("2018/01/11 16:27:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -105,7 +105,7 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("Hey there");
         msg.setMSCOPublicId(2);
-        msg.setMSFromTel(Utils.USER_A);
+        msg.setMSFromTel(Utils.THIS_USER_TEL);
         msg.setMSEventDate("2018/01/11 16:24:00");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
@@ -129,8 +129,8 @@ public class DummyData {
         msg = new Msg();
         msg.setMSBody("You too :)");
         msg.setMSCOPublicId(2);
-        msg.setMSFromTel(Utils.USER_A);
-        msg.setMSEventDate("2018/01/11 16:25:00");
+        msg.setMSFromTel(Utils.THIS_USER_TEL);
+        msg.setMSEventDate("2018/01/11 16:25:15");
         msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
         msg.setMSResult(Msg.RESULTS.READ.ordinal());
         toReturn.add(msg);

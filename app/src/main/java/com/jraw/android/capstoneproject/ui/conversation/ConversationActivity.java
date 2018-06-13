@@ -43,6 +43,10 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  *  JobScheduler?
  *  Notifications above 1 show more than just basic message
  *  Contact list. Add person/delete/edit. Standard functionality
+ *  Implement Headers in recycler view. Specifically for msgs to make same date msgs grouped
+ *  Dereference tel num in MsgHolder, so it displays name rather than tel. THis could be done by
+ *  adding a new field to Msg object, and de referencing during msg save by getting from name from
+ *  person list via tel. Done in IntentService.
  */
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,

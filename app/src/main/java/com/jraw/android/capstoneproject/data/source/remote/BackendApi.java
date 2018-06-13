@@ -2,6 +2,7 @@ package com.jraw.android.capstoneproject.data.source.remote;
 
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.Person;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -15,7 +16,7 @@ public interface BackendApi {
         ALL
     }
 
-    String END_POINT = "TBC";
+    String END_POINT = Utils.URL;
 
     //Would really have an auth token
     @GET("tbc")

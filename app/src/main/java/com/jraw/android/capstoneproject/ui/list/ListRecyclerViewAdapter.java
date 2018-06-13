@@ -83,6 +83,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
             } else if (holder instanceof ConvHolder) {
                 ConvHolder convsHolder = (ConvHolder) holder;
                 mConversationCursorWrapper.moveToPosition(position);
+
                 dId = convsHolder.bindData(mConversationCursorWrapper.getConversation(),position);
                 setListener(holder,dId);
             }  else if (holder instanceof NewConvPersonHolder) {

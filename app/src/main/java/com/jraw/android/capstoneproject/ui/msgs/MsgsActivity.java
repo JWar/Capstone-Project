@@ -10,6 +10,7 @@ import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.jraw.android.capstoneproject.R;
@@ -75,6 +76,8 @@ public class MsgsActivity extends AppCompatActivity {
                         bundle);
             }
         }
+        Toolbar toolbar = findViewById(R.id.msgs_toolbar);
+        setSupportActionBar(toolbar);
         //Checks for sms permission
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED&&
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -99,7 +102,7 @@ public class MsgsActivity extends AppCompatActivity {
                             Injection.provideConversationLocalDataSource()
                     ),
                     fragment);
-
+            
         } catch (Exception e) {
             Utils.logDebug("Error in MsgsActivity.onCreate: " + e.getLocalizedMessage());
         }

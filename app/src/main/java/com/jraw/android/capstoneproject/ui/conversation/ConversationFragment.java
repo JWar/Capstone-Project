@@ -119,7 +119,6 @@ public class ConversationFragment extends Fragment implements ConversationContra
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-        Utils.dumpContent(data);
         setConversations(data);
     }
 
