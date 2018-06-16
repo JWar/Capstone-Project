@@ -12,10 +12,5 @@ public interface NewContactContract {
 
     interface PresenterNewContact {
         void onSave(Context aContext, String aFirstname, String aSurname, String aTelNum);
-        void onCancel();
-    }
-
-    interface ActivityNewContact {
-        void onCancel();
     }
 }

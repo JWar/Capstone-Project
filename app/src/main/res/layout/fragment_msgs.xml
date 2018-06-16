@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <EditText
+        <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
             android:id="@+id/fragment_msgs_new_msg_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

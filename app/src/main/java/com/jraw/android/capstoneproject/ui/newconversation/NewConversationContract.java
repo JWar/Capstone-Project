@@ -19,6 +19,7 @@ public interface NewConversationContract {
         List<Person> getAddedPersons();
         void addAddedPerson(Person aPerson);
         void removeAddedPerson(Person aPerson);
+        void clearAddedPersons();//Needed to reset added persons list if new newConversation
         void onCreateConv(Context aContext, String aCoTitle);//Will need to take added person list and start new conversation with them.
     }
     interface ActivityNewConversation {

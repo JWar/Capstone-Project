@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jraw.android.capstoneproject.R;
-import com.jraw.android.capstoneproject.data.model.Conversation;
-import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.model.cursorwrappers.ConversationCursorWrapper;
 import com.jraw.android.capstoneproject.data.model.cursorwrappers.MsgCursorWrapper;
@@ -83,7 +81,6 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
             } else if (holder instanceof ConvHolder) {
                 ConvHolder convsHolder = (ConvHolder) holder;
                 mConversationCursorWrapper.moveToPosition(position);
-
                 dId = convsHolder.bindData(mConversationCursorWrapper.getConversation(),position);
                 setListener(holder,dId);
             }  else if (holder instanceof NewConvPersonHolder) {
@@ -92,7 +89,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
                 setListenerPerson(personHolder,personHolder.bindData(mPersonCursorWrapper.getPerson(),position));
             } else if (holder instanceof NewConvAddedPersonHolder) {
                 NewConvAddedPersonHolder personHolder = (NewConvAddedPersonHolder) holder;
-                setListenerPerson(personHolder,personHolder.bindData(mPersonAddedList.get(position),position));
+                setListenerPerson(personHolder,
+                        personHolder.bindData(mPersonAddedList.get(position),position));
             }
         } catch (Exception e) {
             Utils.logDebug("Error in ListRecyclerAdapter.onBindViewHolder: " + e.getMessage());
@@ -142,6 +140,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
             } else if (mPersonCursorWrapper!=null) {
                 mPersonCursorWrapper.moveToPosition(aPos);
                 return mPersonCursorWrapper.getPerson().getId();
+            } else if (mPersonAddedList!=null) {
+                return mPersonAddedList.get(aPos).getId();
             } else {
                 return -1;
             }
@@ -156,6 +156,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
                 return mMsgCursorWrapper.getCount();
             } else if (mPersonCursorWrapper!=null) {
                 return mPersonCursorWrapper.getCount();
+            } else if (mPersonAddedList!=null) {
+                return mPersonAddedList.size();
             } else {
                 return -1;
             }
@@ -189,5 +191,6 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<AbstractHolder
     }
     public void setPersonAddedList(@Nullable List<Person> aPersonAddedList) {
         mPersonAddedList=aPersonAddedList;
+        notifyDataSetChanged();
     }
 }

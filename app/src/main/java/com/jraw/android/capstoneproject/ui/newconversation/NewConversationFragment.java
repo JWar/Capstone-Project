@@ -23,12 +23,9 @@ import android.widget.Toast;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
-import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallbackPerson;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
 import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
-
-import java.util.List;
 
 /**
  * Handles new conversations creation.
@@ -58,16 +55,13 @@ public class NewConversationFragment extends Fragment implements NewConversation
     public NewConversationFragment() {setHasOptionsMenu(true);}
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (savedInstanceState!=null) {
             mAddedState = savedInstanceState.getParcelable(ADDED_STATE);
             mPersonsState = savedInstanceState.getParcelable(PERSONS_STATE);
+        } else {
+            mPresenterNewConversation.clearAddedPersons();//Ensures fresh list of added persons
         }
         return inflater.inflate(R.layout.fragment_new_conversation, container, false);
     }
@@ -84,12 +78,13 @@ public class NewConversationFragment extends Fragment implements NewConversation
                     @Override
                     public void onListClick(int aPosition, Person aPerson) {
                         mPresenterNewConversation.removeAddedPerson(aPerson);
+                        getAddedPersons();
                     }
 
                     @Override
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {}
                 }, R.layout.list_item_added_person),
-                new LinearLayoutManager(mAddedRV.getContext(),LinearLayoutManager.VERTICAL,false)
+                new LinearLayoutManager(mAddedRV.getContext(),LinearLayoutManager.HORIZONTAL,false)
         );
         RecyclerView personsRV = view.findViewById(R.id.fragment_new_conversation_persons_rv);
         mPersonsLH = new ListHandler(
@@ -105,7 +100,7 @@ public class NewConversationFragment extends Fragment implements NewConversation
                     @Override
                     public void onListTouch(View aView, MotionEvent aMotionEvent) {}
                 }, R.layout.list_item_person),
-                new LinearLayoutManager(personsRV.getContext(), LinearLayoutManager.HORIZONTAL,false)
+                new LinearLayoutManager(personsRV.getContext(), LinearLayoutManager.VERTICAL,false)
         );
         getLoaderManager().initLoader(1,null,this);
     }

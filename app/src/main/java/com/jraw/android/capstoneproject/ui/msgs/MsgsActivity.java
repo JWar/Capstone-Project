@@ -117,7 +117,6 @@ public class MsgsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (getSupportFragmentManager().getBackStackEntryCount() < 2) {
             finish();
         } else {

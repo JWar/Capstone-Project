@@ -11,8 +11,6 @@ import android.view.View;
 import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
 
-import com.jraw.android.capstoneproject.data.model.Conversation;
-import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.utils.Utils;
 

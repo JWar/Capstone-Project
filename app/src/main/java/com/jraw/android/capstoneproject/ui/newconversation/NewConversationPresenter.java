@@ -25,15 +25,19 @@ public class NewConversationPresenter implements NewConversationContract.Present
     private final ConversationRepository mConversationRepository;
     private final PeCoRepository mPeCoRepository;
 
+    private final NewConversationContract.ViewNewConversation mViewNewConversation;
     private final NewConversationContract.ActivityNewConversation mActivityNewConversation;
 
     public NewConversationPresenter(@NonNull PersonRepository aPersonRepository,
                                     @NonNull ConversationRepository aConversationRepository,
                                     @NonNull PeCoRepository aPeCoRepository,
+                                    @NonNull NewConversationContract.ViewNewConversation aViewNewConversation,
                                     @NonNull NewConversationContract.ActivityNewConversation aActivityNewConversation) {
         mPersonRepository = aPersonRepository;
         mConversationRepository=aConversationRepository;
         mPeCoRepository=aPeCoRepository;
+        mViewNewConversation=aViewNewConversation;
+        mViewNewConversation.setPresenter(this);
         mActivityNewConversation=aActivityNewConversation;
     }
     //Gets all persons for user to select
@@ -56,6 +60,9 @@ public class NewConversationPresenter implements NewConversationContract.Present
     public void removeAddedPerson(Person aPerson) {
         mPersonRepository.removeAddedPerson(aPerson);
     }
+
+    @Override
+    public void clearAddedPersons() {mPersonRepository.clearAddedPersons();}
 
     @Override
     public void onCreateConv(Context aContext, String aCoTitle) {

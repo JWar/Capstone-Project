@@ -51,8 +51,7 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 public class ConversationActivity extends AppCompatActivity implements
         ConversationContract.ActivityConversation,
         InstallContract.ActivityInstall,
-        NewConversationContract.ActivityNewConversation,
-        NewContactContract.ActivityNewContact {
+        NewConversationContract.ActivityNewConversation {
 
     private static final String IS_INSTALLED = "isInstalled";
 
@@ -161,6 +160,7 @@ public class ConversationActivity extends AppCompatActivity implements
                         Injection.providePeCoRepository(
                                 Injection.providePeCoLocalDataSource()
                         ),
+                        (NewConversationFragment)fragment,
                         this);
             }
             createNotificationChannel();
@@ -191,7 +191,7 @@ public class ConversationActivity extends AppCompatActivity implements
             getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(NewConversationFragment.TAG)
-                    .add(R.id.conversation_fragment_container, newConversationFragment, NewConversationFragment.TAG)
+                    .replace(R.id.conversation_fragment_container, newConversationFragment, NewConversationFragment.TAG)
                     .commit();
             mNewConversationPresenter = new NewConversationPresenter(
                     Injection.providePersonRepository(
@@ -206,6 +206,7 @@ public class ConversationActivity extends AppCompatActivity implements
                     Injection.providePeCoRepository(
                             Injection.providePeCoLocalDataSource()
                     ),
+                    newConversationFragment,
                     this);
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.onNewConversation: "+e.getLocalizedMessage());
@@ -219,7 +220,7 @@ public class ConversationActivity extends AppCompatActivity implements
             getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(NewContactFragment.TAG)
-                    .add(R.id.conversation_fragment_container, newContactFragment, NewContactFragment.TAG)
+                    .replace(R.id.conversation_fragment_container, newContactFragment, NewContactFragment.TAG)
                     .commit();
             mNewContactPresenter = new NewContactPresenter(
                     Injection.providePersonRepository(
@@ -228,8 +229,7 @@ public class ConversationActivity extends AppCompatActivity implements
                                     Injection.provideBackendApi()
                             )
                     ),
-                    newContactFragment,
-                    this
+                    newContactFragment
             );
         } catch (Exception e) {
             Utils.logDebug("ConversationActivity.onNewContact: "+e.getLocalizedMessage());
@@ -247,8 +247,8 @@ public class ConversationActivity extends AppCompatActivity implements
             ConversationFragment conversationFragment = new ConversationFragment();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .addToBackStack(ConversationFragment.TAG)
                     .replace(R.id.conversation_fragment_container, conversationFragment, ConversationFragment.TAG)
+                    .addToBackStack(ConversationFragment.TAG)
                     .commit();
             mConversationPresenter = new ConversationPresenter(
                     Injection.provideConversationRepository(
@@ -273,13 +273,7 @@ public class ConversationActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onCancel() {
-        onBackPressed();
-    }
-
-    @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (getSupportFragmentManager().getBackStackEntryCount()<2){
             finish();
         } else {

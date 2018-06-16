@@ -53,9 +53,12 @@ public class PersonRepository {
         return mAddedPersons;
     }
     public void saveAddedPerson(Person aPerson) {
-        mAddedPersons.add(aPerson);
+        if (!mAddedPersons.contains(aPerson)) {//Only add if not already in
+            mAddedPersons.add(aPerson);
+        }
     }
     public void removeAddedPerson(Person aPerson) {
         mAddedPersons.remove(aPerson);
     }
+    public void clearAddedPersons() {mAddedPersons.clear();}
 }

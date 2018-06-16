@@ -5,7 +5,7 @@
     android:orientation="vertical"
     tools:context="com.jraw.android.capstoneproject.ui.install.InstallFragment">
 
-    <EditText
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_install_first_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
         android:nextFocusDown="@+id/fragment_install_tel_num_et"
         android:layout_margin="4dp"/>
 
-    <EditText
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_install_surname_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:nextFocusDown="@+id/fragment_install_tel_num_et"
         android:layout_margin="4dp"/>
 
-    <EditText
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_install_tel_num_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

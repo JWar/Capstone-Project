@@ -6,7 +6,7 @@
     android:weightSum="1"
     tools:context="com.jraw.android.capstoneproject.ui.newconversation.NewConversationFragment">
 
-    <EditText
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_new_conversation_title_et"
         android:layout_width="match_parent"
         android:layout_height="0dp"

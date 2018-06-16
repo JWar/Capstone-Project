@@ -1,40 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jraw.android.capstoneproject.ui.newcontact.NewContactFragment">
 
-    <EditText
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_new_contact_first_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:inputType="textPersonName"
+        android:layout_margin="4dp"
         android:hint="@string/first_name"
-        android:focusable="true"
         android:imeOptions="actionNext"
-        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"
-        android:layout_margin="4dp"/>
+        android:inputType="textCapWords"
+        android:maxLines="2"
+        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"/>
 
-    <EditText
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_new_contact_surname_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:inputType="textPersonName"
+        android:layout_margin="4dp"
         android:hint="@string/surname"
         android:imeOptions="actionNext"
-        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"
-        android:layout_margin="4dp"/>
+        android:inputType="textCapWords"
+        android:maxLines="2"
+        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"/>
 
-    <EditText
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_new_contact_tel_num_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:inputType="phone"
+        android:layout_margin="4dp"
         android:hint="@string/tel_num"
         android:imeOptions="actionDone"
-        android:layout_margin="4dp"/>
+        android:inputType="phone"
+        android:maxLines="1"/>
 
-</FrameLayout>
+</LinearLayout>

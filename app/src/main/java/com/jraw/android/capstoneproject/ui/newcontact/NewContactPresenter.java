@@ -12,15 +12,13 @@ public class NewContactPresenter implements NewContactContract.PresenterNewConta
     private final PersonRepository mPersonRepository;
 
     private NewContactContract.ViewNewContact mViewNewContact;
-    private NewContactContract.ActivityNewContact mActivityNewContact;
 
     public NewContactPresenter(@NonNull PersonRepository aPersonRepository,
-                               @NonNull NewContactContract.ViewNewContact aViewNewContact,
-                               @NonNull NewContactContract.ActivityNewContact aActivityNewContact) {
+                               @NonNull NewContactContract.ViewNewContact aViewNewContact) {
         mPersonRepository=aPersonRepository;
         mViewNewContact=aViewNewContact;
         mViewNewContact.setPresenter(this);
-        mActivityNewContact=aActivityNewContact;
+
     }
 
     @Override
@@ -40,10 +38,5 @@ public class NewContactPresenter implements NewContactContract.PresenterNewConta
             Utils.logDebug("NewContactPresenter.onSave: "+e.getLocalizedMessage());
             mViewNewContact.problemSaving();
         }
-    }
-
-    @Override
-    public void onCancel() {
-        mActivityNewContact.onCancel();
     }
 }
