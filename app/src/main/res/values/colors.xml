@@ -7,6 +7,8 @@
     <color name="colorAccent">#f5f5f5</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="colorRcdMsg">@color/colorPrimary</color>
+    <color name="colorSentMsg">@color/reflectiveSilver</color>
     <color name="steelBlue">#4682b4</color>
     <color name="metallicSilver">#C0C0C0</color>
     <color name="reflectiveSilver">#F0F0FF</color>

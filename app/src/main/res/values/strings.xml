@@ -3,7 +3,7 @@
     <string name="content_authority">com.jraw.android.capstoneproject</string>
 
     <string name="action_settings">Settings</string>
-    <string name="action_new_contact">Add new Contact</string>
+    <string name="action_new_contact">New Contact</string>
 
     <string name="error_message">Problem getting data</string>
     <string name="error_message_records">No records found</string>
@@ -23,11 +23,10 @@
     <string name="main_button_conversations">Conversations</string>
     <string name="main_button_contacts">Contacts</string>
 
-    <string name="new_conversation_title">"Enter title: "</string>
+    <string name="new_conversation_title">"New Conversation title: "</string>
     <string name="new_conversation_button_title">Press button to add contact to conversation</string>
-    <string name="new_conversation_button_cd">Add contact</string>
     <string name="new_conversation_contacts_title">"Contacts added: "</string>
-    <string name="new_conversation_empty_title_message">Please enter title!</string>
+    <string name="new_conversation_empty_conv_message">Please fulfill Conversation requirements!</string>
 
     <string name="notification_new_msg_received">New Message!</string>
 
@@ -39,7 +38,7 @@
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
     <string name="send_msg_error">Problem sending message!</string>
-    <string name="new_contact">Add new Contact</string>
+    <string name="new_contact">New Contact</string>
 
     <string name="first_name">First name</string>
     <string name="surname">Surname</string>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+        android:id="@+id/new_conversation_menu_title_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/new_conversation_menu_create_button"
+        android:hint="@string/new_conversation_title"
+        android:imeOptions="actionDone"
+        android:inputType="textCapSentences"/>
+
+    <Button
+        android:id="@+id/new_conversation_menu_create_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/list_item_touch_selector"
+        android:text="@string/create"/>
+
+</RelativeLayout>

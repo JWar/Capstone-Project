@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/fragment_msgs_new_msg_send_button"
             android:hint="@string/enter_message_hint"
-            android:inputType="textAutoComplete"/>
+            android:inputType="textCapSentences"/>
 
         <ImageButton
             android:id="@+id/fragment_msgs_new_msg_send_button"

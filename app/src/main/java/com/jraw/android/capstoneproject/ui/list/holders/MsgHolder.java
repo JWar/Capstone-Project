@@ -24,13 +24,14 @@ public class MsgHolder extends AbstractHolder {
         mBodyTV = view.findViewById(R.id.list_item_msgs_body_tv);
     }
 
-    private void setBodyTVToStart() {
+    private void setBodyTVToEnd() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ALIGN_PARENT_END);
         lp.addRule(RelativeLayout.BELOW, R.id.list_item_msgs_time);
         lp.setMargins(4, 4, 4, 4);
         mBodyRL.setLayoutParams(lp);
+        mBodyTV.setTextColor(mView.getContext().getResources().getColor(R.color.colorPrimary));
 //        mNameTV.setX(60);
 //        mBodyTV.setX(60);
     }
@@ -40,8 +41,8 @@ public class MsgHolder extends AbstractHolder {
         mDateTV.setText(toDisplay);
         toDisplay="";
         if (aMsg.getMSFromTel().equals(Utils.THIS_USER_TEL)) {//If msg is not from this user
-            mBodyTV.setBackground(mView.getContext().getResources().getDrawable(R.drawable.rounded_corner_blue));
-            setBodyTVToStart();
+            mBodyTV.setBackground(mView.getContext().getResources().getDrawable(R.drawable.rounded_corner_sent_msg));
+            setBodyTVToEnd();
         } else {
             toDisplay += aMsg.getMSFromTel() + ":\n";
         }
