@@ -19,7 +19,6 @@ import com.jraw.android.capstoneproject.ui.install.InstallContract;
 import com.jraw.android.capstoneproject.ui.install.InstallFragment;
 import com.jraw.android.capstoneproject.ui.install.InstallPresenter;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
-import com.jraw.android.capstoneproject.ui.newcontact.NewContactContract;
 import com.jraw.android.capstoneproject.ui.newcontact.NewContactFragment;
 import com.jraw.android.capstoneproject.ui.newcontact.NewContactPresenter;
 import com.jraw.android.capstoneproject.ui.newconversation.NewConversationContract;
@@ -34,10 +33,11 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
 /**
  * TODO: general todo list. The presence of this means there is still things todo!
- * Need to do new contact screen...
- *  Where can you access new contact?
+ * Widget testing.
  * Accessibility? D-Pad? Not sure what to do with this beyond make edittexts focus up down... images has contentdesc
- * Test - push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
+ * Test -
+ *  push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
+ *  Notifications testing.
  * Possible extensions:
  *  RxJava to replace Loader and IntentService. Though IntentService may actually be best thing for the job. Or
  *  JobScheduler?

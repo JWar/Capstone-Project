@@ -26,6 +26,15 @@
             android:parentActivityName=".ui.conversation.ConversationActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <receiver android:name=".ui.widget.CapstoneAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/capstone_app_widget_info"/>
+        </receiver>
+
         <service android:name=".service.firebase.InstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -46,5 +55,4 @@
             android:name=".service.ApiIntentService"
             android:exported="false"/>
     </application>
-
 </manifest>
