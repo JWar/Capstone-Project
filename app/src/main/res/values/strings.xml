@@ -23,7 +23,7 @@
     <string name="main_button_conversations">Conversations</string>
     <string name="main_button_contacts">Contacts</string>
 
-    <string name="new_conversation_title">"New Conversation title: "</string>
+    <string name="new_conversation_title">"Enter title:"</string>
     <string name="new_conversation_button_title">Press button to add contact to conversation</string>
     <string name="new_conversation_contacts_title">"Contacts added: "</string>
     <string name="new_conversation_empty_conv_message">Please fulfill Conversation requirements!</string>

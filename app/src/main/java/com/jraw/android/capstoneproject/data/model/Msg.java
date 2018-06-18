@@ -19,10 +19,12 @@ public class Msg extends entity implements Parcelable {
     public enum MSG_TYPES {
         TEXT, IMAGE, VIDEO
     }
+
     //Of course if its sent then its not delivered, if its delivered its not read...
     public enum RESULTS {
         SENT, DELIVERED, READ, FAILED
     }
+
     //Which conversation this msg is part of, uses public id...
     @SerializedName("copublicid")
     private long MSCOPublicId = 0;
@@ -50,7 +52,8 @@ public class Msg extends entity implements Parcelable {
     @SerializedName("title")
     private String MSCOTitle;
 
-    public Msg() {}
+    public Msg() {
+    }
 
     public Msg(Parcel pc) {
         MSCOPublicId = pc.readLong();
@@ -58,9 +61,10 @@ public class Msg extends entity implements Parcelable {
         MSBody = pc.readString();
         MSEventDate = pc.readString();
         MSType = pc.readInt();
-        pc.readByteArray(MSData);
+        MSData = pc.createByteArray();
         MSResult = pc.readInt();
     }
+
     @Override
     public void writeToParcel(Parcel pc, int flags) {
         pc.writeLong(MSCOPublicId);
@@ -76,6 +80,7 @@ public class Msg extends entity implements Parcelable {
         public Msg createFromParcel(Parcel pc) {
             return new Msg(pc);
         }
+
         public Msg[] newArray(int size) {
             return new Msg[size];
         }
@@ -89,49 +94,71 @@ public class Msg extends entity implements Parcelable {
     public void setMSCOPublicId(long aLong) {
         MSCOPublicId = aLong;
     }
+
     public void setMSFromTel(String aStr) {
         MSFromTel = aStr;
     }
+
     public void setMSBody(String aStr) {
         MSBody = aStr;
     }
+
     public void setMSEventDate(String aStr) {
         MSEventDate = aStr;
     }
+
     public void setMSType(int aInt) {
         MSType = aInt;
     }
-    public void setMSData(byte[] aBytes) {MSData = aBytes;}
+
+    public void setMSData(byte[] aBytes) {
+        MSData = aBytes;
+    }
+
     public void setMSResult(int aInt) {
         MSResult = aInt;
     }
 
-    public void setMSCOTitle(String aMSCOTitle) {MSCOTitle = aMSCOTitle;}
-    public String getMSCOTitle() {return MSCOTitle;}
+    public void setMSCOTitle(String aMSCOTitle) {
+        MSCOTitle = aMSCOTitle;
+    }
+
+    public String getMSCOTitle() {
+        return MSCOTitle;
+    }
 
     public long getMSCOPublicId() {
         return MSCOPublicId;
     }
-    public String getMSFromTel() {return MSFromTel;}
+
+    public String getMSFromTel() {
+        return MSFromTel;
+    }
+
     public String getMSBody() {
         return MSBody;
     }
+
     public String getBodySnippet() {
-        if (MSBody.length()>49) {
+        if (MSBody.length() > 49) {
             return MSBody.substring(0, 50);
         } else {
             return MSBody;
         }
     }
+
     public String getMSEventDate() {
         return MSEventDate;
     }
+
     public int getMSType() {
         return MSType;
     }
+
     public byte[] getMSData() {
         return MSData;
     }
+
     public int getMSResult() {
         return MSResult;
     }
@@ -139,29 +166,29 @@ public class Msg extends entity implements Parcelable {
     //Returns this Msg as a ContentValues object
     public ContentValues toCV() {
         ContentValues cV = new ContentValues();
-        if (getId()>0) {
-            cV.put(MsgTable.Cols.ID,getId());
+        if (getId() > 0) {
+            cV.put(MsgTable.Cols.ID, getId());
         }
-        if (MSCOPublicId!=0) {
-            cV.put(MsgTable.Cols.COPUBLICID,MSCOPublicId);
+        if (MSCOPublicId != 0) {
+            cV.put(MsgTable.Cols.COPUBLICID, MSCOPublicId);
         }
-        if (MSFromTel!=null) {
-            cV.put(MsgTable.Cols.FROMTEL,MSFromTel);
+        if (MSFromTel != null) {
+            cV.put(MsgTable.Cols.FROMTEL, MSFromTel);
         }
-        if (MSBody!=null) {
-            cV.put(MsgTable.Cols.BODY,MSBody);
+        if (MSBody != null) {
+            cV.put(MsgTable.Cols.BODY, MSBody);
         }
-        if (MSEventDate!=null) {
-            cV.put(MsgTable.Cols.EVENTDATE,MSEventDate);
+        if (MSEventDate != null) {
+            cV.put(MsgTable.Cols.EVENTDATE, MSEventDate);
         }
-        if (MSType!=0) {
-            cV.put(MsgTable.Cols.TYPE,MSType);
+        if (MSType != 0) {
+            cV.put(MsgTable.Cols.TYPE, MSType);
         }
-        if (MSData!=null) {
-            cV.put(MsgTable.Cols.DATA,MSData);
+        if (MSData != null) {
+            cV.put(MsgTable.Cols.DATA, MSData);
         }
-        if (MSResult!=0) {
-            cV.put(MsgTable.Cols.RESULT,MSResult);
+        if (MSResult != 0) {
+            cV.put(MsgTable.Cols.RESULT, MSResult);
         }
         return cV;
     }

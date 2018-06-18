@@ -170,7 +170,8 @@ public class ConversationFragment extends Fragment implements ConversationContra
     private void titleQuery(String aQuery) {
         Bundle args =new Bundle();
         args.putString(TITLE_QUERY,aQuery);
-        getLoaderManager().initLoader(1,args,this);
+//        setConversations(mPresenter.getConversationsViaTitle(getActivity(), args.getString(TITLE_QUERY)));
+        getLoaderManager().restartLoader(1,args,this);
     }
 
     @Override

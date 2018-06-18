@@ -31,9 +31,18 @@ public class MsgHolder extends AbstractHolder {
         lp.addRule(RelativeLayout.BELOW, R.id.list_item_msgs_time);
         lp.setMargins(4, 4, 4, 4);
         mBodyRL.setLayoutParams(lp);
+        mBodyTV.setBackground(mView.getContext().getResources().getDrawable(R.drawable.rounded_corner_sent_msg));
         mBodyTV.setTextColor(mView.getContext().getResources().getColor(R.color.colorPrimary));
-//        mNameTV.setX(60);
-//        mBodyTV.setX(60);
+    }
+    private void setBodyTVToStart() {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_START);
+        lp.addRule(RelativeLayout.BELOW, R.id.list_item_msgs_time);
+        lp.setMargins(4, 4, 4, 4);
+        mBodyRL.setLayoutParams(lp);
+        mBodyTV.setBackground(mView.getContext().getResources().getDrawable(R.drawable.rounded_corner_rcd_msg));
+        mBodyTV.setTextColor(mView.getContext().getResources().getColor(R.color.colorText));
     }
 
     private String setViews(Msg aMsg, int aPos) {
@@ -41,9 +50,9 @@ public class MsgHolder extends AbstractHolder {
         mDateTV.setText(toDisplay);
         toDisplay="";
         if (aMsg.getMSFromTel().equals(Utils.THIS_USER_TEL)) {//If msg is not from this user
-            mBodyTV.setBackground(mView.getContext().getResources().getDrawable(R.drawable.rounded_corner_sent_msg));
             setBodyTVToEnd();
         } else {
+            setBodyTVToStart();//Needs to be done to ensure View is 'reset' when recycled.
             toDisplay += aMsg.getMSFromTel() + ":\n";
         }
         toDisplay+=aMsg.getMSBody();

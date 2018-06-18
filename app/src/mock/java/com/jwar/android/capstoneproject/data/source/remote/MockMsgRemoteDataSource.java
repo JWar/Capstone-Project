@@ -30,13 +30,14 @@ public class MockMsgRemoteDataSource implements MsgRemoteDataSource {
         ResponseServerMsg responseServerMsg = new ResponseServerMsg();
         responseServerMsg.action="COMPLETE";
         responseServerMsg.rows= DummyData.getRemoteMsgs();
-        return null;
+        return responseServerMsg;
     }
     //Returns mock response
     @Override
     public ResponseServerMsgSave saveMsg(Msg aMsg) {
         ResponseServerMsgSave responseServerMsgSave = new ResponseServerMsgSave();
         responseServerMsgSave.action="COMPLETE";
+        responseServerMsgSave.res="DELIVERED";
         return responseServerMsgSave;
     }
 }

@@ -178,6 +178,13 @@ public class NewConversationFragment extends Fragment implements NewConversation
                             }
                         }
                     });
+            v.findViewById(R.id.new_conversation_menu_cancel_button)
+                    .setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View aView) {
+                            getActivity().onBackPressed();
+                        }
+                    });
         }
         super.onPrepareOptionsMenu(menu);
     }

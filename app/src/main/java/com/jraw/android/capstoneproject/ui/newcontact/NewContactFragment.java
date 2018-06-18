@@ -46,6 +46,7 @@ public class NewContactFragment extends Fragment implements NewContactContract.V
         imm.showSoftInput(mFirstNameET, InputMethodManager.SHOW_IMPLICIT);
         mSurnameET = view.findViewById(R.id.fragment_new_contact_surname_et);
         mTelNumET = view.findViewById(R.id.fragment_new_contact_tel_num_et);
+        getActivity().setTitle(getString(R.string.new_contact));
     }
 
     @Override
