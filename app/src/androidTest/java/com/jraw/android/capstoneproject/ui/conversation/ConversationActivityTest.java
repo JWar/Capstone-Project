@@ -21,7 +21,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
-public class ConversationsTest {
+public class ConversationActivityTest {
 
     private static final String CONV_TITLE = Injection.getTestConvTitle();
 

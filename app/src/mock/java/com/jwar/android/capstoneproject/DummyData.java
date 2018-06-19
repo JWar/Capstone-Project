@@ -158,16 +158,18 @@ public class DummyData {
         conv = new Conversation();
         conv.setId(1);
         conv.setCOPublicId(1);
-        conv.setCOTitle("Mad bantz");
+        conv.setCOTitle("First conv");
         conv.setCOCreatedBy("USER A");
         conv.setCODateCreated("2018/01/11 16:23:00");
+        conv.setCOCount(10);
         toReturn.add(conv);
         conv = new Conversation();
         conv.setId(2);
         conv.setCOPublicId(2);
-        conv.setCOTitle("Bantz that are mad");
+        conv.setCOTitle("Second conv");
         conv.setCOCreatedBy("USER A");
         conv.setCODateCreated("2018/01/11 16:23:30");
+        conv.setCOCount(6);
         toReturn.add(conv);
         return toReturn;
     }

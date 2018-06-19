@@ -39,8 +39,8 @@ public class MsgActivityTest {
                     Context targetContext = InstrumentationRegistry.getInstrumentation()
                             .getTargetContext();
                     Intent result = new Intent(targetContext, MsgsActivity.class);
-                    result.putExtra("coPublicId", 1);
-                    result.putExtra("coTitle", "Mad Bantz");
+                    result.putExtra("coPublicId", 1l);
+                    result.putExtra("coTitle", "First conv");
                     return result;
                 }
             };

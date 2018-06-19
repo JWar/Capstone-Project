@@ -80,11 +80,11 @@ public class Injection {
     }
     //Sets androidTest expected response for Mock
     public static String getTestConvTitle() {
-        return "Mad Bantz";
+        return "First conv";
     }
     //Sets androidTest expected response for Mock
     public static String getTestMsgBody() {
-        return "...";
+        return "I'm here";
     }
     //This is for making sure Mock AndroidTest of ConversationActivity doesnt trigger install fragment.
     public static boolean getIsInstallDefault() {

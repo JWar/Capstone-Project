@@ -47,7 +47,7 @@ public class MsgsPresenter implements MsgsContract.PresenterMsgs {
             newMsg.setMSBody(aBody);
             newMsg.setMSCOPublicId(aCOPublicId);
             newMsg.setMSCOTitle(aCOTitle);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss", Locale.ENGLISH);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.UK);
             newMsg.setMSEventDate(sdf.format(Calendar.getInstance().getTime()));
             newMsg.setMSFromTel(Utils.THIS_USER_TEL);
             newMsg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());//Assuming all are text messages for now.
