@@ -94,19 +94,8 @@ public class MockConversationLocalDataSource  implements ConversationLocalDataSo
                 contentValues[i] = peCos.get(i).toCV();
             }
             contentResolver.bulkInsert(DbSchema.PeCoTable.CONTENT_URI, contentValues);
-            Conversation[] conversationsArray = new Conversation[] {conversations.get(0),conversations.get(1)};
-            updateWidgetConversations(aContext,conversationsArray);
         } catch (Exception e) {
             Utils.logDebug("MockConversationLocalDataSource.insertDummyData: "+e.getLocalizedMessage());
-        }
-    }
-    //Just for the purposes of making sure widget reflects dummy data at start.
-    private void updateWidgetConversations(Context aContext, Conversation[] aConversations) {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(aContext);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(aContext, CapstoneAppWidgetProvider.class));
-        for (int appWidgetId: appWidgetIds) {
-            CapstoneAppWidgetProvider.updateWidgetConversations(aContext, appWidgetManager, appWidgetId,
-                    aConversations);
         }
     }
 

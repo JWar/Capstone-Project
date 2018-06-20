@@ -9,8 +9,11 @@ import android.widget.RemoteViews;
 
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Conversation;
+import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.ui.conversation.ConversationActivity;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
+import com.jraw.android.capstoneproject.utils.Utils;
+import com.jwar.android.capstoneproject.Injection;
 
 public class CapstoneAppWidgetProvider extends AppWidgetProvider {
 
@@ -65,10 +68,18 @@ public class CapstoneAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        //System will handle nulls.
-        Conversation[] nullConvs = new Conversation[2];
-        for (int appWidgetId : appWidgetIds) {
-            updateWidgetConversations(context, appWidgetManager, appWidgetId, nullConvs);
+        try {
+            //Quick and dirty way of solving this problem. When the widget is first created the onUpdate is called
+            //this ensures it has the correct data. Dont like it but solves the problem...
+            ConversationRepository conversationRepository = Injection.provideConversationRepository(
+                    Injection.provideConversationLocalDataSource()
+            );
+            Conversation[] convs = conversationRepository.getConversationsTopTwo(context);
+            for (int appWidgetId : appWidgetIds) {
+                updateWidgetConversations(context, appWidgetManager, appWidgetId, convs);
+            }
+        } catch (Exception e) {
+            Utils.logDebug("CapstoneAppWidgetProvider.onUpdate: "+e.getLocalizedMessage());
         }
     }
 
