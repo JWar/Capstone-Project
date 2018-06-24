@@ -8,7 +8,9 @@
         android:id="@+id/fragment_msgs_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/fragment_msgs_new_msg_separator"/>
+        android:layout_above="@+id/fragment_msgs_new_msg_separator"
+        android:descendantFocusability="afterDescendants"
+        android:focusable="true"/>
 
     <TextView
         android:id="@+id/fragment_msgs_new_msg_separator"
