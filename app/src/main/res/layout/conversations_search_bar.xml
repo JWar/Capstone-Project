@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/conversations_search_bar_new_contact_button"
+        android:nextFocusForward="@id/conversations_search_bar_new_contact_button"
+        android:nextFocusRight="@id/conversations_search_bar_new_contact_button"
         app:queryHint="@string/conversations_search_by_title_hint"/>
 
     <Button
@@ -19,6 +21,8 @@
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
         android:contentDescription="@string/action_new_contact"
+        android:nextFocusForward="@+id/fragment_conversation_recycler_view"
+        android:nextFocusDown="@+id/fragment_conversation_recycler_view"
         android:text="@string/action_new_contact"/>
 
 </RelativeLayout>
