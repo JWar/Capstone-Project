@@ -41,6 +41,9 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  *         NewConv - create and cancel buttons
  *         New Contact - save and cancel buttons
  *         Install - buttons in fragment?
+ *         Do this!
+ *
+ * Replace getActivity/getContext with requireActivity/requireContext
  * Test -
  *  push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
  *  Notifications testing.
