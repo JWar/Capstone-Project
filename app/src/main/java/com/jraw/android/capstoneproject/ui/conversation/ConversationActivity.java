@@ -90,6 +90,7 @@ public class ConversationActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_conversation);
         Toolbar toolbar = findViewById(R.id.conversation_toolbar);
         setSupportActionBar(toolbar);
+        setTitle(R.string.welcome);
 
         if (getIntent()!=null) {
             if (getIntent().hasExtra(FROM_WIDGET)) {

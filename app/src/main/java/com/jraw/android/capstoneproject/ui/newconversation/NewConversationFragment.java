@@ -52,7 +52,7 @@ public class NewConversationFragment extends Fragment implements NewConversation
     private static final String PERSONS_STATE = "personsState";
     private Parcelable mPersonsState;
 
-    public NewConversationFragment() {setHasOptionsMenu(true);}
+    public NewConversationFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -69,6 +69,32 @@ public class NewConversationFragment extends Fragment implements NewConversation
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mTitleET = view.findViewById(R.id.fragment_new_conversation_title_et);
+        //Sets create conv button method
+        view.findViewById(R.id.fragment_new_conversation_create_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View aView) {
+                        if (mTitleET.getText().length()>0&&
+                                mPresenterNewConversation.getAddedPersons().size()>0) {
+                            mPresenterNewConversation.onCreateConv(getActivity(), mTitleET.getText().toString());
+                        } else {
+                            Toast.makeText(
+                                    getActivity(), getString(R.string.new_conversation_empty_conv_message),
+                                    Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    }
+                });
+        view.findViewById(R.id.fragment_new_conversation_cancel_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View aView) {
+                        getActivity().onBackPressed();
+                    }
+                });
+
         RecyclerView mAddedRV = view.findViewById(R.id.fragment_new_conversation_added_rv);
         mAddedLH = new ListHandler(
                 this,
@@ -149,44 +175,6 @@ public class NewConversationFragment extends Fragment implements NewConversation
     public void clearListHandler() {
         mPersonsLH.clearListHandler();
         mAddedLH.clearListHandler();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_new_conversation, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem actionViewItem = menu.findItem(R.id.new_conversation_menu_item);
-        if (actionViewItem != null) {
-            View v = actionViewItem.getActionView();
-            mTitleET = v.findViewById(R.id.new_conversation_menu_title_et);
-            //Sets create conv button method
-            v.findViewById(R.id.new_conversation_menu_create_button)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View aView) {
-                            if (mTitleET.getText().length()>0&&
-                                    mPresenterNewConversation.getAddedPersons().size()>0) {
-                                mPresenterNewConversation.onCreateConv(getActivity(), mTitleET.getText().toString());
-                            } else {
-                                Toast.makeText(
-                                        getActivity(), getString(R.string.new_conversation_empty_conv_message),
-                                        Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                        }
-                    });
-            v.findViewById(R.id.new_conversation_menu_cancel_button)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View aView) {
-                            getActivity().onBackPressed();
-                        }
-                    });
-        }
-        super.onPrepareOptionsMenu(menu);
     }
 
     @Override

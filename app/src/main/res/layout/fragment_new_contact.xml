@@ -1,41 +1,71 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.jraw.android.capstoneproject.ui.newcontact.NewContactFragment">
 
-    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
-        android:id="@+id/fragment_new_contact_first_name_et"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/fragment_new_contact_buttons_rl"
+        android:orientation="vertical">
+
+        <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+            android:id="@+id/fragment_new_contact_first_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="@string/first_name"
+            android:imeOptions="actionNext"
+            android:inputType="textCapWords"
+            android:maxLines="2"
+            android:nextFocusDown="@+id/fragment_new_contact_tel_num_et" />
+
+        <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+            android:id="@+id/fragment_new_contact_surname_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="@string/surname"
+            android:imeOptions="actionNext"
+            android:inputType="textCapWords"
+            android:maxLines="2"
+            android:nextFocusDown="@+id/fragment_new_contact_tel_num_et" />
+
+        <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+            android:id="@+id/fragment_new_contact_tel_num_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="@string/tel_num"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_new_contact_buttons_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="@string/first_name"
-        android:imeOptions="actionNext"
-        android:inputType="textCapWords"
-        android:maxLines="2"
-        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"/>
+        android:layout_alignParentBottom="true">
 
-    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
-        android:id="@+id/fragment_new_contact_surname_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="@string/surname"
-        android:imeOptions="actionNext"
-        android:inputType="textCapWords"
-        android:maxLines="2"
-        android:nextFocusDown="@+id/fragment_new_contact_tel_num_et"/>
+        <Button
+            android:id="@+id/fragment_new_contact_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/fragment_new_contact_cancel_button"
+            android:background="@drawable/list_item_touch_selector"
+            android:text="@string/save" />
 
-    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
-        android:id="@+id/fragment_new_contact_tel_num_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:hint="@string/tel_num"
-        android:imeOptions="actionDone"
-        android:inputType="phone"
-        android:maxLines="1"/>
+        <Button
+            android:id="@+id/fragment_new_contact_cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/list_item_touch_selector"
+            android:text="@string/cancel" />
 
-</LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

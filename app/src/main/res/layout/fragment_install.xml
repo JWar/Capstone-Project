@@ -1,9 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.jraw.android.capstoneproject.ui.install.InstallFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_above="@+id/fragment_install_buttons_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
         android:id="@+id/fragment_install_first_name_et"
@@ -38,4 +43,30 @@
         android:imeOptions="actionDone"
         android:layout_margin="4dp"/>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/fragment_install_buttons_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/fragment_install_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/fragment_install_cancel_button"
+            android:background="@drawable/list_item_touch_selector"
+            android:text="@string/save" />
+
+        <Button
+            android:id="@+id/fragment_install_cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/list_item_touch_selector"
+            android:text="@string/cancel" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

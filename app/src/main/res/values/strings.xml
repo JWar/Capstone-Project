@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Capstone Project</string>
     <string name="content_authority">com.jraw.android.capstoneproject</string>
+    <string name="welcome">Welcome to Capstone Project</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_new_contact">New Contact</string>

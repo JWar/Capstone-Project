@@ -26,7 +26,7 @@ import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
  * Not sure...
  */
 public class InstallFragment extends Fragment implements InstallContract.ViewInstall,
-        LoaderManager.LoaderCallbacks<Integer>{
+        LoaderManager.LoaderCallbacks<Integer> {
 
     public static final String TAG = "installFragmentTag";
 
@@ -39,7 +39,8 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
 
     private InstallContract.PresenterInstall mInstallPresenter;
 
-    public InstallFragment() {}
+    public InstallFragment() {
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -54,6 +55,21 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         mFirstNameET.requestFocus();//Focus on start
         mSurnameET = view.findViewById(R.id.fragment_install_surname_et);
         mTelNumET = view.findViewById(R.id.fragment_install_tel_num_et);
+
+        view.findViewById(R.id.fragment_install_save_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View aView) {
+                        save();
+                    }
+                });
+        view.findViewById(R.id.fragment_install_cancel_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View aView) {
+                        requireActivity().onBackPressed();
+                    }
+                });
     }
 
     @Override
@@ -61,27 +77,12 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         mInstallPresenter = aPresenter;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_install,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.install_save:
-                save();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     private void save() {
         Bundle args = new Bundle();
-        args.putString(FIRST_NAME,mFirstNameET.getText().toString());
-        args.putString(SUR_NAME,mSurnameET.getText().toString());
-        args.putString(TEL_NUM,mTelNumET.getText().toString());
-        getLoaderManager().initLoader(1,args,this);
+        args.putString(FIRST_NAME, mFirstNameET.getText().toString());
+        args.putString(SUR_NAME, mSurnameET.getText().toString());
+        args.putString(TEL_NUM, mTelNumET.getText().toString());
+        getLoaderManager().initLoader(1, args, this);
     }
 
     @NonNull
@@ -91,8 +92,8 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         final String sName = args.getString(SUR_NAME);
         final String telNum = args.getString(TEL_NUM);
         EspressoIdlingResource.increment();
-        return new IntegerAsyncTaskLoader(getActivity(),mInstallPresenter,
-                fName,sName,telNum);
+        return new IntegerAsyncTaskLoader(getActivity(), mInstallPresenter,
+                fName, sName, telNum);
     }
 
     @Override
@@ -101,10 +102,10 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         if (!EspressoIdlingResource.getIdlingResource().isIdleNow()) {
             EspressoIdlingResource.decrement(); // Set app as idle.
         }
-        if (data==-1) {
+        if (data == -1) {
             //Error.
             Toast.makeText(getActivity(), getString(R.string.install_error_msg), Toast.LENGTH_SHORT).show();
-        } else if (data==0) {
+        } else if (data == 0) {
             //Unsuccessful server conn?
             Toast.makeText(getActivity(), getString(R.string.install_unsuccessful_msg), Toast.LENGTH_SHORT).show();
         } else {

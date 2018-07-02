@@ -1,18 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:fitsSystemWindows="true"
-             tools:context="com.jraw.android.capstoneproject.ui.conversation.ConversationFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.jraw.android.capstoneproject.ui.conversation.ConversationFragment">
+
+    <RelativeLayout
+        android:id="@+id/conversations_search_bar_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/conversations_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/conversations_search_bar_new_contact_button"
+            android:nextFocusForward="@id/conversations_search_bar_new_contact_button"
+            android:nextFocusRight="@id/conversations_search_bar_new_contact_button"
+            app:queryHint="@string/conversations_search_by_title_hint" />
+
+        <Button
+            android:id="@+id/conversations_search_bar_new_contact_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/action_new_contact"
+            android:nextFocusDown="@+id/fragment_conversation_recycler_view"
+            android:nextFocusForward="@+id/fragment_conversation_recycler_view"
+            android:text="@string/action_new_contact" />
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_conversation_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/conversations_search_bar_rl"
         android:descendantFocusability="afterDescendants"
-        android:focusable="true"
-        android:nextFocusUp="@+id/conversations_search_view">
-    </android.support.v7.widget.RecyclerView>
+        android:focusable="true"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fragment_conversation_new_conv_fab"
@@ -21,6 +48,6 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:background="@color/colorAccent"
-        android:src="@android:drawable/ic_input_add"/>
+        android:src="@android:drawable/ic_input_add" />
 
-</FrameLayout>
+</RelativeLayout>
