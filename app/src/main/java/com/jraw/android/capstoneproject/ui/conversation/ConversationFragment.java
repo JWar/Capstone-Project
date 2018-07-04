@@ -130,9 +130,9 @@ public class ConversationFragment extends Fragment implements ConversationContra
         if (mPresenter != null) {
             EspressoIdlingResource.increment();
             if (args != null) {
-                return mPresenter.getConversationsViaTitle(getActivity(), args.getString(TITLE_QUERY));
+                return mPresenter.getConversationsViaTitle(requireActivity(), args.getString(TITLE_QUERY));
             } else {
-                return mPresenter.getConversations(getActivity());
+                return mPresenter.getConversations(requireActivity());
             }
         }
         return null;
@@ -151,7 +151,7 @@ public class ConversationFragment extends Fragment implements ConversationContra
     private void titleQuery(String aQuery) {
         Bundle args = new Bundle();
         args.putString(TITLE_QUERY, aQuery);
-//        setConversations(mPresenter.getConversationsViaTitle(getActivity(), args.getString(TITLE_QUERY)));
+//        setConversations(mPresenter.getConversationsViaTitle(requireActivity(), args.getString(TITLE_QUERY)));
         getLoaderManager().restartLoader(1, args, this);
     }
 

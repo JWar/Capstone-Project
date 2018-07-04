@@ -37,7 +37,7 @@ public class NewContactFragment extends Fragment implements NewContactContract.V
         super.onViewCreated(view, savedInstanceState);
         mFirstNameET = view.findViewById(R.id.fragment_new_contact_first_name_et);
         mFirstNameET.requestFocus();//Focus on start. sigh doesnt bring keyboard up...
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(mFirstNameET, InputMethodManager.SHOW_IMPLICIT);
         mSurnameET = view.findViewById(R.id.fragment_new_contact_surname_et);
         mTelNumET = view.findViewById(R.id.fragment_new_contact_tel_num_et);
@@ -57,7 +57,7 @@ public class NewContactFragment extends Fragment implements NewContactContract.V
                     }
                 });
 
-        getActivity().setTitle(getString(R.string.new_contact));
+        requireActivity().setTitle(getString(R.string.new_contact));
     }
 
     private void save() {
@@ -66,23 +66,23 @@ public class NewContactFragment extends Fragment implements NewContactContract.V
         String telNum = mTelNumET.getText().toString();
         if (firstName.length()>0&&
                 telNum.length()>0) {
-            mPresenterNewContact.onSave(getActivity(),
+            mPresenterNewContact.onSave(requireActivity(),
                     firstName,
                     surname,
                     telNum);
         } else {
-            Toast.makeText(getActivity(), getString(R.string.new_contact_empty_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), getString(R.string.new_contact_empty_error), Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void saveSuccessful() {
-        Toast.makeText(getActivity(), getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(), getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void problemSaving() {
-        Toast.makeText(getActivity(), getString(R.string.problem_saving), Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(), getString(R.string.problem_saving), Toast.LENGTH_SHORT).show();
     }
 
     @Override

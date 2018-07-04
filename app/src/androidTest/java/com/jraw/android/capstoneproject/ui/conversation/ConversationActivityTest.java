@@ -41,10 +41,13 @@ public class ConversationActivityTest {
     }
     @Test
     public void testConvList() {
-        onView(withId(R.id.fragment_conversation_recycler_view))
-                .perform(RecyclerViewActions.
-                        scrollToPosition(0));
-        onView(withText(CONV_TITLE))
-                .check(matches(isDisplayed()));
+        //Cannot test conv list if Install Fragment is called.
+        if (!CONV_TITLE.equals("install")) {
+            onView(withId(R.id.fragment_conversation_recycler_view))
+                    .perform(RecyclerViewActions.
+                            scrollToPosition(0));
+            onView(withText(CONV_TITLE))
+                    .check(matches(isDisplayed()));
+        }
     }
 }

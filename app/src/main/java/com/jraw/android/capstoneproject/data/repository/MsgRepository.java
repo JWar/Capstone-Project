@@ -152,14 +152,18 @@ public class MsgRepository {
 
     //Not implemented msg delete yet. Will need to also trigger conversation count change.
     public void deleteMsg(Context aContext, Msg aMsg) {
-        if (mMsgLocalDataSource.deleteMsg(aMsg) > 0) {
-            ConversationCursorWrapper conversationCursorWrapper = new ConversationCursorWrapper(
-                    mConversationLocalDataSource.getConversationViaPublicId(aContext, aMsg.getMSCOPublicId()));
-            conversationCursorWrapper.moveToFirst();
-            Conversation conversation = conversationCursorWrapper.getConversation();
-            conversationCursorWrapper.close();
-            conversation.setCOCount(conversation.getCOCount() - 1);
-            mConversationLocalDataSource.updateConversation(aContext, conversation);
+        try {
+            if (mMsgLocalDataSource.deleteMsg(aMsg) > 0) {
+                ConversationCursorWrapper conversationCursorWrapper = new ConversationCursorWrapper(
+                        mConversationLocalDataSource.getConversationViaPublicId(aContext, aMsg.getMSCOPublicId()));
+                conversationCursorWrapper.moveToFirst();
+                Conversation conversation = conversationCursorWrapper.getConversation();
+                conversationCursorWrapper.close();
+                conversation.setCOCount(conversation.getCOCount() - 1);
+                mConversationLocalDataSource.updateConversation(aContext, conversation);
+            }
+        } catch (Exception e) {
+            Utils.logDebug("MsgRepository.deleteMsg: "+e.getLocalizedMessage());
         }
     }
 }

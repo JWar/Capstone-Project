@@ -33,21 +33,14 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
 /**
  * TODO: general todo list. The presence of this means there is still things todo!
- * Widget testing.
- * Accessibility? D-Pad? Not sure what to do with this beyond make edittexts focus up down... images has contentdesc
- *  Sigh seems going to have to remove buttons/functionality from toolbars.
- *  So need to make custom toolbar for each fragment that has buttons/searchviews.
- *      So Conversation - search view and new contact button
- *         NewConv - create and cancel buttons
- *         New Contact - save and cancel buttons
- *         Install - buttons in fragment?
- *         Do this!
  *
- * Replace getActivity/getContext with requireActivity/requireContext
  * Test -
  *  push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
  *  Notifications testing.
+ *
  * Possible extensions:
+ *  More/Better tests. ConversationActivityTest doesnt test install fragment. Could do button testing too.
+ *   Basically atm the tests are very basic. Could easily expand/add more.
  *  RxJava to replace Loader and IntentService. Though IntentService may actually be best thing for the job. Or
  *  JobScheduler?
  *  Notifications above 1 show more than just basic message

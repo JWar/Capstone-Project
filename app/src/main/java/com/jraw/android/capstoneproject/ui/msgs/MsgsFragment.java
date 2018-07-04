@@ -122,7 +122,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         EspressoIdlingResource.increment();
-        return mPresenterMsgs.getMsgs(getActivity(),args.getLong(CO_PUBLIC_ID));
+        return mPresenterMsgs.getMsgs(requireActivity(),args.getLong(CO_PUBLIC_ID));
     }
 
     @Override
@@ -144,13 +144,13 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
         if (mListState!=null) {
             mListHandler.setState(mListState);
         }
-        getActivity().setTitle(mCOTitle);
+        requireActivity().setTitle(mCOTitle);
     }
 
     @Override
     public void sendNewMsg() {
         String body = mMsgET.getText().toString();
-        mPresenterMsgs.sendNewMsg(getActivity(), mCOPubId,mCOTitle,body);
+        mPresenterMsgs.sendNewMsg(requireActivity(), mCOPubId,mCOTitle,body);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
 
     @Override
     public void problemSendingMsg() {
-        Toast.makeText(getActivity(), getString(R.string.send_msg_error), Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireActivity(), getString(R.string.send_msg_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override

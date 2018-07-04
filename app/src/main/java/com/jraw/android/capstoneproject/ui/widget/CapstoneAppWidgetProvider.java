@@ -46,7 +46,10 @@ public class CapstoneAppWidgetProvider extends AppWidgetProvider {
                         secondConversation.getCOPublicId(),
                         secondConversation.getCOTitle(),
                         true);
-                pendingIntent = PendingIntent.getActivity(context, 0, secondConvIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                //Note: the request code must be a different number than the previous one. Otherwise
+                //the system seems to 'overwrite' the previous pendingIntent
+                //(clicks on first conv rl brought up second conversation.)
+                pendingIntent = PendingIntent.getActivity(context, 1, secondConvIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 views.setTextViewText(R.id.widget_second_conv_title_tv, secondConversation.getCOTitle());
                 views.setTextViewText(R.id.widget_second_conv_snippet_tv, secondConversation.getCOSnippet());

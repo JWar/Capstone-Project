@@ -92,7 +92,7 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         final String sName = args.getString(SUR_NAME);
         final String telNum = args.getString(TEL_NUM);
         EspressoIdlingResource.increment();
-        return new IntegerAsyncTaskLoader(getActivity(), mInstallPresenter,
+        return new IntegerAsyncTaskLoader(requireActivity(), mInstallPresenter,
                 fName, sName, telNum);
     }
 
@@ -104,10 +104,10 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         }
         if (data == -1) {
             //Error.
-            Toast.makeText(getActivity(), getString(R.string.install_error_msg), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), getString(R.string.install_error_msg), Toast.LENGTH_SHORT).show();
         } else if (data == 0) {
             //Unsuccessful server conn?
-            Toast.makeText(getActivity(), getString(R.string.install_unsuccessful_msg), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireActivity(), getString(R.string.install_unsuccessful_msg), Toast.LENGTH_SHORT).show();
         } else {
             //Success.
             mInstallPresenter.onInstalled();

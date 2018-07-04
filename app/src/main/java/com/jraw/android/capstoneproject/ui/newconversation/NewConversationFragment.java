@@ -78,10 +78,10 @@ public class NewConversationFragment extends Fragment implements NewConversation
                     public void onClick(View aView) {
                         if (mTitleET.getText().length()>0&&
                                 mPresenterNewConversation.getAddedPersons().size()>0) {
-                            mPresenterNewConversation.onCreateConv(getActivity(), mTitleET.getText().toString());
+                            mPresenterNewConversation.onCreateConv(requireActivity(), mTitleET.getText().toString());
                         } else {
                             Toast.makeText(
-                                    getActivity(), getString(R.string.new_conversation_empty_conv_message),
+                                    requireActivity(), getString(R.string.new_conversation_empty_conv_message),
                                     Toast.LENGTH_SHORT)
                                     .show();
                         }
@@ -91,7 +91,7 @@ public class NewConversationFragment extends Fragment implements NewConversation
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View aView) {
-                        getActivity().onBackPressed();
+                        requireActivity().onBackPressed();
                     }
                 });
 
@@ -134,7 +134,7 @@ public class NewConversationFragment extends Fragment implements NewConversation
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         EspressoIdlingResource.increment();
-        return mPresenterNewConversation.getPersons(getActivity());
+        return mPresenterNewConversation.getPersons(requireActivity());
     }
 
     @Override

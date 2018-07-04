@@ -9,7 +9,8 @@
     <RelativeLayout
         android:id="@+id/conversations_search_bar_rl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@drawable/thin_black_footer_line">
 
         <android.support.v7.widget.SearchView
             android:id="@+id/conversations_search_view"
@@ -25,7 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:background="@android:color/transparent"
+            android:padding="2dp"
+            android:background="@drawable/touch_selector_border_black"
             android:contentDescription="@string/action_new_contact"
             android:nextFocusDown="@+id/fragment_conversation_recycler_view"
             android:nextFocusForward="@+id/fragment_conversation_recycler_view"
@@ -45,7 +47,8 @@
         android:id="@+id/fragment_conversation_new_conv_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:background="@color/colorAccent"
         android:src="@android:drawable/ic_input_add" />

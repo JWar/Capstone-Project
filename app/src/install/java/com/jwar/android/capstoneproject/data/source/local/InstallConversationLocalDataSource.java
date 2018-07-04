@@ -75,11 +75,14 @@ public class InstallConversationLocalDataSource implements ConversationLocalData
                             " LIMIT 2"
             ));
             int count = cursorTT.getCount();
-            if (count>0) {
-                for (int i=0;i<count;i++) {
-                    conversations[i]=cursorTT.getConversation();
+            if (count > 0) {
+                for (int i = 0; i < count; i++) {
+                    cursorTT.moveToPosition(i);
+                    conversations[i] = cursorTT.getConversation();
                 }
             }
+        } catch (Exception e) {
+            Utils.logDebug("InstallConvLocalDS.getConvTopTwo: "+e.getLocalizedMessage());
         } finally {
             Utils.closeCursor(cursorTT);
         }
