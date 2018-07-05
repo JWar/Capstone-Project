@@ -32,13 +32,10 @@ import static com.jraw.android.capstoneproject.utils.Utils.CHANNEL_ID;
 import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
 /**
- * TODO: general todo list. The presence of this means there is still things todo!
- *
- * Test -
- *  push/firebase needs testing. Rig up a mock run through with rcving/sending a msg or two.
- *  Notifications testing.
+ * Think version 1 done now.
  *
  * Possible extensions:
+ *  Improve the design - very minimal at the moment. Add transitions and such.
  *  More/Better tests. ConversationActivityTest doesnt test install fragment. Could do button testing too.
  *   Basically atm the tests are very basic. Could easily expand/add more.
  *  RxJava to replace Loader and IntentService. Though IntentService may actually be best thing for the job. Or
