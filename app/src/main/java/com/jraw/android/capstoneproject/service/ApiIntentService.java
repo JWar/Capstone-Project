@@ -134,7 +134,7 @@ public class ApiIntentService extends IntentService {
                 throw new Exception(getString(R.string.problem_getting_new_msg));
             }
         } catch (Exception e) {
-            Utils.logDebug("ApiIntentService.handleActionSendNewMsg: "+e.getLocalizedMessage());
+            Utils.logDebug("ApiIntentService.handleActionGetNewMsg: "+e.getLocalizedMessage());
             showToastMsg(getString(R.string.problem_getting_new_msg));
         }
     }
@@ -163,6 +163,7 @@ public class ApiIntentService extends IntentService {
             int curCount = unreadConvsCursor.getCount();
             switch (curCount) {
                 case 1:
+                    unreadConvsCursor.moveToPosition(0);
                     Conversation conv = unreadConvsCursor.getConversation();
                     PendingIntent pendingIntent = PendingIntent.getActivity(
                             this,

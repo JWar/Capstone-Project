@@ -7,15 +7,31 @@ import com.jraw.android.capstoneproject.data.model.PeCo;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.utils.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Mocks remote data to control test data.
  */
 public class DummyData {
     public static List<Msg> getRemoteMsgs() {
-        return null;
+        List<Msg> toReturn = new ArrayList<>();
+        Msg msg;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.UK);
+        Date date = Calendar.getInstance().getTime();
+        msg = new Msg();
+        msg.setMSBody("This is a new test message: "+ date.getTime());
+        msg.setMSCOPublicId(1);
+        msg.setMSFromTel(Utils.THIS_USER_TEL);
+        msg.setMSEventDate(sdf.format(date));
+        msg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());
+        msg.setMSResult(Msg.RESULTS.READ.ordinal());
+        toReturn.add(msg);
+        return toReturn;
     }
     public static List<Msg> getMsgs() {
         List<Msg> toReturn = new ArrayList<>();

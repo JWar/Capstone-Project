@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jraw.android.capstoneproject.R;
+import com.jraw.android.capstoneproject.service.ApiIntentService;
 import com.jraw.android.capstoneproject.ui.list.ListHandler;
 import com.jraw.android.capstoneproject.ui.list.ListHandlerCallback;
 import com.jraw.android.capstoneproject.ui.list.ListRecyclerViewAdapter;
@@ -59,7 +60,9 @@ public class ConversationFragment extends Fragment implements ConversationContra
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View aView) {
-                        mPresenter.onNewContact();
+//                        mPresenter.onNewContact();
+                        //Temp testing of getNewMsgs
+                        ApiIntentService.startActionGetNewMsgs(requireActivity());
                     }
                 });
 
