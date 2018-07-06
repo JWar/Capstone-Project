@@ -60,9 +60,7 @@ public class ConversationFragment extends Fragment implements ConversationContra
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View aView) {
-//                        mPresenter.onNewContact();
-                        //Temp testing of getNewMsgs
-                        ApiIntentService.startActionGetNewMsgs(requireActivity());
+                        mPresenter.onNewContact();
                     }
                 });
 
