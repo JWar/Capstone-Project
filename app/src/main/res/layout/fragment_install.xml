@@ -10,24 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+    <EditText
         android:id="@+id/fragment_install_first_name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:hint="@string/first_name"
         android:focusable="true"
         android:imeOptions="actionNext"
         android:nextFocusDown="@+id/fragment_install_tel_num_et"
         android:layout_margin="4dp"/>
 
-    <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+    <EditText
         android:id="@+id/fragment_install_surname_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:hint="@string/surname"
         android:imeOptions="actionNext"
         android:nextFocusDown="@+id/fragment_install_tel_num_et"

@@ -13,8 +13,6 @@ import com.jraw.android.capstoneproject.utils.Utils;
  */
 
 public class FirebaseMsgService extends FirebaseMessagingService {
-    //Kept in memory for app lifetime...
-//    private static MsgRepository sMsgRepository;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -29,30 +27,5 @@ public class FirebaseMsgService extends FirebaseMessagingService {
         //Of course can expand to do more with push. But for the moment its just a trigger for an update
         //query
         ApiIntentService.startActionGetNewMsgs(this);
-        // Check if message contains a data payload.
-//        if (remoteMessage.getData().size() > 0) {
-//            Intent intent = new Intent("noti");
-//            Utils.logDebug("Message data payload: " + remoteMessage.getData());
-            //Cant remember what the format of the Firebase msg is... but it will get the string in json format and msgify it.
-//            try {
-//                Gson gson = new Gson();
-//                Msg msg = gson.fromJson(remoteMessage.getData().get("msg"), Msg.class);
-//                if (MsgRepository.get(this).saveMsg(msg)==0) {
-//                    throw new Exception("Problem saving Msg");
-//                }
-
-//                Notification notification = new NotificationCompat.Builder(this,Utils.CHANNEL_ID)
-//                        .setContentTitle(getString(R.string.notification_new_msg_received))
-//                        .setContentText(msg.getMSBody())
-//                        .setSmallIcon(R.mipmap.ic_launcher)
-//                        .build();
-//                NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
-//                manager.notify(123, notification);
-//            } catch (Exception e) {
-//                Utils.logDebug("Error in FirebaseMsgService.onMessageReceived: "+e.getLocalizedMessage());
-//            }
-//            intent.putExtra("data", new JSONObject(remoteMessage.getData()).toString());
-//            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
-//        }
     }
 }

@@ -23,8 +23,13 @@ public class InstallPersonRemoteDataSource implements PersonRemoteDataSource {
 
     @Override
     public ResponseServerPersonSave savePerson(Person aPerson) {
-        return mBackendApi.sendPerson(
-                Utils.URL,
-                aPerson);
+        try {
+            return mBackendApi.sendPerson(
+                    Utils.URL,
+                    aPerson);
+        } catch (Exception e) {
+            Utils.logDebug("InstallPersonRemoteDS.savePerson: "+e.getLocalizedMessage());
+            return null;
+        }
     }
 }

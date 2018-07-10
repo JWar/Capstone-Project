@@ -24,11 +24,11 @@ public interface BackendApi {
                               @Query("st") int aSearchType,
                               @Query("userid") String aUserId);
 
-    @POST
+    @POST("/storemsg.aj")
     ResponseServerMsgSave sendMsg(@Url String aUrl,
                                   @Body Msg aMsg);
 
-    @POST
+    @POST("/storeperson.aj")
     ResponseServerPersonSave sendPerson(@Url String aUrl,
                                         @Body Person aPerson);
 }

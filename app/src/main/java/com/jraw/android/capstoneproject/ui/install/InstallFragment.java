@@ -8,9 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -19,6 +16,7 @@ import android.widget.Toast;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.ui.IntegerAsyncTaskLoader;
 import com.jraw.android.capstoneproject.utils.EspressoIdlingResource;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 /**
  * ... handles installation routine.
@@ -82,7 +80,7 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
         args.putString(FIRST_NAME, mFirstNameET.getText().toString());
         args.putString(SUR_NAME, mSurnameET.getText().toString());
         args.putString(TEL_NUM, mTelNumET.getText().toString());
-        getLoaderManager().initLoader(1, args, this);
+        getLoaderManager().initLoader(1, args, this).forceLoad();
     }
 
     @NonNull

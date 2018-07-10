@@ -15,7 +15,7 @@ public class Utils {
     private static final String LOG_TAG = "CapstoneProject";
     private static boolean LOG_DEBUG = true;
 
-    public static final String URL = "https://10.0.0.2";//Dummy url
+    public static final String URL = "https://51.7.163.33:10000/JonsAppServer/";//Dummy url
 
     public static final String SHAR_PREFS = "capstonePrefs";
 

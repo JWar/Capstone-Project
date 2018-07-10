@@ -12,7 +12,7 @@ android {
     }
     signingConfigs {
         config {
-            storeFile file('$rootDir/capkeystore.jks')
+            storeFile file('capkeystore.jks')
             storePassword "password"
             keyAlias "udacity"
             keyPassword "udacity"
