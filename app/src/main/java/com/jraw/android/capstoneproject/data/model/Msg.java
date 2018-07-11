@@ -32,6 +32,9 @@ public class Msg extends entity implements Parcelable {
     //This is the tel of the person who sent this.
     @SerializedName("fromtel")
     private String MSFromTel;
+    //This is a comma separated string containing all the tels of all the people to send the msg to.
+    @SerializedName("totels")
+    private String MSToTels;
     //Content of Msg
     @SerializedName("body")
     private String MSBody;
@@ -58,6 +61,7 @@ public class Msg extends entity implements Parcelable {
     public Msg(Parcel pc) {
         MSCOPublicId = pc.readLong();
         MSFromTel = pc.readString();
+        MSToTels = pc.readString();
         MSBody = pc.readString();
         MSEventDate = pc.readString();
         MSType = pc.readInt();
@@ -69,6 +73,7 @@ public class Msg extends entity implements Parcelable {
     public void writeToParcel(Parcel pc, int flags) {
         pc.writeLong(MSCOPublicId);
         pc.writeString(MSFromTel);
+        pc.writeString(MSToTels);
         pc.writeString(MSBody);
         pc.writeString(MSEventDate);
         pc.writeInt(MSType);
@@ -98,6 +103,8 @@ public class Msg extends entity implements Parcelable {
     public void setMSFromTel(String aStr) {
         MSFromTel = aStr;
     }
+
+    public void setMSToTels(String aMSToTels) {MSToTels = aMSToTels;}
 
     public void setMSBody(String aStr) {
         MSBody = aStr;
@@ -134,6 +141,8 @@ public class Msg extends entity implements Parcelable {
     public String getMSFromTel() {
         return MSFromTel;
     }
+
+    public String getMSToTels() {return MSToTels;}
 
     public String getMSBody() {
         return MSBody;
@@ -175,6 +184,9 @@ public class Msg extends entity implements Parcelable {
         if (MSFromTel != null) {
             cV.put(MsgTable.Cols.FROMTEL, MSFromTel);
         }
+        if (MSToTels != null) {
+            cV.put(MsgTable.Cols.TOTELS, MSToTels);
+        }
         if (MSBody != null) {
             cV.put(MsgTable.Cols.BODY, MSBody);
         }
@@ -198,6 +210,7 @@ public class Msg extends entity implements Parcelable {
         return "Msg{" +
                 "MSCOPublicId=" + MSCOPublicId +
                 ", MSFromTel=" + MSFromTel +
+                ", MSToTels=" + MSToTels +
                 ", MSBody='" + MSBody + '\'' +
                 ", MSEventDate='" + MSEventDate + '\'' +
                 ", MSType=" + MSType +

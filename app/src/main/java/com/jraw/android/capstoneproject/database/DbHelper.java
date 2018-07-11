@@ -58,6 +58,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     MsgTable.Cols.ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     MsgTable.Cols.COPUBLICID + " INTEGER(11) DEFAULT 0, " +
                     MsgTable.Cols.FROMTEL + " VARCHAR DEFAULT NULL, " +
+                    MsgTable.Cols.TOTELS + " VARCHAR DEFAULT NULL, " +
                     MsgTable.Cols.BODY + " VARCHAR DEFAULT NULL, " +
                     MsgTable.Cols.EVENTDATE + " VARCHAR DEFAULT NULL, " +
                     //Type of msg - text, img, video

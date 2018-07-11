@@ -20,6 +20,7 @@ import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.model.cursorwrappers.ConversationCursorWrapper;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
+import com.jraw.android.capstoneproject.data.repository.PeCoRepository;
 import com.jraw.android.capstoneproject.data.repository.PersonRepository;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 import com.jraw.android.capstoneproject.ui.widget.CapstoneAppWidgetProvider;
@@ -44,6 +45,7 @@ public class ApiIntentService extends IntentService {
     private static MsgRepository sMsgRepository;
     private static ConversationRepository sConversationRepository;
     private static PersonRepository sPersonRepository;
+    private static PeCoRepository sPeCoRepository;
 
     private int mNotificationId=1;
 
@@ -106,6 +108,17 @@ public class ApiIntentService extends IntentService {
                 } catch (Exception e) {
                     Utils.logDebug("Problem in ApiIntentService.onHandleIntent: PersonRepo init");
                     showToastMsg("Problem initialising Persons");
+                    return;
+                }
+            }
+            if (sPeCoRepository==null) {
+                try {//Init Repo if null
+                    sPeCoRepository = Injection.providePeCoRepository(
+                            Injection.providePeCoLocalDataSource()
+                    );
+                } catch (Exception e) {
+                    Utils.logDebug("Problem in ApiIntentService.onHandleIntent: PeCoRepo init");
+                    showToastMsg("Problem initialising references");
                     return;
                 }
             }
@@ -205,7 +218,12 @@ public class ApiIntentService extends IntentService {
      * parameters. Uses Retrofit to send Msg.
      */
     private void handleActionSendNewMsg(Msg aMsg) {
+        Cursor pesInCoCursor=null;
         try {
+            //Will need to de ref all persons in conversation and add them to msgs toTels.
+            //This is all person ids in conversation
+            pesInCoCursor = sPeCoRepository.getPesInCo(this,aMsg.getMSCOPublicId());
+            //This is all persons in list
             if (sMsgRepository.saveMsg(this, aMsg)>0) {
                 Utils.logDebug("ApiIntentService.handleActionSendMsg: Msg sent successfully. Msg Id: "+aMsg.getId());
             } else {
@@ -213,6 +231,8 @@ public class ApiIntentService extends IntentService {
             }
         } catch (Exception e) {
             Utils.logDebug("ApiIntentService.handleActionSendNewMsg: "+e.getLocalizedMessage());
+        } finally {
+            Utils.closeCursor(pesInCoCursor);
         }
     }
     private void showToastMsg(final String aText) {

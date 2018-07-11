@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.data.repository;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.jraw.android.capstoneproject.data.model.PeCo;
@@ -20,5 +21,8 @@ public class PeCoRepository {
     }
     public long savePeCo(Context aContext, PeCo aPeCo) {
         return mPeCoLocalDataSource.savePeCo(aContext, aPeCo);
+    }
+    public Cursor getPesInCo(Context aContext, long aCOPublicId) {
+        return mPeCoLocalDataSource.getPesInCo(aContext, aCOPublicId);
     }
 }

@@ -41,7 +41,8 @@ public class DbSchema {
         public static final class Cols {
             public static final String ID = "ID";
             public static final String COPUBLICID = "MSCOPublicID";
-            public static final String FROMTEL = "MSFromID";
+            public static final String FROMTEL = "MSFromTel";
+            public static final String TOTELS = "MSToTels";
             public static final String BODY = "MSBody";
             public static final String EVENTDATE = "MSEventDate";
             public static final String TYPE = "MSType";
