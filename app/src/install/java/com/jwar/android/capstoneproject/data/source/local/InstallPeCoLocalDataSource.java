@@ -2,6 +2,8 @@ package com.jwar.android.capstoneproject.data.source.local;
 
 import android.content.Context;
 import android.content.ContentUris;
+import android.database.Cursor;
+
 import com.jraw.android.capstoneproject.data.model.PeCo;
 import com.jraw.android.capstoneproject.data.source.local.PeCoLocalDataSource;
 import com.jraw.android.capstoneproject.database.DbSchema.PeCoTable;
@@ -23,5 +25,10 @@ public class InstallPeCoLocalDataSource implements PeCoLocalDataSource {
                 PeCoTable.CONTENT_URI,
                 aPeCo.toCV())
         );
+    }
+
+    @Override
+    public Cursor getPesInCo(Context aContext, long aCOPublicId) {
+        return null;
     }
 }

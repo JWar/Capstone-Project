@@ -9,6 +9,8 @@ import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
 import com.jraw.android.capstoneproject.utils.Utils;
 
+import retrofit2.Call;
+
 /**
  * Created by JonGaming on 16/04/2018.
  */
@@ -27,16 +29,15 @@ public class InstallMsgRemoteDataSource implements MsgRemoteDataSource {
     }
 
     @Override
-    public ResponseServerMsg getMsgsFromServer() {
+    public Call<ResponseServerMsg> getMsgsFromServer() {
         return mBackendApi.getMsgs("",
                 BackendApi.SEARCH_TYPES.ALL.ordinal(),
                 Utils.THIS_USER_ID+"");
     }
     //Returns null for moment
     @Override
-    public ResponseServerMsgSave saveMsg(Msg aMsg) {
+    public Call<ResponseServerMsgSave> saveMsg(Msg aMsg) {
         return mBackendApi.sendMsg(
-                Utils.URL,
                 aMsg
         );
     }

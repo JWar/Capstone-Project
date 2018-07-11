@@ -4,6 +4,7 @@ import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.utils.Utils;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -20,15 +21,13 @@ public interface BackendApi {
 
     //Would really have an auth token
     @GET("tbc")
-    ResponseServerMsg getMsgs(@Query("crit") String aCrit,
+    Call<ResponseServerMsg> getMsgs(@Query("crit") String aCrit,
                               @Query("st") int aSearchType,
                               @Query("userid") String aUserId);
 
-    @POST("/storemsg.aj")
-    ResponseServerMsgSave sendMsg(@Url String aUrl,
-                                  @Body Msg aMsg);
+    @POST("storemsg.aj")
+    Call<ResponseServerMsgSave> sendMsg(@Body Msg aMsg);
 
-    @POST("/storeperson.aj")
-    ResponseServerPersonSave sendPerson(@Url String aUrl,
-                                        @Body Person aPerson);
+    @POST("storeperson.aj")
+    Call<ResponseServerPersonSave> sendPerson(@Body Person aPerson);
 }

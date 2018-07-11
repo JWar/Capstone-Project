@@ -46,8 +46,8 @@ public class PersonRepository {
     public long savePersonLocal(Context aContext, Person aPerson) {
         return mPersonLocalDataSource.savePerson(aContext, aPerson);
     }
-    public ResponseServerPersonSave savePersonRemote(Person aPerson) {
-        return mPersonRemoteDataSource.savePerson(aPerson);
+    public ResponseServerPersonSave savePersonRemote(Person aPerson) throws Exception {
+        return mPersonRemoteDataSource.savePerson(aPerson).execute().body();
     }
     public List<Person> getAddedPersons() {
         return mAddedPersons;

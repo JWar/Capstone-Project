@@ -8,6 +8,8 @@ import com.jraw.android.capstoneproject.data.source.remote.PersonRemoteDataSourc
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerPersonSave;
 import com.jraw.android.capstoneproject.utils.Utils;
 
+import retrofit2.Call;
+
 public class InstallPersonRemoteDataSource implements PersonRemoteDataSource {
     private static InstallPersonRemoteDataSource sInstance=null;
     private BackendApi mBackendApi;
@@ -22,10 +24,9 @@ public class InstallPersonRemoteDataSource implements PersonRemoteDataSource {
     }
 
     @Override
-    public ResponseServerPersonSave savePerson(Person aPerson) {
+    public Call<ResponseServerPersonSave> savePerson(Person aPerson) {
         try {
             return mBackendApi.sendPerson(
-                    Utils.URL,
                     aPerson);
         } catch (Exception e) {
             Utils.logDebug("InstallPersonRemoteDS.savePerson: "+e.getLocalizedMessage());

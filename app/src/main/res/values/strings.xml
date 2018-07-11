@@ -49,6 +49,7 @@
 
     <string name="install_error_msg">Error installing</string>
     <string name="install_unsuccessful_msg">Server problem whilst installing</string>
+    <string name="user_wrong_install_entry">Please enter details</string>
 
     <string name="widget_default_title">No conversation available</string>
 
