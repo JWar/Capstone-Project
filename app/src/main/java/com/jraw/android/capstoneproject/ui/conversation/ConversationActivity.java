@@ -33,8 +33,9 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 
 /**
  * Think version 1 done now.
- *
+ * Finish getting all persons in conversation, want to get all tels and add to msg toTels field.
  * Possible extensions:
+ *
  *  Improve the design - very minimal at the moment. Add transitions and such.
  *  More/Better tests. ConversationActivityTest doesnt test install fragment. Could do button testing too.
  *   Basically atm the tests are very basic. Could easily expand/add more.

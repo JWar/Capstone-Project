@@ -26,7 +26,7 @@ public class MockMsgRemoteDataSource implements MsgRemoteDataSource {
     }
 
     @Override
-    public ResponseServerMsg getMsgsFromServer() {
+    public ResponseServerMsg getMsgsFromServer() throws Exception {
         ResponseServerMsg responseServerMsg = new ResponseServerMsg();
         responseServerMsg.action="COMPLETE";
         responseServerMsg.rows= DummyData.getRemoteMsgs();
@@ -34,7 +34,7 @@ public class MockMsgRemoteDataSource implements MsgRemoteDataSource {
     }
     //Returns mock response
     @Override
-    public ResponseServerMsgSave saveMsg(Msg aMsg) {
+    public ResponseServerMsgSave saveMsg(Msg aMsg) throws Exception {
         ResponseServerMsgSave responseServerMsgSave = new ResponseServerMsgSave();
         responseServerMsgSave.action="COMPLETE";
         responseServerMsgSave.res="DELIVERED";

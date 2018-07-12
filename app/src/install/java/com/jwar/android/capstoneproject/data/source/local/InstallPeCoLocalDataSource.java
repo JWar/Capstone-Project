@@ -29,6 +29,12 @@ public class InstallPeCoLocalDataSource implements PeCoLocalDataSource {
 
     @Override
     public Cursor getPesInCo(Context aContext, long aCOPublicId) {
-        return null;
+        return aContext.getContentResolver().query(
+                PeCoTable.CONTENT_URI,
+                null,
+                PeCoTable.Cols.COPUBLICID + "=" + aCOPublicId,
+                null,
+                null
+        );
     }
 }

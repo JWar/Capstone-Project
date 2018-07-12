@@ -53,7 +53,7 @@ public class MsgRepository {
 
     //Needs to return received msgs for notifications and snippets.
     public int getNewMsgs(Context aContext) throws Exception {
-        ResponseServerMsg responseServerMsg = mMsgRemoteDataSource.getMsgsFromServer().execute().body();
+        ResponseServerMsg responseServerMsg = mMsgRemoteDataSource.getMsgsFromServer();
         if (responseServerMsg.action.equals("COMPLETE")) {
             //Save msgs to database
             return saveMsgs(aContext, responseServerMsg.rows);
@@ -70,7 +70,7 @@ public class MsgRepository {
      * will already be done on creation of New Conversation functionality.
      */
     public long saveMsg(Context aContext, Msg aMsg) throws Exception {
-        ResponseServerMsgSave responseServerMsgSave = mMsgRemoteDataSource.saveMsg(aMsg).execute().body();
+        ResponseServerMsgSave responseServerMsgSave = mMsgRemoteDataSource.saveMsg(aMsg);
         if (responseServerMsgSave.action.equals("COMPLETE")) {
             //Gets res of save and assigns result in msg.
             aMsg.setMSResult(Msg.RESULTS.valueOf(responseServerMsgSave.res).ordinal());

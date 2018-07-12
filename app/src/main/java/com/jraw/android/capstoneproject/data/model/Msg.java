@@ -67,6 +67,7 @@ public class Msg extends entity implements Parcelable {
         MSType = pc.readInt();
         MSData = pc.createByteArray();
         MSResult = pc.readInt();
+        MSCOTitle = pc.readString();
     }
 
     @Override
@@ -79,6 +80,7 @@ public class Msg extends entity implements Parcelable {
         pc.writeInt(MSType);
         pc.writeByteArray(MSData);
         pc.writeInt(MSResult);
+        pc.writeString(MSCOTitle);
     }
 
     public static final Parcelable.Creator<Msg> CREATOR = new Parcelable.Creator<Msg>() {

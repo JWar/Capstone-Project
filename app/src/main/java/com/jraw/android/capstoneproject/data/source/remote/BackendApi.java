@@ -9,7 +9,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 public interface BackendApi {
 
@@ -19,11 +18,10 @@ public interface BackendApi {
 
     String END_POINT = Utils.URL;
 
-    //Would really have an auth token
-    @GET("tbc")
+    //Would really have an auth token, crit is user tel.
+    @GET("listmsg.aj")
     Call<ResponseServerMsg> getMsgs(@Query("crit") String aCrit,
-                              @Query("st") int aSearchType,
-                              @Query("userid") String aUserId);
+                              @Query("st") int aSearchType);
 
     @POST("storemsg.aj")
     Call<ResponseServerMsgSave> sendMsg(@Body Msg aMsg);

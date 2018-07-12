@@ -77,14 +77,14 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
 
     private void save() {
         Bundle args = new Bundle();
-//        if (mTelNumET.getText().length()>10) {
+        if (mTelNumET.getText().length()>10) {
             args.putString(FIRST_NAME, mFirstNameET.getText().toString());
             args.putString(SUR_NAME, mSurnameET.getText().toString());
             args.putString(TEL_NUM, mTelNumET.getText().toString());
             getLoaderManager().initLoader(1, args, this).forceLoad();
-//        } else {
-//            Toast.makeText(requireActivity(), getString(R.string.user_wrong_install_entry), Toast.LENGTH_SHORT).show();
-//        }
+        } else {
+            Toast.makeText(requireActivity(), getString(R.string.user_wrong_install_entry), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @NonNull
