@@ -141,10 +141,14 @@ public class MsgsFragment extends Fragment implements MsgsContract.ViewMsgs,
             EspressoIdlingResource.decrement(); // Set app as idle.
         }
         mListHandler.swapMsgs(aList);
-        if (mListState!=null) {
+        if (mListState != null) {
             mListHandler.setState(mListState);
         }
-        requireActivity().setTitle(mCOTitle);
+        if (mCOTitle != null && !mCOTitle.equals("null")) {
+            requireActivity().setTitle(mCOTitle);
+        } else {
+            requireActivity().setTitle("");
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import com.jraw.android.capstoneproject.data.model.PeCo;
 import com.jraw.android.capstoneproject.data.source.local.PeCoLocalDataSource;
 import com.jraw.android.capstoneproject.database.DbSchema.PeCoTable;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 
 public class InstallPeCoLocalDataSource implements PeCoLocalDataSource {
@@ -29,6 +30,7 @@ public class InstallPeCoLocalDataSource implements PeCoLocalDataSource {
 
     @Override
     public Cursor getPesInCo(Context aContext, long aCOPublicId) {
+        Utils.logDebug("InstallPeCoLocalDS.getPesInCo: "+aCOPublicId);
         return aContext.getContentResolver().query(
                 PeCoTable.CONTENT_URI,
                 null,

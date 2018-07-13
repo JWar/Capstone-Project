@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.data.repository;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 
@@ -49,6 +50,10 @@ public class PersonRepository {
     public ResponseServerPersonSave savePersonRemote(Person aPerson) throws Exception {
         return mPersonRemoteDataSource.savePerson(aPerson);
     }
+    public Cursor getPersonsFromPeIds(Context aContext, String[] aPeIds) throws Exception {
+        return mPersonLocalDataSource.getPersonsFromPeIds(aContext,aPeIds);
+    }
+
     public List<Person> getAddedPersons() {
         return mAddedPersons;
     }

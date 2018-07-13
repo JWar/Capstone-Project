@@ -34,8 +34,13 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
 /**
  * Think version 1 done now.
  * Finish getting all persons in conversation, want to get all tels and add to msg toTels field.
+ * Ok. No placeholders bug in peInCos, in send new msg.
+ * And getNewMsgs is somehow managing to make a snippet for one conversation nad putting the msg in
+ * another conversation. But in the snippet conversation its empty, i.e. no msgs.
  * Possible extensions:
- *
+ *  Make it so an unknown contact can be part of a conversation without causing problems.
+ *   This will require system to add a person if an unknown tel is in the ToTels field of a Msg.
+ *   The person will have no names but a tel.
  *  Improve the design - very minimal at the moment. Add transitions and such.
  *  More/Better tests. ConversationActivityTest doesnt test install fragment. Could do button testing too.
  *   Basically atm the tests are very basic. Could easily expand/add more.

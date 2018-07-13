@@ -18,16 +18,18 @@ import com.jraw.android.capstoneproject.data.model.Conversation;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.model.cursorwrappers.ConversationCursorWrapper;
+import com.jraw.android.capstoneproject.data.model.cursorwrappers.PersonCursorWrapper;
 import com.jraw.android.capstoneproject.data.repository.ConversationRepository;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
 import com.jraw.android.capstoneproject.data.repository.PeCoRepository;
 import com.jraw.android.capstoneproject.data.repository.PersonRepository;
+import com.jraw.android.capstoneproject.database.DbSchema;
 import com.jraw.android.capstoneproject.ui.msgs.MsgsActivity;
 import com.jraw.android.capstoneproject.ui.widget.CapstoneAppWidgetProvider;
 import com.jraw.android.capstoneproject.utils.Utils;
 import com.jwar.android.capstoneproject.Injection;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Handles getting and saving msgs via Retrofit.
@@ -219,11 +221,46 @@ public class ApiIntentService extends IntentService {
      */
     private void handleActionSendNewMsg(Msg aMsg) {
         Cursor pesInCoCursor=null;
+        PersonCursorWrapper personsCursor = null;
         try {
-            //Will need to de ref all persons in conversation and add them to msgs toTels.
+            Utils.logDebug("ApiIntentService.sendNewMsg: " + aMsg.toString());
+            Cursor convCursor = getContentResolver().query(
+                    DbSchema.ConversationTable.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+            Utils.dumpContent(convCursor);
+            Cursor peCoCursor = getContentResolver().query(
+                    DbSchema.PeCoTable.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+            Utils.dumpContent(peCoCursor);
+            //Will need to de ref all persons in conversation, get their tels and add them to msgs toTels.
             //This is all person ids in conversation
             pesInCoCursor = sPeCoRepository.getPesInCo(this,aMsg.getMSCOPublicId());
-            //This is all persons in list
+            Utils.dumpContent(pesInCoCursor);
+            //This is all persons in list. Get persons, get tels from person
+            int len = pesInCoCursor.getCount();
+            String[] peIdList = new String[len];
+            for (int i = 0;i<len;i++) {
+                peIdList[i] = "" +
+                        pesInCoCursor.getInt(pesInCoCursor.getColumnIndex(DbSchema.PeCoTable.Cols.ID));
+            }
+            personsCursor = new PersonCursorWrapper(sPersonRepository.getPersonsFromPeIds(this,peIdList));
+            StringBuilder toTels = new StringBuilder();
+            while (personsCursor.moveToNext()) {
+                String concat = personsCursor.getPerson()
+                        .getPETelNum() + ",";
+                toTels.append(concat);
+            }
+            //Make sure to cut off the trailing ,.
+            aMsg.setMSToTels(toTels.toString().substring(0,toTels.length()-1));
+            Utils.logDebug("ApiIntentServer.sendNewMsg: "+aMsg.getMSToTels());
             if (sMsgRepository.saveMsg(this, aMsg)>0) {
                 Utils.logDebug("ApiIntentService.handleActionSendMsg: Msg sent successfully. Msg Id: "+aMsg.getId());
             } else {
@@ -231,8 +268,10 @@ public class ApiIntentService extends IntentService {
             }
         } catch (Exception e) {
             Utils.logDebug("ApiIntentService.handleActionSendNewMsg: "+e.getLocalizedMessage());
+            showToastMsg(getString(R.string.send_msg_error));
         } finally {
             Utils.closeCursor(pesInCoCursor);
+            Utils.closeCursor(personsCursor);
         }
     }
     private void showToastMsg(final String aText) {

@@ -2,12 +2,14 @@ package com.jwar.android.capstoneproject.data.source.local;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v4.content.CursorLoader;
 
 import com.jraw.android.capstoneproject.data.model.Person;
 import com.jraw.android.capstoneproject.data.model.cursorwrappers.PersonCursorWrapper;
 import com.jraw.android.capstoneproject.data.source.local.PersonLocalDataSource;
 import com.jraw.android.capstoneproject.database.DbSchema.PersonTable;
+import com.jraw.android.capstoneproject.utils.Utils;
 
 public class MockPersonLocalDataSource implements PersonLocalDataSource {
     private static MockPersonLocalDataSource sInstance=null;
@@ -61,6 +63,19 @@ public class MockPersonLocalDataSource implements PersonLocalDataSource {
         Person person = personCursorWrapper.getPerson();
         personCursorWrapper.close();
         return person;
+    }
+
+    @Override
+    public Cursor getPersonsFromPeIds(Context aContext, String[] aPeIds) {
+        return aContext.getContentResolver().query(
+                PersonTable.CONTENT_URI,
+                new String[] {
+                        PersonTable.Cols.TELNUM
+                },
+                PersonTable.Cols.ID + " IN (" + Utils.makePlaceholders(aPeIds.length) + ")",
+                aPeIds,
+                null
+        );
     }
 
     @Override

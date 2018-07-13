@@ -22,6 +22,8 @@ public class MockPersonRemoteDataSource implements PersonRemoteDataSource {
 
     @Override
     public ResponseServerPersonSave savePerson(Person aPerson) throws Exception {
-        return mBackendApi.sendPerson(aPerson).execute().body();
+        ResponseServerPersonSave responseServerPersonSave = new ResponseServerPersonSave();
+        responseServerPersonSave.action="COMPLETE";
+        return responseServerPersonSave;
     }
 }
