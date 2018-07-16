@@ -27,7 +27,8 @@ public class ConvHolder extends AbstractHolder {
         mTitleTV.setText(aConv.getCOTitle());
         mSnippetTV.setText(aConv.getCOSnippet());
         int unreadCount = aConv.getCOUnread();
-        mUnreadCountTV.setText(""+unreadCount);
+        String toDisplay = ""+unreadCount;
+        mUnreadCountTV.setText(toDisplay);
         if (unreadCount>0) {//Boldify everything if there are unread msgs.
             mTitleTV.setTypeface(mTitleTV.getTypeface(),Typeface.BOLD);
             mSnippetTV.setTypeface(mSnippetTV.getTypeface(),Typeface.BOLD);
