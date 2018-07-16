@@ -55,6 +55,7 @@ public class Utils {
                 }
                 Utils.logDebug(msgInfo);//
             }
+            aCur.moveToFirst();
         }
     }
     public static String makePlaceholders(int len) {

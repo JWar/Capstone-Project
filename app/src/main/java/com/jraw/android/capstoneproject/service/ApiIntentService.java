@@ -248,6 +248,7 @@ public class ApiIntentService extends IntentService {
             int len = pesInCoCursor.getCount();
             String[] peIdList = new String[len];
             for (int i = 0;i<len;i++) {
+                pesInCoCursor.moveToPosition(i);
                 peIdList[i] = "" +
                         pesInCoCursor.getInt(pesInCoCursor.getColumnIndex(DbSchema.PeCoTable.Cols.ID));
             }

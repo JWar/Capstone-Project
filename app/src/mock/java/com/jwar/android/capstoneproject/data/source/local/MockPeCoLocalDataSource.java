@@ -30,6 +30,13 @@ public class MockPeCoLocalDataSource implements PeCoLocalDataSource {
 
     @Override
     public Cursor getPesInCo(Context aContext, long aCOPublicId) {
-        return null;
+        Utils.logDebug("InstallPeCoLocalDS.getPesInCo: "+aCOPublicId);
+        return aContext.getContentResolver().query(
+                PeCoTable.CONTENT_URI,
+                null,
+                PeCoTable.Cols.COPUBLICID + "=" + aCOPublicId,
+                null,
+                null
+        );
     }
 }
