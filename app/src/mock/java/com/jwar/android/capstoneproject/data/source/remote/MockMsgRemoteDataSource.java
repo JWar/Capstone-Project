@@ -26,7 +26,7 @@ public class MockMsgRemoteDataSource implements MsgRemoteDataSource {
     }
 
     @Override
-    public ResponseServerMsg getMsgsFromServer() throws Exception {
+    public ResponseServerMsg getMsgsFromServer(String aUsersTel) throws Exception {
         ResponseServerMsg responseServerMsg = new ResponseServerMsg();
         responseServerMsg.action="COMPLETE";
         responseServerMsg.rows= DummyData.getRemoteMsgs();

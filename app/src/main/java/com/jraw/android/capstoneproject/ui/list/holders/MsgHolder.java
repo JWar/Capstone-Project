@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.jraw.android.capstoneproject.R;
 import com.jraw.android.capstoneproject.data.model.Msg;
+import com.jraw.android.capstoneproject.ui.install.InstallFragment;
 import com.jraw.android.capstoneproject.utils.Utils;
 
 public class MsgHolder extends AbstractHolder {
@@ -45,15 +46,22 @@ public class MsgHolder extends AbstractHolder {
         mBodyTV.setTextColor(mView.getContext().getResources().getColor(R.color.colorText));
     }
 
-    private String setViews(Msg aMsg, int aPos) {
+    private String setViews(Msg aMsg, int aPos) throws Exception {
         String toDisplay=aMsg.getMSEventDate();
         mDateTV.setText(toDisplay);
         toDisplay="";
-        if (aMsg.getMSFromTel().equals(Utils.THIS_USER_TEL)) {//If msg is not from this user
-            setBodyTVToEnd();
+        String usersTel = mView
+                .getContext()
+                .getSharedPreferences(Utils.SHAR_PREFS,0).getString(InstallFragment.TEL_NUM,null);
+        if (usersTel!=null) {
+            if (aMsg.getMSFromTel().equals(usersTel)) {//If msg is not from this user
+                setBodyTVToEnd();
+            } else {
+                setBodyTVToStart();//Needs to be done to ensure View is 'reset' when recycled.
+                toDisplay += aMsg.getMSFromTel() + ":\n";
+            }
         } else {
-            setBodyTVToStart();//Needs to be done to ensure View is 'reset' when recycled.
-            toDisplay += aMsg.getMSFromTel() + ":\n";
+            throw new Exception("userstel==null");
         }
         toDisplay+=aMsg.getMSBody();
         mBodyTV.setText(toDisplay);

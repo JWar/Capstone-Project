@@ -38,6 +38,8 @@ import static com.jraw.android.capstoneproject.utils.Utils.SHAR_PREFS;
  * And getNewMsgs is somehow managing to make a snippet for one conversation nad putting the msg in
  * another conversation. But in the snippet conversation its empty, i.e. no msgs.
  * Possible extensions:
+ *  Backend needs upgrades: msg results used properly (sent, delivered etc...), need to ensure msg is never deleted
+ *  until its confirmed saved,
  *  Make it so an unknown contact can be part of a conversation without causing problems.
  *   This will require system to add a person if an unknown tel is in the ToTels field of a Msg.
  *   The person will have no names but a tel.

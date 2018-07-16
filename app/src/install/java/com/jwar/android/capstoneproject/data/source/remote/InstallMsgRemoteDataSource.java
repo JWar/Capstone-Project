@@ -27,8 +27,8 @@ public class InstallMsgRemoteDataSource implements MsgRemoteDataSource {
     }
 
     @Override
-    public ResponseServerMsg getMsgsFromServer() throws Exception {
-        return mBackendApi.getMsgs(Utils.THIS_USER_TEL,
+    public ResponseServerMsg getMsgsFromServer(String aUsersTel) throws Exception {
+        return mBackendApi.getMsgs(aUsersTel,
                 BackendApi.SEARCH_TYPES.ALL.ordinal()).execute().body();
     }
     //Returns null for moment

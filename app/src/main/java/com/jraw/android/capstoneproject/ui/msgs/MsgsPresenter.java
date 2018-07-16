@@ -6,6 +6,7 @@ import android.support.v4.content.CursorLoader;
 import com.jraw.android.capstoneproject.data.model.Msg;
 import com.jraw.android.capstoneproject.data.repository.MsgRepository;
 import com.jraw.android.capstoneproject.service.ApiIntentService;
+import com.jraw.android.capstoneproject.ui.install.InstallFragment;
 import com.jraw.android.capstoneproject.utils.Utils;
 
 import java.text.SimpleDateFormat;
@@ -49,11 +50,17 @@ public class MsgsPresenter implements MsgsContract.PresenterMsgs {
             newMsg.setMSCOTitle(aCOTitle);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.UK);
             newMsg.setMSEventDate(sdf.format(Calendar.getInstance().getTime()));
-            newMsg.setMSFromTel(Utils.THIS_USER_TEL);
-            newMsg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());//Assuming all are text messages for now.
-            //Done async via intentservice!
-            ApiIntentService.startActionSendNewMsgs(aContext,newMsg);
-            mViewMsgs.sentNewMsg();
+            String usersTel = aContext
+                    .getSharedPreferences(Utils.SHAR_PREFS,0).getString(InstallFragment.TEL_NUM,null);
+            if (usersTel!=null) {
+                newMsg.setMSFromTel(usersTel);
+                newMsg.setMSType(Msg.MSG_TYPES.TEXT.ordinal());//Assuming all are text messages for now.
+                //Done async via intentservice!
+                ApiIntentService.startActionSendNewMsgs(aContext, newMsg);
+                mViewMsgs.sentNewMsg();
+            } else {
+                throw new Exception("usersTel==null");
+            }
         } catch (Exception e) {
             Utils.logDebug("MsgsPresenter.sendNewMsg: "+e.getLocalizedMessage());
             mViewMsgs.problemSendingMsg();

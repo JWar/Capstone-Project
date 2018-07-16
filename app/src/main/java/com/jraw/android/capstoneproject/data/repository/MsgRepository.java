@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.data.repository;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
@@ -14,9 +15,9 @@ import com.jraw.android.capstoneproject.data.source.local.MsgLocalDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.MsgRemoteDataSource;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsg;
 import com.jraw.android.capstoneproject.data.source.remote.ResponseServerMsgSave;
+import com.jraw.android.capstoneproject.ui.install.InstallFragment;
 import com.jraw.android.capstoneproject.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,13 +54,19 @@ public class MsgRepository {
 
     //Needs to return received msgs for notifications and snippets.
     public int getNewMsgs(Context aContext) throws Exception {
-        ResponseServerMsg responseServerMsg = mMsgRemoteDataSource.getMsgsFromServer();
-        if (responseServerMsg.action.equals("COMPLETE")) {
-            //Save msgs to database
-            return saveMsgs(aContext, responseServerMsg.rows);
+        SharedPreferences sharedPreferences = aContext.getSharedPreferences(Utils.SHAR_PREFS,0);
+        String usersTel = sharedPreferences.getString(InstallFragment.TEL_NUM,null);
+        if (usersTel!=null) {
+            ResponseServerMsg responseServerMsg = mMsgRemoteDataSource.getMsgsFromServer(usersTel);
+            if (responseServerMsg.action.equals("COMPLETE")) {
+                //Save msgs to database
+                return saveMsgs(aContext, responseServerMsg.rows);
+            } else {
+                //Notify user that there has been a problem with getting new msgs. This is indicated by null.
+                return -1;
+            }
         } else {
-            //Notify user that there has been a problem with getting new msgs. This is indicated by null.
-            return -1;
+            throw new Exception("usersTel==null");
         }
     }
 
@@ -70,13 +77,20 @@ public class MsgRepository {
      * will already be done on creation of New Conversation functionality.
      */
     public long saveMsg(Context aContext, Msg aMsg) throws Exception {
-        ResponseServerMsgSave responseServerMsgSave = mMsgRemoteDataSource.saveMsg(aMsg);
-        if (responseServerMsgSave.action.equals("COMPLETE")) {
-            //Gets res of save and assigns result in msg.
-            aMsg.setMSResult(Msg.RESULTS.valueOf(responseServerMsgSave.res).ordinal());
-            return mMsgLocalDataSource.saveMsg(aContext, aMsg);
-        } else {
-            //Resorts to sms if failure!
+        try {
+            ResponseServerMsgSave responseServerMsgSave = mMsgRemoteDataSource.saveMsg(aMsg);
+            if (responseServerMsgSave.action.equals("COMPLETE")) {
+                //Gets res of save and assigns result in msg.
+                aMsg.setMSResult(Msg.RESULTS.valueOf(responseServerMsgSave.res).ordinal());
+                return mMsgLocalDataSource.saveMsg(aContext, aMsg);
+            } else {
+
+                //Resorts to sms if failure!
+                sendSMS(aMsg.getMSFromTel(), aMsg.getMSBody());
+                aMsg.setMSResult(Msg.RESULTS.FAILED.ordinal());
+                return mMsgLocalDataSource.saveMsg(aContext, aMsg);
+            }
+        } catch (Exception e) {
             sendSMS(aMsg.getMSFromTel(), aMsg.getMSBody());
             aMsg.setMSResult(Msg.RESULTS.FAILED.ordinal());
             return mMsgLocalDataSource.saveMsg(aContext, aMsg);

@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.jwar.android.capstoneproject.Injection;
+
 /**
  * Created by JonGaming on 16/04/2018.
  *
@@ -13,7 +15,7 @@ import android.util.Log;
 
 public class Utils {
     private static final String LOG_TAG = "CapstoneProject";
-    private static boolean LOG_DEBUG = true;
+    private static boolean LOG_DEBUG = Injection.isDebug();
 
     public static final String URL = "http://51.7.163.33:10000/JonsAppServer/";//Dummy url
 
@@ -28,8 +30,8 @@ public class Utils {
     public static final String USER_D="4567";
 
     //Dummy value for user id. Usually acquired from srver and stored in sharPref
+    //Dont think ID is need any more due to usage of TelNum
     public static final int THIS_USER_ID=1;
-    public static final String THIS_USER_TEL="01234567890";
     public static void logDebug(String aLog) {if (LOG_DEBUG) {
         Log.i(LOG_TAG, aLog);}
     }

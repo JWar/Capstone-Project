@@ -90,4 +90,6 @@ public class Injection {
     public static boolean getIsInstallDefault() {
         return true;
     }
+    //If mock build then log debug, so true.
+    public static boolean isDebug() {return true;}
 }

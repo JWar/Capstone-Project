@@ -20,7 +20,11 @@ public class PersonCursorWrapper extends CursorWrapper {
     public Person getPerson() {
         try {
             Person per = new Person();
-            per.setId(getInt(getColumnIndexOrThrow(PersonTable.Cols.ID)));
+            if (getColumnIndex(PersonTable.Cols.ID) > -1) {
+                if (!isNull(getColumnIndex(PersonTable.Cols.ID))) {
+                    per.setId(getInt(getColumnIndex(PersonTable.Cols.ID)));
+                }
+            }
             if (getColumnIndex(PersonTable.Cols.FIRSTNAME) > -1) {
                 if (!isNull(getColumnIndex(PersonTable.Cols.FIRSTNAME))) {
                     per.setPEFname(getString(getColumnIndex(PersonTable.Cols.FIRSTNAME)));
@@ -29,6 +33,11 @@ public class PersonCursorWrapper extends CursorWrapper {
             if (getColumnIndex(PersonTable.Cols.SURNAME) > -1) {
                 if (!isNull(getColumnIndex(PersonTable.Cols.SURNAME))) {
                     per.setPESname(getString(getColumnIndex(PersonTable.Cols.SURNAME)));
+                }
+            }
+            if (getColumnIndex(PersonTable.Cols.TELNUM) > -1) {
+                if (!isNull(getColumnIndex(PersonTable.Cols.TELNUM))) {
+                    per.setPETelNum(getString(getColumnIndex(PersonTable.Cols.TELNUM)));
                 }
             }
             return per;

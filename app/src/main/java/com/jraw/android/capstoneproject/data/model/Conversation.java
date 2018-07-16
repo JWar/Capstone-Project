@@ -37,7 +37,14 @@ public class Conversation extends entity {
     public void setCOCount(int aCOCount) {COCount = aCOCount;}
 
     public String getCOTitle() {
-        return COTitle;
+        try {
+            if (COTitle.equals("null")) {
+                return "";
+            }
+            return COTitle;
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
     public long getCOPublicId() {return COPublicId;}
     public String getCOCreatedBy() {

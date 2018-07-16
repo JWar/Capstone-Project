@@ -93,4 +93,6 @@ public class Injection {
     public static boolean getIsInstallDefault() {
         return false;
     }
+    //If install build then no log debug, so false. Though for now set to true...
+    public static boolean isDebug() {return true;}
 }

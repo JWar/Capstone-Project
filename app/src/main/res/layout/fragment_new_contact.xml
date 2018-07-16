@@ -10,7 +10,7 @@
         android:layout_above="@+id/fragment_new_contact_buttons_rl"
         android:orientation="vertical">
 
-        <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+        <EditText
             android:id="@+id/fragment_new_contact_first_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             android:maxLines="2"
             android:nextFocusDown="@+id/fragment_new_contact_tel_num_et" />
 
-        <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+        <EditText
             android:id="@+id/fragment_new_contact_surname_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:maxLines="2"
             android:nextFocusDown="@+id/fragment_new_contact_tel_num_et" />
 
-        <com.jraw.android.capstoneproject.utils.customviews.CloseOnUnFocusET
+        <EditText
             android:id="@+id/fragment_new_contact_tel_num_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

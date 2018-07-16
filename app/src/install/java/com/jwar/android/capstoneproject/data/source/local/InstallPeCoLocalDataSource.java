@@ -30,7 +30,6 @@ public class InstallPeCoLocalDataSource implements PeCoLocalDataSource {
 
     @Override
     public Cursor getPesInCo(Context aContext, long aCOPublicId) {
-        Utils.logDebug("InstallPeCoLocalDS.getPesInCo: "+aCOPublicId);
         return aContext.getContentResolver().query(
                 PeCoTable.CONTENT_URI,
                 null,

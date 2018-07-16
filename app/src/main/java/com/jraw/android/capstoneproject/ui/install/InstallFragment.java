@@ -1,6 +1,7 @@
 package com.jraw.android.capstoneproject.ui.install;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,12 +29,15 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
 
     public static final String TAG = "installFragmentTag";
 
-    private static final String FIRST_NAME = "fname";
+    public static final String FIRST_NAME = "fname";
     private EditText mFirstNameET;
-    private static final String SUR_NAME = "sname";
+    String mFName;
+    public static final String SUR_NAME = "sname";
     private EditText mSurnameET;
-    private static final String TEL_NUM = "telnum";
+    String mSName;
+    public static final String TEL_NUM = "telnum";
     private EditText mTelNumET;
+    String mTelNum;
 
     private InstallContract.PresenterInstall mInstallPresenter;
 
@@ -49,6 +53,11 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState!=null) {
+            mFName = savedInstanceState.getString(FIRST_NAME);
+            mSName = savedInstanceState.getString(SUR_NAME);
+            mTelNum = savedInstanceState.getString(TEL_NUM);
+        }
         mFirstNameET = view.findViewById(R.id.fragment_install_first_name_et);
         mFirstNameET.requestFocus();//Focus on start
         mSurnameET = view.findViewById(R.id.fragment_install_surname_et);
@@ -78,9 +87,12 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
     private void save() {
         Bundle args = new Bundle();
         if (mTelNumET.getText().length()>10) {
-            args.putString(FIRST_NAME, mFirstNameET.getText().toString());
-            args.putString(SUR_NAME, mSurnameET.getText().toString());
-            args.putString(TEL_NUM, mTelNumET.getText().toString());
+            mFName = mFirstNameET.getText().toString();
+            mSName = mSurnameET.getText().toString();
+            mTelNum = mTelNumET.getText().toString();
+            args.putString(FIRST_NAME, mFName);
+            args.putString(SUR_NAME, mSName);
+            args.putString(TEL_NUM, mTelNum);
             getLoaderManager().initLoader(1, args, this).forceLoad();
         } else {
             Toast.makeText(requireActivity(), getString(R.string.user_wrong_install_entry), Toast.LENGTH_SHORT).show();
@@ -112,6 +124,13 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
             Toast.makeText(requireActivity(), getString(R.string.install_unsuccessful_msg), Toast.LENGTH_SHORT).show();
         } else {
             //Success.
+            //Store into sharedPrefs too!
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(Utils.SHAR_PREFS,0);
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            edit.putString(FIRST_NAME, mFName);
+            edit.putString(SUR_NAME, mSName);
+            edit.putString(TEL_NUM, mTelNum);
+            edit.commit();
             mInstallPresenter.onInstalled();
         }
     }
@@ -119,5 +138,13 @@ public class InstallFragment extends Fragment implements InstallContract.ViewIns
     @Override
     public void onLoaderReset(@NonNull Loader<Integer> loader) {
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(FIRST_NAME,mFName);
+        outState.putString(SUR_NAME,mSName);
+        outState.putString(TEL_NUM,mTelNum);
     }
 }
