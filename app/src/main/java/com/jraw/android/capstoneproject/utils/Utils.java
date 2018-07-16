@@ -17,7 +17,7 @@ public class Utils {
     private static final String LOG_TAG = "CapstoneProject";
     private static boolean LOG_DEBUG = Injection.isDebug();
 
-    public static final String URL = "http://51.7.163.33:10000/JonsAppServer/";//Dummy url
+    public static final String URL = "";//Dummy url
 
     public static final String SHAR_PREFS = "capstonePrefs";
 
