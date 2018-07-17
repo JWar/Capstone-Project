@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "1028874028608",
+    "firebase_url": "https://capstone-76b07.firebaseio.com",
+    "project_id": "capstone-76b07",
+    "storage_bucket": "capstone-76b07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028874028608:android:be1d924fd0130fa8",
+        "android_client_info": {
+          "package_name": "com.jraw.android.capstoneproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028874028608-5a5cjanj28ppi7jatfg3koto5q8lubp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jraw.android.capstoneproject",
+            "certificate_hash": "820957767f3afaf004c5d5dc166f6750c35b10ed"
+          }
+        },
+        {
+          "client_id": "1028874028608-uii8m3tft8nksotgbgvqn5nqgtsvd7n8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbFVWWscP1kqAWzzyC8RFxvq8YwZvzHik"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028874028608-uii8m3tft8nksotgbgvqn5nqgtsvd7n8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028874028608:android:40986ff8809312b0",
+        "android_client_info": {
+          "package_name": "com.jraw.android.capstoneproject.mock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028874028608-rm0otjqhr58p34em1ot1f29vqcapbto1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jraw.android.capstoneproject.mock",
+            "certificate_hash": "820957767f3afaf004c5d5dc166f6750c35b10ed"
+          }
+        },
+        {
+          "client_id": "1028874028608-uii8m3tft8nksotgbgvqn5nqgtsvd7n8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbFVWWscP1kqAWzzyC8RFxvq8YwZvzHik"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028874028608-uii8m3tft8nksotgbgvqn5nqgtsvd7n8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
